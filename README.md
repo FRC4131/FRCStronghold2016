@@ -3,23 +3,20 @@ Code for FRC Stronghold, the 2016 FRC competition
 
 Components allowed, 2/15/16 3:36p:
 
-Subsystems:
+## Subsystems
+ - Roller - Naoki/Yana
+ - Belt - Naoki/Yana
+ - TankDrive - Naoki
+ - Launcher - Yana
 
-Roller - Naoki/Yana
-Belt - Naoki/Yana
-TankDrive - Naoki
-Launcher - Yana
+## Utilities
+ - PIDController
 
-Utilities:
-
-PIDController
-
-Commands:
-
-Drive
-Collect
-Deploy Arms for Collection
-Deploy Arms for Portcullis
-Stow Arms
-Charge
-Fire
+## Commands
+ - Drive
+ - Collect
+ - Deploy Arms for Collection
+ - Deploy Arms for Portcullis
+ - Stow Arms
+ - Charge
+ - Fire
