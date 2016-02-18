@@ -35,4 +35,12 @@ public class RobotMap {
 	
 	public static final int RIGHT_JOYSTICK = 0;
 
+	public static final int HANDLER_MOTOR = 0;
+
+	public static final int SHOOTER_MOTOR = 0;
+
+	public static final int SHOOTER_ENCODER_A = 0;
+
+	public static final int SHOOTER_ENCODER_B = 0;
+
 }
