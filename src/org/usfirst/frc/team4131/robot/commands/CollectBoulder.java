@@ -1,22 +1,22 @@
 package org.usfirst.frc.team4131.robot.commands;
 
 import org.usfirst.frc.team4131.robot.Robot;
-import org.usfirst.frc.team4131.utilities.PIDController;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class ChargeShooter extends Command {
+public class CollectBoulder extends Command {
 	
-	private PIDController controller;
-	private static double SPEED = 3705.0;
-	
-    public ChargeShooter() {
-    	controller = new PIDController(0.01, 0, 0, SPEED, 0, 1.0);
-    	requires(Robot.shooter);
+	private static final double COLLECTOR_SPEED = -1.0;
+	private static final double HANDLER_SPEED = 1.0;
+
+    public CollectBoulder() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.collector);
+    	requires(Robot.handler);
     }
 
     // Called just before this Command runs the first time
@@ -25,24 +25,25 @@ public class ChargeShooter extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double speed = Robot.shooter.getRate();
-    	SmartDashboard.putNumber("Shooter Speed", speed);
-    	Robot.shooter.setSpeed(controller.update(speed));
+    	Robot.collector.spin(COLLECTOR_SPEED);
+    	Robot.handler.spin(HANDLER_SPEED);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.handler.isCaptured();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.shooter.setSpeed(0.0);
+    	Robot.handler.spin(0);
+    	Robot.collector.spin(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.shooter.setSpeed(0.0);
+    	Robot.handler.spin(0);
+    	Robot.collector.spin(0);
     }
 }

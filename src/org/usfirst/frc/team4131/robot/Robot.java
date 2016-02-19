@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4131.robot;
 
+import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
@@ -23,6 +24,7 @@ public class Robot extends IterativeRobot {
 	public static TankDrive drive;
 	public static Handler handler;
 	public static Shooter shooter;
+	public static Collector collector;
 
     Command autonomousCommand;
 
@@ -36,6 +38,7 @@ public class Robot extends IterativeRobot {
         drive = new TankDrive();
         handler = new Handler();
         shooter = new Shooter();
+        collector = new Collector();
     }
 	
 	/**
