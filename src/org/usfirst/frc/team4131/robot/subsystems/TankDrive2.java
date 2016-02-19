@@ -12,21 +12,23 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 /**
  *
  */
-public class TankDrive extends Subsystem {
+public class TankDrive2 extends Subsystem {
+
+	private boolean halfSpeed = false;
 	private CANTalon leftMotor1, leftMotor2, rightMotor1, rightMotor2;
-	private Encoder leftEncoder, rightEncoder;
+	private Encoder leftTrack, rightTrack;
 	private Gyro gyro;
 	private final double ratio = ((8.5/211.6)/121.746)*186.5;//pulsePerInch
-	public TankDrive() {
+	public TankDrive2() {
 		super();
-		leftMotor1 = new CANTalon(RobotMap.DRIVE_LEFT_MOTOR1);
-		leftMotor2 = new CANTalon(RobotMap.DRIVE_LEFT_MOTOR2);
-		rightMotor1 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR1);
-		rightMotor2 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR2);
-		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODERA, RobotMap.DRIVE_LEFT_ENCODERB, false);// would spin clockwise or +
-		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB, true);// would spin counter-clockwise or -; boolean reverses direction
-		leftEncoder.setDistancePerPulse(ratio);
-		rightEncoder.setDistancePerPulse(ratio);
+		leftMotor1 = new CANTalon(RobotMap.DRIVE_LEFT1);
+		leftMotor2 = new CANTalon(RobotMap.DRIVE_LEFT2);
+		rightMotor1 = new CANTalon(RobotMap.DRIVE_RIGHT1);
+		rightMotor2 = new CANTalon(RobotMap.DRIVE_RIGHT2);
+		leftTrack = new Encoder(RobotMap.ENCODER_LEFT1, RobotMap.ENCODER_LEFT2, false);// would spin clockwise or +
+		rightTrack = new Encoder(RobotMap.ENCODER_RIGHT1, RobotMap.ENCODER_RIGHT2, true);// would spin counter-clockwise or -; boolean reverses direction
+		leftTrack.setDistancePerPulse(ratio);
+		rightTrack.setDistancePerPulse(ratio);
 		
 		gyro = new AnalogGyro(RobotMap.GYRO);
 	}

@@ -13,24 +13,6 @@ public class RobotMap {
 	/**
 	 * Motor controllers for the tank treads (CAN via CANTalon)
 	 */
-	public static final int DRIVE_LEFT1 = 0;
-
-	public static final int DRIVE_LEFT2 = 0;
-
-	public static final int DRIVE_RIGHT1 = 0;
-
-	public static final int DRIVE_RIGHT2 = 0;
-
-	public static final int ENCODER_LEFT1 = 0;
-
-	public static final int ENCODER_LEFT2 = 0;
-
-	public static final int ENCODER_RIGHT1 = 0;
-
-	public static final int ENCODER_RIGHT2 = 0;
-
-	public static final int GYRO = 0;
-	
 	public static final int LEFT_JOYSTICK = 0;
 	
 	public static final int RIGHT_JOYSTICK = 0;
@@ -42,5 +24,25 @@ public class RobotMap {
 	public static final int SHOOTER_ENCODER_A = 0;
 
 	public static final int SHOOTER_ENCODER_B = 0;
+
+	public static final int DRIVE_LEFT_MOTOR1 = 0;
+
+	public static final int DRIVE_LEFT_MOTOR2 = 0;
+
+	public static final int DRIVE_RIGHT_MOTOR1 = 0;
+
+	public static final int DRIVE_RIGHT_MOTOR2 = 0;
+
+	public static final int DRIVE_LEFT_ENCODERA = 0;
+
+	public static final int DRIVE_LEFT_ENCODERB = 0;
+
+	public static final int DRIVE_RIGHT_ENCODERA = 0;
+
+	public static final int DRIVE_RIGHT_ENCODERB = 0;
+	
+	public static final int GYRO = 0;
+	
+	public static final int LIGHT = 11;
 
 }
