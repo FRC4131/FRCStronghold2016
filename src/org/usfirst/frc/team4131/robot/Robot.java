@@ -1,13 +1,12 @@
 
 package org.usfirst.frc.team4131.robot;
 
-import org.usfirst.frc.team4131.robot.subsystems.Handler;
-import org.usfirst.frc.team4131.robot.subsystems.Shooter;
-import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
+import org.usfirst.frc.team4131.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -23,6 +22,7 @@ public class Robot extends IterativeRobot {
 	public static TankDrive drive;
 	public static Handler handler;
 	public static Shooter shooter;
+	public static Arms arms;
 
     Command autonomousCommand;
 
