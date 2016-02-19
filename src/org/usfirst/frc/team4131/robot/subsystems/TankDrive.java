@@ -19,6 +19,7 @@ public class TankDrive extends Subsystem {
 	private Encoder leftTrack, rightTrack;
 	private Gyro gyro;
 	private final double ratio = ((8.5/211.6)/121.746)*186.5;//pulsePerInch
+	
 	public TankDrive() {
 		super();
 		leftMotor1 = new CANTalon(RobotMap.DRIVE_LEFT1);
