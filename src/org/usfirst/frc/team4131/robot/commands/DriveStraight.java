@@ -9,32 +9,50 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveStraight extends Command {
-	private double distance, angle, maxSpeed;
-	private PIDController speedController, angleController;
+	
+	private PIDController speedController;
+	private PIDController angleController;
+	
+	private double distance;
+	private double angle;
+	private double maxSpeed;
 
-	public DriveStraight(double angle, double speed, double distance) {
-		maxSpeed = speed;
-		this.angle = angle;
-		this.distance = distance;
-	}
+    public DriveStraight(double distance, double heading, double speed) {
+    	requires(Robot.drive);
+    	
+    	maxSpeed = speed;
+    	this.distance = distance;
+    	angle = heading;
+    	
+    	speedController = new PIDController(0.01, 0, 0, -maxSpeed, maxSpeed);
+    	angleController = new PIDController(0.01, 0, 0, maxSpeed / 2, maxSpeed / 2);
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	speedController = new PIDController(0.01, 0, 0, distance, -maxSpeed, maxSpeed);
-    	angleController = new PIDController(0.01, 0, 0, angle, -maxSpeed / 2, maxSpeed / 2);
+    	double distanceError = Robot.constrain(distance, -1.0, 1.0);
+    	double angleError = angle - Robot.drive.getAngle();
+    	
+    	speedController.start(distanceError);
+    	angleController.start(angleError);
+    	
+    	Robot.drive.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Constrain input to make the robot always start at the same rate
-    	// the pidcontroller multiplies error by Kp, so a large distance would make the
-    	// robot start faster
-    	double speed = speedController.update()
+    	double distanceError = Robot.constrain(Robot.drive.getDistance() - distance, -1.0, 1.0);
+    	double angleError = angle - Robot.drive.getAngle();
+    	
+    	double speed = speedController.update(distanceError);
+    	double angle = angleController.update(angleError);
+    	
+    	Robot.drive.move(speed - angle, speed + angle);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return Math.abs(Robot.drive.getDistance() - distance) <= 0.5;
+        return false;
     }
 
     // Called once after isFinished returns true

@@ -15,7 +15,7 @@ public class ChargeShooter extends Command {
 	private static double SPEED = 3705.0;
 	
     public ChargeShooter() {
-    	controller = new PIDController(0.01, 0, 0, SPEED, 0, 1.0);
+    	controller = new PIDController(0.01, 0, 0, 0, 1.0);
     	requires(Robot.shooter);
     }
 
@@ -27,7 +27,7 @@ public class ChargeShooter extends Command {
     protected void execute() {
     	double speed = Robot.shooter.getRate();
     	SmartDashboard.putNumber("Shooter Speed", speed);
-    	Robot.shooter.setSpeed(controller.update(speed));
+    	Robot.shooter.setSpeed(controller.update(SPEED - speed));
     }
 
     // Make this return true when this Command no longer needs to run execute()
