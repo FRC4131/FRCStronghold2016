@@ -9,33 +9,52 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveStraight extends Command {
-	private PIDController controller;
-	private double speed, distance;
-    public DriveStraight(double angle, double speed, double distance) {
+	
+	private PIDController speedController;
+	private PIDController angleController;
+	
+	private double distance;
+	private double angle;
+	private double maxSpeed;
+	
+	private static final double DEAD_ZONE = 1.0;
+
+    public DriveStraight(double distance, double heading, double speed) {
     	requires(Robot.drive);
-    	this.speed = speed;
+    	
+    	maxSpeed = speed;
     	this.distance = distance;
-    	controller = new PIDController(0.1, 0, 0, angle, -speed / 2, speed / 2);
+    	angle = heading;
+    	
+    	speedController = new PIDController(0.01, 0, 0, -maxSpeed, maxSpeed);
+    	angleController = new PIDController(0.01, 0, 0, maxSpeed / 2, maxSpeed / 2);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	controller.reset();
+    	double distanceError = Robot.constrain(distance, -1.0, 1.0);
+    	double angleError = angle - Robot.drive.getAngle();
+    	
+    	speedController.start(distanceError);
+    	angleController.start(angleError);
+    	
     	Robot.drive.resetEncoders();
-    	if((distance < 0) != (speed < 0)){
-    		speed *= -1;
-    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double output = controller.update(Robot.drive.getAngle());
-    	Robot.drive.move(speed - output, speed + output);
+    	double distanceError = Robot.constrain(Robot.drive.getDistance() - distance, -1.0, 1.0);
+    	double angleError = angle - Robot.drive.getAngle();
+    	
+    	double speed = speedController.update(distanceError);
+    	double angle = angleController.update(angleError);
+    	
+    	Robot.drive.move(speed - angle, speed + angle);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return Math.abs(Robot.drive.getDistance() - distance) <= 2;
+        return Math.abs(distance - Robot.drive.getDistance()) <= 1.0;
     }
 
     // Called once after isFinished returns true
