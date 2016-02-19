@@ -9,33 +9,32 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveStraight extends Command {
-	private PIDController controller;
-	private double speed, distance;
-    public DriveStraight(double angle, double speed, double distance) {
-    	requires(Robot.drive);
-    	this.speed = speed;
-    	this.distance = distance;
-    	controller = new PIDController(0.1, 0, 0, angle, -speed / 2, speed / 2);
-    }
+	private double distance, angle, maxSpeed;
+	private PIDController speedController, angleController;
+
+	public DriveStraight(double angle, double speed, double distance) {
+		maxSpeed = speed;
+		this.angle = angle;
+		this.distance = distance;
+	}
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	controller.reset();
-    	Robot.drive.resetEncoders();
-    	if((distance < 0) != (speed < 0)){
-    		speed *= -1;
-    	}
+    	speedController = new PIDController(0.01, 0, 0, distance, -maxSpeed, maxSpeed);
+    	angleController = new PIDController(0.01, 0, 0, angle, -maxSpeed / 2, maxSpeed / 2);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double output = controller.update(Robot.drive.getAngle());
-    	Robot.drive.move(speed - output, speed + output);
+    	//Constrain input to make the robot always start at the same rate
+    	// the pidcontroller multiplies error by Kp, so a large distance would make the
+    	// robot start faster
+    	double speed = speedController.update()
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return Math.abs(Robot.drive.getDistance() - distance) <= 2;
+    	return Math.abs(Robot.drive.getDistance() - distance) <= 0.5;
     }
 
     // Called once after isFinished returns true
