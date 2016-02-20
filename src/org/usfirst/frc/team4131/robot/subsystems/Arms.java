@@ -30,6 +30,10 @@ public class Arms extends Subsystem {
 	public void setSpeed(double speed) {
 		motor.set(speed);
 	}
+	
+	public boolean isSpeedZero(){
+		return motor.get()==0;
+	}
 
 	public int getAngle() {
 		return encoder.get();
