@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class UnloadBoulder extends Command {
 	
 	private static final double UNLOAD_SPEED = 0.7;
+	
+	private Timer timer;
 
     public UnloadBoulder() {
     	requires(Robot.handler);

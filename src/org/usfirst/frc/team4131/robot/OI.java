@@ -1,10 +1,10 @@
 package org.usfirst.frc.team4131.robot;
 
-import org.usfirst.frc.team4131.robot.commands.CancelArms;
 import org.usfirst.frc.team4131.robot.commands.CollectBoulder;
 import org.usfirst.frc.team4131.robot.commands.DeployArms;
 import org.usfirst.frc.team4131.robot.commands.LoadBoulder;
 import org.usfirst.frc.team4131.robot.commands.StowArms;
+import org.usfirst.frc.team4131.robot.commands.ThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.ToggleLight;
 import org.usfirst.frc.team4131.robot.commands.UnloadBoulder;
 
@@ -29,6 +29,7 @@ public class OI {
 	private Button stowArms;
 	private Button cancelArms;
 	private Button deployArms;
+	private Button portcullis;
 	private Button toggleLight;
 	
 	private Command collectCommand = new CollectBoulder();
@@ -38,29 +39,30 @@ public class OI {
 		rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
 		launchpad = new Joystick(RobotMap.LAUNCHPAD);
 		
-		//To fire the ball
 		loadBoulder = new JoystickButton(rightStick, RobotMap.LOAD);
 		loadBoulder.whenPressed(new LoadBoulder());
 		
 		unloadBoulder = new JoystickButton(launchpad, RobotMap.UNLOAD);
-		unloadBoulder.whenPressed(new UnloadBoulder());
+		unloadBoulder.whileHeld(new UnloadBoulder());
 		
 		collectBoulder = new JoystickButton(launchpad, RobotMap.COLLECT_BOULDER);
 		collectBoulder.whenPressed(collectCommand);
 		collectBoulder.whenPressed(new DeployArms(750));
 		
-		cancelArms = new JoystickButton(launchpad, RobotMap.CANCEL_ARMS);
-		cancelArms.whenPressed(new CancelArms());
+		//cancelArms = new JoystickButton(launchpad, RobotMap.CANCEL_ARMS);
+		//cancelArms.whenPressed(new CancelArms());
 		
-		stowArms= new JoystickButton(launchpad, RobotMap.STOW_ARMS);
+		portcullis = new JoystickButton(launchpad, RobotMap.PORTCULLIS);
+		portcullis.whenPressed(new ThruPortcullis());
+		
+		stowArms = new JoystickButton(launchpad, RobotMap.STOW_ARMS);
 		stowArms.whenPressed(new StowArms());
 		
 		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
-		deployArms.whenPressed(new DeployArms(600));
+		deployArms.whenPressed(new DeployArms(850));
 		
-		
-//		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
-//		toggleLight.whenPressed(new ToggleLight());
+		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
+		toggleLight.whenPressed(new ToggleLight());
 	}
 	public double getLeftSpeed() {
 		return -leftStick.getRawAxis(1);
