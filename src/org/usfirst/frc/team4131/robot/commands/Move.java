@@ -21,7 +21,7 @@ public class Move extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drive.move(Robot.oi.getLeftSpeed(), Robot.oi.getRightSpeed());
+		Robot.drive.move(Math.pow(Robot.oi.getLeftSpeed(), 3), Math.pow(Robot.oi.getRightSpeed(), 3));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -16,7 +16,7 @@ public class TankDrive extends Subsystem {
 	private CANTalon leftMotor1, leftMotor2, rightMotor1, rightMotor2;
 	private Encoder leftEncoder, rightEncoder;
 	private Gyro gyro;
-	private final double ratio = ((8.5/211.6)/121.746)*186.5;//pulsePerInch
+	private final double RATIO = (7*12+2) / 2105.375;//pulsePerInch
 	
 	public TankDrive() {
 		super();
@@ -26,8 +26,8 @@ public class TankDrive extends Subsystem {
 		rightMotor2 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR2);
 		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODERA, RobotMap.DRIVE_LEFT_ENCODERB, false);// would spin clockwise or +
 		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB, true);// would spin counter-clockwise or -; boolean reverses direction
-		leftEncoder.setDistancePerPulse(ratio);
-		rightEncoder.setDistancePerPulse(ratio);
+		leftEncoder.setDistancePerPulse(RATIO);
+		rightEncoder.setDistancePerPulse(RATIO);
 		
 		gyro = new AnalogGyro(RobotMap.GYRO);
 	}
@@ -39,18 +39,10 @@ public class TankDrive extends Subsystem {
 	public void resetGyro(){
 		gyro.reset();
 	}
+	
 	public void resetEncoders() {
-		leftTrack.reset();
-		rightTrack.reset();
-	}
-
-	/**
-	 * Cuts the speed in half
-	 * 
-	 * @param halfSpeed
-	 */
-	public void setHalfSpeed(boolean halfSpeed) {
-		this.halfSpeed = halfSpeed;
+		leftEncoder.reset();
+		rightEncoder.reset();
 	}
 
 	/**
@@ -60,10 +52,6 @@ public class TankDrive extends Subsystem {
 	 * @param speed2
 	 */
 	public void move(double speed1, double speed2) {
-		if (halfSpeed) {// cuts the speed in half
-			speed1 /= 2.0;
-			speed2 /= 2.0;
-		}
 		leftMotor1.set(speed1);
 		leftMotor2.set(speed1);
 		rightMotor1.set(-speed2);
@@ -80,6 +68,6 @@ public class TankDrive extends Subsystem {
 	 * @return (double) Average of two encoders
 	 */
 	public double getDistance() {
-		return (leftTrack.getDistance() + rightTrack.getDistance() / 2.0);
+		return (leftEncoder.getDistance() + rightEncoder.getDistance() / 2.0);
 	}
 }

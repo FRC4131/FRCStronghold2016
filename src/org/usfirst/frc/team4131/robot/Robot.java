@@ -1,9 +1,11 @@
 
 package org.usfirst.frc.team4131.robot;
 
+import org.usfirst.frc.team4131.robot.commands.DriveBackAndForth;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
+import org.usfirst.frc.team4131.robot.subsystems.LightRing;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
 
@@ -27,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter;
 	public static Collector collector;
 	public static Arms arms;
+	public static LightRing lightRing;
 
     Command autonomousCommand;
 
@@ -35,13 +38,14 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+		drive = new TankDrive();
+		handler = new Handler();
+		//shooter = new Shooter();
+		collector = new Collector();
+		arms = new Arms();
+		lightRing = new LightRing();
+		
 		oi = new OI();
-        
-        drive = new TankDrive();
-        handler = new Handler();
-        shooter = new Shooter();
-        collector = new Collector();
-        arms = new Arms();
     }
 	
 	/**
@@ -67,6 +71,9 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
+    	drive.resetGyro();
+    	drive.resetEncoders();
+    	autonomousCommand = new DriveBackAndForth();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

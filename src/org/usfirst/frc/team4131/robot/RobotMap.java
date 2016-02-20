@@ -10,43 +10,51 @@ public class RobotMap {
 	/**
 	 * Ports for motor controllers, encoders, etc
 	 */
-	public static final int LEFT_JOYSTICK = 0;
+	public static final int LEFT_JOYSTICK = 1;
 	
 	public static final int RIGHT_JOYSTICK = 0;
-
-	public static final int HANDLER_MOTOR = 0;
-
-	public static final int SHOOTER_MOTOR = 0;
-
-	public static final int SHOOTER_ENCODER_A = 0;
-
-	public static final int SHOOTER_ENCODER_B = 0;
-
-	public static final int DRIVE_LEFT_MOTOR1 = 0;
-
-	public static final int DRIVE_LEFT_MOTOR2 = 0;
-
-	public static final int DRIVE_RIGHT_MOTOR1 = 0;
-
-	public static final int DRIVE_RIGHT_MOTOR2 = 0;
-
-	public static final int DRIVE_LEFT_ENCODERA = 0;
-
-	public static final int DRIVE_LEFT_ENCODERB = 0;
-
-	public static final int DRIVE_RIGHT_ENCODERA = 0;
-
-	public static final int DRIVE_RIGHT_ENCODERB = 0;
 	
-	public static final int GYRO = 0;
-	
-	public static final int LIGHT = 11;
+	public static final int LAUNCHPAD = 2;
 
-	public static final int ARMS_ENCODERB = 0;
+	public static final int HANDLER_MOTOR = 8;
 
-	public static final int ARMS_SWITCH = 0;	//switch that tells 
+	public static final int SHOOTER_MOTOR = 5;
+
+	public static final int SHOOTER_ENCODER_A = 2;
+
+	public static final int SHOOTER_ENCODER_B = 3;
+
+	public static final int DRIVE_LEFT_MOTOR1 = 1;
+
+	public static final int DRIVE_LEFT_MOTOR2 = 2;
+
+	public static final int DRIVE_RIGHT_MOTOR1 = 4;
+
+	public static final int DRIVE_RIGHT_MOTOR2 = 3;
+
+	public static final int DRIVE_LEFT_ENCODERA = 4;
+
+	public static final int DRIVE_LEFT_ENCODERB = 5;
+
+	public static final int DRIVE_RIGHT_ENCODERA = 7;
+
+	public static final int DRIVE_RIGHT_ENCODERB = 6;
 	
-	public static final int COLLECTOR_MOTOR = 0;//rolling pin motor
+	public static final int GYRO = 1;
+	
+	public static final int LIGHT = 9;
+	
+	public static final int ARMS_MOTOR = 8;
+	
+	public static final int ARMS_ENCODERA = 9;
+
+	public static final int ARMS_ENCODERB = 8;
+
+	public static final int ARMS_SWITCH = 1;	//switch that tells 
+	
+	public static final int COLLECTOR_MOTOR = 6;//rolling pin motor
+	
+	public static final int HANDLER_SWITCH = 0;
 	/**
 	 * Joystick mappings
 	 */
@@ -63,4 +71,6 @@ public class RobotMap {
 	public static final int CANCEL_ARMS = 5;	//launchpad, the cancel arms button
 	
 	public static final int STOW_ARMS = 6;		//launchpad, the stow arms button
+
+	public static final int TOGGLE_LIGHT = 1;
 }

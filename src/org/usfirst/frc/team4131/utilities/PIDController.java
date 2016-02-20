@@ -66,7 +66,7 @@ public class PIDController {
 		proportional = error * Kp * dt;
 		
 		//differential Error
-		differential = (error - previousError) * dt;
+		differential = Kd * (error - previousError) * dt;
 		
 		//integral Error
 		// Trapezoidal Riemann sum

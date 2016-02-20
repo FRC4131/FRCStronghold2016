@@ -4,6 +4,7 @@ import org.usfirst.frc.team4131.robot.Robot;
 import org.usfirst.frc.team4131.utilities.PIDController;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -26,8 +27,11 @@ public class DriveStraight extends Command {
     	this.distance = distance;
     	angle = heading;
     	
+    	if (distance < 0)
+    		maxSpeed *= -1;
+    	
     	speedController = new PIDController(0.01, 0, 0, -maxSpeed, maxSpeed);
-    	angleController = new PIDController(0.01, 0, 0, maxSpeed / 2, maxSpeed / 2);
+    	angleController = new PIDController(1, 0, 0, -maxSpeed / 2, maxSpeed / 2);
     }
 
     // Called just before this Command runs the first time
@@ -46,10 +50,15 @@ public class DriveStraight extends Command {
     	double distanceError = Robot.constrain(Robot.drive.getDistance() - distance, -1.0, 1.0);
     	double angleError = angle - Robot.drive.getAngle();
     	
-    	double speed = speedController.update(distanceError);
-    	double angle = angleController.update(angleError);
+    	SmartDashboard.putNumber("Angle Error", angleError);
+    	SmartDashboard.putNumber("Angle", Robot.drive.getAngle());
     	
-    	Robot.drive.move(speed - angle, speed + angle);
+    	double speed = speedController.update(distanceError);
+    	double angleCommand = angleController.update(angleError);
+    	
+    	SmartDashboard.putNumber("Angle Command", angleCommand);
+    	
+    	Robot.drive.move(maxSpeed + angleCommand, maxSpeed - angleCommand);
     }
 
     // Make this return true when this Command no longer needs to run execute()

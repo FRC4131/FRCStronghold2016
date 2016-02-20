@@ -2,6 +2,7 @@ package org.usfirst.frc.team4131.robot;
 
 import org.usfirst.frc.team4131.robot.commands.CollectBoulder;
 import org.usfirst.frc.team4131.robot.commands.LoadBoulder;
+import org.usfirst.frc.team4131.robot.commands.ToggleLight;
 import org.usfirst.frc.team4131.robot.commands.UnloadBoulder;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,6 +24,7 @@ public class OI {
 	private Button unloadBoulder;
 	private Button stowArms;
 	private Button deployArms;
+	private Button toggleLight;
 	
 	public OI(){
 		leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
@@ -43,12 +45,15 @@ public class OI {
 		
 		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
 //		deployArms.whenPressed(new DeployArms());
+		
+		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
+		toggleLight.whenPressed(new ToggleLight());
 	}
 	public double getLeftSpeed() {
-		return leftStick.getRawAxis(0);
+		return -leftStick.getRawAxis(1);
 	}
 	public double getRightSpeed() {
-		return rightStick.getRawAxis(0);
+		return -rightStick.getRawAxis(1);
 	}
 }
 
