@@ -61,7 +61,7 @@ public class OI {
 		stowArms.whenPressed(new StowArms());
 		
 		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
-		deployArms.whenPressed(new DeployArms(600));
+		deployArms.whenPressed(new DeployArms(850));
 		
 		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
 		toggleLight.whenPressed(new ToggleLight());
