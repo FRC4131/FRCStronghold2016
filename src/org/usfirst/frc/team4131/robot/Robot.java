@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		drive = new TankDrive();
 		handler = new Handler();
-		//shooter = new Shooter();
+		shooter = new Shooter();
 		collector = new Collector();
 		arms = new Arms();
 		lightRing = new LightRing();

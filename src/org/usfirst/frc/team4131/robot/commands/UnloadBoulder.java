@@ -10,31 +10,24 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class UnloadBoulder extends Command {
 	
-	private static final double UNLOAD_TIME = 2.0;
 	private static final double UNLOAD_SPEED = 0.7;
-	
-	private Timer timer;
 
     public UnloadBoulder() {
-    	timer = new Timer();
     	requires(Robot.handler);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	timer.reset();
-    	timer.start();
-    	
-    	Robot.handler.spin(UNLOAD_TIME);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.handler.spin(UNLOAD_SPEED);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.hasPeriodPassed(UNLOAD_TIME);
+        return Robot.oi.getSpitOut();
     }
 
     // Called once after isFinished returns true

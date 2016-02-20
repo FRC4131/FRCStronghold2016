@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ChargeShooter extends Command {
 	
 	private PIDController controller;
-	private static final double SPEED = 4000.0;
+	private static final double TARGET_SPEED = 4000.0;
 	private static final double PULSE_RATIO = 0.333;
 	
 	private Timer timer;
@@ -27,24 +27,24 @@ public class ChargeShooter extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	controller.start(SPEED);
+    	controller.start(TARGET_SPEED);
     	timer.reset();
     	timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double speed = Robot.shooter.getRate();
+    	double readSpeed = Robot.shooter.getRate();
     	double command;
     	double error;
     	
-    	SmartDashboard.putNumber("Shooter Speed", speed);
+    	SmartDashboard.putNumber("Shooter Speed", readSpeed);
     	
     	//if (timer.hasPeriodPassed(0.1))
     	{
-    		error = SPEED - speed;
+    		error = TARGET_SPEED * PULSE_RATIO - readSpeed;
     		SmartDashboard.putNumber("Shooter Error", error);
-	    	command = controller.update(SPEED * PULSE_RATIO - speed);
+	    	command = controller.update(TARGET_SPEED * PULSE_RATIO - readSpeed);
 	    	SmartDashboard.putNumber("Shooter Command", command);
 	    	Robot.shooter.setSpeed(command);
     	}

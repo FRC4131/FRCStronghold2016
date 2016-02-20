@@ -8,18 +8,13 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class CollectBoulder extends Command {
-	//WHAT IS THE HANDLER?
 	private static final double COLLECTOR_SPEED = 1.0;
 	private static final double HANDLER_SPEED = 1.0;
-
+	
     public CollectBoulder() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.collector);
     	requires(Robot.handler);
     }
-
-    // Called just before this Command runs the first time
     protected void initialize() {
     }
 
