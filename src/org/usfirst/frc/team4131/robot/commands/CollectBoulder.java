@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class CollectBoulder extends Command {
-	
-	private static final double COLLECTOR_SPEED = -1.0;
+	//WHAT IS THE HANDLER?
+	private static final double COLLECTOR_SPEED = 1.0;
 	private static final double HANDLER_SPEED = 1.0;
 
     public CollectBoulder() {
@@ -38,6 +38,7 @@ public class CollectBoulder extends Command {
     protected void end() {
     	Robot.handler.spin(0);
     	Robot.collector.spin(0);
+    	new StowArms().start();
     }
 
     // Called when another command which requires one or more of the same

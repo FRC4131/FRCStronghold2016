@@ -12,34 +12,33 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Arms extends Subsystem {
-    
-    private SpeedController motor;
-    private Encoder encoder;
-    private DigitalInput stowed;
-    
-    public Arms()
-    {
-    	motor = new CANTalon(RobotMap.ARMS_MOTOR);
-    	encoder = new Encoder(RobotMap.ARMS_ENCODERA, RobotMap.ARMS_ENCODERB);
-    	stowed = new DigitalInput(RobotMap.ARMS_SWITCH);
-    }
-    
-    public boolean isStowed()
-    {
-    	return stowed.get();
-    }
-    
-    public void setSpeed(double speed)
-    {
-    	motor.set(speed);
-    }
-    
-    public int getAngle()
-    {
-    	return encoder.get();
-    }
 
-    public void initDefaultCommand() {
-    }
+	private SpeedController motor;
+	private Encoder encoder;
+	private DigitalInput stowed;
+
+	public Arms() {
+		motor = new CANTalon(RobotMap.ARMS_MOTOR);
+		encoder = new Encoder(RobotMap.ARMS_ENCODERA, RobotMap.ARMS_ENCODERB);
+		stowed = new DigitalInput(RobotMap.ARMS_SWITCH);
+	}
+
+	public boolean isStowed() {
+		return stowed.get();
+	}
+
+	public void setSpeed(double speed) {
+		motor.set(speed);
+	}
+
+	public int getAngle() {
+		return encoder.get();
+	}
+
+	public void initDefaultCommand() {
+	}
+
+	public void resetEncoder() {
+		encoder.reset();
+	}
 }
-

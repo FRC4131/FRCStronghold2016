@@ -16,7 +16,7 @@ public class RobotMap {
 	
 	public static final int LAUNCHPAD = 2;
 
-	public static final int HANDLER_MOTOR = 8;
+	public static final int HANDLER_MOTOR = 7;
 
 	public static final int SHOOTER_MOTOR = 5;
 
@@ -68,9 +68,9 @@ public class RobotMap {
 	
 	public static final int DEPLOY_ARMS = 4;	//launchpad, the deploy arms button
 	
-	public static final int CANCEL_ARMS = 5;	//launchpad, the cancel arms button
+	public static final int CANCEL_ARMS = 6;	//launchpad, the cancel arms button
 	
-	public static final int STOW_ARMS = 6;		//launchpad, the stow arms button
+	public static final int STOW_ARMS = 5;	//launchpad, the stow arms button
 
 	public static final int TOGGLE_LIGHT = 1;
 }

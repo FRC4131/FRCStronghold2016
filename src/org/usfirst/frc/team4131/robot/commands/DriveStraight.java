@@ -30,8 +30,8 @@ public class DriveStraight extends Command {
     	if (distance < 0)
     		maxSpeed *= -1;
     	
-    	speedController = new PIDController(0.01, 0, 0, -maxSpeed, maxSpeed);
-    	angleController = new PIDController(1, 0, 0, -maxSpeed / 2, maxSpeed / 2);
+    	speedController = new PIDController(1, 0.1, 0, -Math.abs(maxSpeed), Math.abs(maxSpeed));
+    	angleController = new PIDController(1, 0, 0, -Math.abs(maxSpeed) / 2, Math.abs(maxSpeed) / 2);
     }
 
     // Called just before this Command runs the first time
@@ -47,23 +47,20 @@ public class DriveStraight extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double distanceError = Robot.constrain(Robot.drive.getDistance() - distance, -1.0, 1.0);
+    	double distanceError = Robot.constrain(Robot.drive.getDistance() - distance, -10, 10);
     	double angleError = angle - Robot.drive.getAngle();
     	
-    	SmartDashboard.putNumber("Angle Error", angleError);
-    	SmartDashboard.putNumber("Angle", Robot.drive.getAngle());
-    	
-    	double speed = speedController.update(distanceError);
+    	double speed = -speedController.update(distanceError);
     	double angleCommand = angleController.update(angleError);
     	
-    	SmartDashboard.putNumber("Angle Command", angleCommand);
-    	
-    	Robot.drive.move(maxSpeed + angleCommand, maxSpeed - angleCommand);
+//    	if((maxSpeed < 0) != (angleCommand < 0)) angleCommand = -angleCommand;
+		
+    	Robot.drive.move(speed + angleCommand, speed - angleCommand);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Math.abs(distance - Robot.drive.getDistance()) <= 1.0;
+        return Math.abs(distance - Robot.drive.getDistance()) <= DEAD_ZONE;
     }
 
     // Called once after isFinished returns true
