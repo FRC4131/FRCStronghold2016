@@ -30,8 +30,8 @@ public class DriveStraight extends Command {
     	if (distance < 0)
     		maxSpeed *= -1;
     	
-    	speedController = new PIDController(1, 0.1, 0, -Math.abs(maxSpeed), Math.abs(maxSpeed));
-    	angleController = new PIDController(1, 0, 0, -Math.abs(maxSpeed) / 2, Math.abs(maxSpeed) / 2);
+    	speedController = new PIDController(1, 0.1, 0, -(Math.abs(maxSpeed)), Math.abs(maxSpeed));
+    	angleController = new PIDController(1, 0, 0, -(Math.abs(maxSpeed)) / 2, Math.abs(maxSpeed) / 2);
     }
 
     // Called just before this Command runs the first time
