@@ -2,6 +2,7 @@
 package org.usfirst.frc.team4131.robot;
 
 import org.usfirst.frc.team4131.robot.commands.DriveBackAndForth;
+import org.usfirst.frc.team4131.robot.commands.DriveStraight;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
@@ -32,7 +33,7 @@ public class Robot extends IterativeRobot {
 	public static Arms arms;
 	public static LightRing lightRing;
 
-    Command autonomousCommand;
+    Command autonomousCommand, driveStraight;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -46,6 +47,8 @@ public class Robot extends IterativeRobot {
 		arms = new Arms();
 		lightRing = new LightRing();
 		
+		driveStraight = new DriveStraight(-100, 0, 0.5);
+		
 		oi = new OI();
     }
 	
@@ -55,7 +58,7 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
      */
     public void disabledInit(){
-
+    	driveStraight.cancel();
     }
 	
 	public void disabledPeriodic() {
@@ -74,8 +77,9 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
     	drive.resetGyro();
     	drive.resetEncoders();
-    	autonomousCommand = new DriveBackAndForth();
-        if (autonomousCommand != null) autonomousCommand.start();
+//    	autonomousCommand = new DriveBackAndForth();
+//        if (autonomousCommand != null) autonomousCommand.start();
+    	driveStraight.start();
     }
 
     /**
@@ -91,6 +95,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
+    	driveStraight.cancel();
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
