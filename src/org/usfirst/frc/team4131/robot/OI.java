@@ -2,6 +2,7 @@ package org.usfirst.frc.team4131.robot;
 
 import org.usfirst.frc.team4131.robot.commands.CollectBoulder;
 import org.usfirst.frc.team4131.robot.commands.DeployArms;
+import org.usfirst.frc.team4131.robot.commands.EmergencyStop;
 import org.usfirst.frc.team4131.robot.commands.LoadBoulder;
 import org.usfirst.frc.team4131.robot.commands.StowArms;
 import org.usfirst.frc.team4131.robot.commands.ThruPortcullis;
@@ -18,7 +19,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	
+	private boolean emergencyState = false;
 	private Joystick leftStick;
 	private Joystick rightStick;
 	private Joystick launchpad;
@@ -27,7 +28,7 @@ public class OI {
 	private Button loadBoulder;
 	private Button unloadBoulder;
 	private Button stowArms;
-	private Button cancelArms;
+	private Button emergencyStop;
 	private Button deployArms;
 	private Button portcullis;
 	private Button toggleLight;
@@ -49,8 +50,8 @@ public class OI {
 		collectBoulder.whenPressed(collectCommand);
 		collectBoulder.whenPressed(new DeployArms(750));
 		
-		//cancelArms = new JoystickButton(launchpad, RobotMap.CANCEL_ARMS);
-		//cancelArms.whenPressed(new CancelArms());
+		emergencyStop = new JoystickButton(launchpad, RobotMap.EMERGENCY_STOP);
+		emergencyStop.whenPressed(new EmergencyStop(emergencyState = !emergencyState));
 		
 		portcullis = new JoystickButton(launchpad, RobotMap.PORTCULLIS);
 		portcullis.whenPressed(new ThruPortcullis());
@@ -59,7 +60,7 @@ public class OI {
 		stowArms.whenPressed(new StowArms());
 		
 		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
-		deployArms.whenPressed(new DeployArms(850));
+		deployArms.whenPressed(new DeployArms(850)); //Magic number!
 		
 		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
 		toggleLight.whenPressed(new ToggleLight());
