@@ -22,7 +22,7 @@ public class Wait extends Command {
     protected void execute() {}
 
     protected boolean isFinished() {
-        return timer.get() >= time;
+        return timer.hasPeriodPassed(time);
     }
 
     protected void end() {
