@@ -48,7 +48,7 @@ public class OI {
 		
 		collectBoulder = new JoystickButton(launchpad, RobotMap.COLLECT_BOULDER);
 		collectBoulder.whenPressed(collectCommand);
-		collectBoulder.whenPressed(new DeployArms(750));
+		collectBoulder.whenPressed(new DeployArms(780));
 		
 		emergencyStop = new JoystickButton(launchpad, RobotMap.EMERGENCY_STOP);
 		emergencyStop.whenPressed(new EmergencyStop(emergencyState = !emergencyState));

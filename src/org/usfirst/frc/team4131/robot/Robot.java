@@ -1,14 +1,14 @@
 
 package org.usfirst.frc.team4131.robot;
 
-import org.usfirst.frc.team4131.robot.commands.DriveBackAndForth;
-import org.usfirst.frc.team4131.robot.commands.DriveStraight;
+import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
 import org.usfirst.frc.team4131.robot.subsystems.LightRing;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
+import org.usfirst.frc.team4131.utilities.Point;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -24,6 +24,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	public static double CURRENT_X;
+	public static double CURRENT_Y;
+	public static double CURRENT_ANGLE;
 
 	public static OI oi;
 	public static TankDrive drive;
@@ -33,7 +36,7 @@ public class Robot extends IterativeRobot {
 	public static Arms arms;
 	public static LightRing lightRing;
 
-    Command autonomousCommand, driveStraight;
+    Command autonomousCommand, gridDrive;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -47,7 +50,7 @@ public class Robot extends IterativeRobot {
 		arms = new Arms();
 		lightRing = new LightRing();
 		
-		driveStraight = new DriveStraight(-100, 0, 0.5);
+		gridDrive = new GridAutoDrive(new Point(0, 100));
 		
 		oi = new OI();
     }
@@ -58,7 +61,7 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
      */
     public void disabledInit(){
-    	driveStraight.cancel();
+    	gridDrive.cancel();
     }
 	
 	public void disabledPeriodic() {
@@ -77,9 +80,11 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
     	drive.resetGyro();
     	drive.resetEncoders();
+    	CURRENT_X = 0;//TODO whatever our starting position is based on
+    	CURRENT_Y = 0;//TODO whatever our starting position is based on
 //    	autonomousCommand = new DriveBackAndForth();
 //        if (autonomousCommand != null) autonomousCommand.start();
-    	driveStraight.start();
+    	gridDrive.start();
     }
 
     /**
@@ -87,15 +92,22 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Angle", Robot.drive.getAngle());
+        CURRENT_ANGLE = drive.getAngle();
+        SmartDashboard.putNumber("Distance Travled", drive.getDistance());
+        SmartDashboard.putNumber("Angle: ", CURRENT_ANGLE);
+        SmartDashboard.putNumber("Current x: ", CURRENT_X);
+        SmartDashboard.putNumber("Current y:", CURRENT_Y);
     }
-
+    public void updateDeltaMovement(double x, double y){
+    	CURRENT_X += x;
+    	CURRENT_Y += y;
+    }
     public void teleopInit() {
 		// This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-    	driveStraight.cancel();
+    	gridDrive.cancel();
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
