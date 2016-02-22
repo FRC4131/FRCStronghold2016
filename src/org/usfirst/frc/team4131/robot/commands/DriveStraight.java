@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class DriveStraight extends Command {
+public class DriveStraight extends PositionCommand {
 	
 	private PIDController speedController;
 	private PIDController angleController;
@@ -22,6 +22,7 @@ public class DriveStraight extends Command {
 	private static final double DEAD_ZONE = 1.0;
 
 	public DriveStraight(double distance, double heading, double speed) {
+		super();
     	requires(Robot.drive);
     	
     	maxSpeed = speed;
@@ -88,11 +89,13 @@ public class DriveStraight extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drive.move(0, 0);
+    	super.end();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.drive.move(0, 0);
+    	super.interrupted();
     }
 }

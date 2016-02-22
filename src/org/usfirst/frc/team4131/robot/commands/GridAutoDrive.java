@@ -1,12 +1,10 @@
 package org.usfirst.frc.team4131.robot.commands;
 
 
-import org.usfirst.frc.team4131.robot.Robot;
 import org.usfirst.frc.team4131.utilities.Point;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -36,7 +34,6 @@ public class GridAutoDrive extends CommandGroup {
 		for(Point coord:coordinates){
 				addSequential(new TurnToAtRate(coord, 5));
 				addSequential(new DriveStraight(coord, 0.75));
-				addSequential(new UpdateXY());//makes sure to end current command first
 		}
 	}
 }
