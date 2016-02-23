@@ -1,15 +1,6 @@
 
 package org.usfirst.frc.team4131.robot;
-
-<<<<<<< HEAD
-import org.usfirst.frc.team4131.robot.commands.AutonLowBarLowGoal;
-import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
-import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
-import org.usfirst.frc.team4131.robot.commands.DriveStraight;
-import org.usfirst.frc.team4131.robot.commands.Turn;
-=======
 import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
->>>>>>> ae33c2374cffd8d44fa4563a80a939346fb72bb9
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
@@ -22,7 +13,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -70,10 +60,7 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
      */
     public void disabledInit(){
-<<<<<<< HEAD
-=======
     	gridDrive.cancel();
->>>>>>> ae33c2374cffd8d44fa4563a80a939346fb72bb9
     }
 	
 	public void disabledPeriodic() {
