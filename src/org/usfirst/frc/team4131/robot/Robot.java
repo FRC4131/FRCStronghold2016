@@ -1,8 +1,11 @@
 
 package org.usfirst.frc.team4131.robot;
 
-import org.usfirst.frc.team4131.robot.commands.DriveBackAndForth;
+import org.usfirst.frc.team4131.robot.commands.AutonLowBarLowGoal;
+import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
+import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.DriveStraight;
+import org.usfirst.frc.team4131.robot.commands.Turn;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
@@ -14,6 +17,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -33,7 +37,8 @@ public class Robot extends IterativeRobot {
 	public static Arms arms;
 	public static LightRing lightRing;
 
-    Command autonomousCommand, driveStraight;
+	private SendableChooser chooser;
+	private Command autonomous;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -47,7 +52,13 @@ public class Robot extends IterativeRobot {
 		arms = new Arms();
 		lightRing = new LightRing();
 		
-		driveStraight = new DriveStraight(-100, 0, 0.5);
+		chooser = new SendableChooser();
+		chooser.addDefault("AutonDriveStraight", new DriveStraight(70, 0, 0.5));
+		chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
+		chooser.addObject("AutonThruPortcullis", new AutonThruPortcullis());
+		chooser.addObject("AutonLowBarLowGoal", new AutonLowBarLowGoal());
+		chooser.addObject("Turn", new Turn(48));
+		SmartDashboard.putData("Autonomous", chooser);
 		
 		oi = new OI();
     }
@@ -58,7 +69,6 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
      */
     public void disabledInit(){
-    	driveStraight.cancel();
     }
 	
 	public void disabledPeriodic() {
@@ -75,11 +85,11 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-    	drive.resetGyro();
     	drive.resetEncoders();
-//    	autonomousCommand = new DriveBackAndForth();
-//        if (autonomousCommand != null) autonomousCommand.start();
-    	driveStraight.start();
+		drive.resetGyro();
+		
+		autonomous = (Command) chooser.getSelected();
+		if (autonomous != null) autonomous.start();
     }
 
     /**
@@ -95,8 +105,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-    	driveStraight.cancel();
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autonomous != null) autonomous.cancel();
     }
 
     /**

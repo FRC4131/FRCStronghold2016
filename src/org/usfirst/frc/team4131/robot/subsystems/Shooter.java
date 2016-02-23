@@ -33,7 +33,7 @@ public class Shooter extends Subsystem {
     }
 
 	public void setSpeed(double speed) {
-		motor.set(speed);
+//		motor.set(speed);
 	}
 }
 

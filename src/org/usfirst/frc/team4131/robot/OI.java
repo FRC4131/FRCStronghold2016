@@ -5,7 +5,8 @@ import org.usfirst.frc.team4131.robot.commands.DeployArms;
 import org.usfirst.frc.team4131.robot.commands.EmergencyStop;
 import org.usfirst.frc.team4131.robot.commands.LoadBoulder;
 import org.usfirst.frc.team4131.robot.commands.StowArms;
-import org.usfirst.frc.team4131.robot.commands.ThruPortcullis;
+import org.usfirst.frc.team4131.robot.commands.ToggleDirection;
+//import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.ToggleLight;
 import org.usfirst.frc.team4131.robot.commands.UnloadBoulder;
 
@@ -30,10 +31,13 @@ public class OI {
 	private Button stowArms;
 	private Button emergencyStop;
 	private Button deployArms;
+	private Button controlArms;
 	private Button portcullis;
+	private Button inverseDrive;
 	private Button toggleLight;
 	
 	private Command collectCommand = new CollectBoulder();
+	private boolean inverse = false;
 	
 	public OI(){
 		leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
@@ -48,28 +52,35 @@ public class OI {
 		
 		collectBoulder = new JoystickButton(launchpad, RobotMap.COLLECT_BOULDER);
 		collectBoulder.whenPressed(collectCommand);
-		collectBoulder.whenPressed(new DeployArms(750));
+		collectBoulder.whenPressed(new DeployArms(1600));
 		
 		emergencyStop = new JoystickButton(launchpad, RobotMap.EMERGENCY_STOP);
 		emergencyStop.whenPressed(new EmergencyStop(emergencyState = !emergencyState));
 		
-		portcullis = new JoystickButton(launchpad, RobotMap.PORTCULLIS);
-		portcullis.whenPressed(new ThruPortcullis());
+//		portcullis = new JoystickButton(launchpad, RobotMap.PORTCULLIS);
+//		portcullis.whenPressed(new AutonThruPortcullis());
 		
 		stowArms = new JoystickButton(launchpad, RobotMap.STOW_ARMS);
 		stowArms.whenPressed(new StowArms());
 		
 		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
-		deployArms.whenPressed(new DeployArms(850)); //Magic number!
+		deployArms.whenPressed(new DeployArms(1800)); //Magic number!
 		
 		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
 		toggleLight.whenPressed(new ToggleLight());
+		
+		inverseDrive = new JoystickButton(rightStick, RobotMap.INVERSE);
+		inverseDrive.whenPressed(new ToggleDirection());
 	}
 	public double getLeftSpeed() {
-		return -leftStick.getRawAxis(1);
+		return leftStick.getRawAxis(1) * (ToggleDirection.isForward() ? -1 : 1);
 	}
 	public double getRightSpeed() {
-		return -rightStick.getRawAxis(1);
+//		if (ToggleDirection.isForward())
+//			return rightStick.getRawAxis(1)*-1;
+//		else
+//			return leftStick.getRawAxis(1);
+		return rightStick.getRawAxis(1) * (ToggleDirection.isForward() ? -1 : 1);
 	}
 	public boolean getSpitOut(){
 		return unloadBoulder.get();

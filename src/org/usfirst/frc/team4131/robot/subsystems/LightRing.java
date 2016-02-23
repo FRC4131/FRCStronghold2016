@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4131.robot.subsystems;
 
-import org.usfirst.frc.team4131.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

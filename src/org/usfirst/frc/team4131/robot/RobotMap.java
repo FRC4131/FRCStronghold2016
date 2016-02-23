@@ -73,4 +73,6 @@ public class RobotMap {
 	public static final int STOW_ARMS = 5;	//launchpad, the stow arms button
 
 	public static final int TOGGLE_LIGHT = 1;
+	
+	public static final int INVERSE = 2;
 }

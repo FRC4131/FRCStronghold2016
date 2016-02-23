@@ -4,7 +4,6 @@ import org.usfirst.frc.team4131.robot.Robot;
 import org.usfirst.frc.team4131.utilities.PIDController;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *

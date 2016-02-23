@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -32,6 +33,7 @@ public class Arms extends Subsystem {
 	}
 
 	public int getAngle() {
+		SmartDashboard.putNumber("Arm Angle", encoder.get());
 		return encoder.get();
 	}
 

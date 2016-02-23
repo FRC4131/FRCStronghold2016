@@ -6,7 +6,7 @@ import org.usfirst.frc.team4131.utilities.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DeployArms extends Command {
-	private static final double DEADBAND = 10;
+	private static final double DEADBAND = 15;
 	private double angle;
 	private PIDController controller;
 	public DeployArms(double angle){
