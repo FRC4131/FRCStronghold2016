@@ -16,7 +16,7 @@ public class TankDrive extends Subsystem {
 	private CANTalon leftMotor1, leftMotor2, rightMotor1, rightMotor2;
 	private Encoder leftEncoder, rightEncoder;
 	private Gyro gyro;
-	private final double RATIO = (7*12+2) / 2105.375;//pulsePerInch
+	private final double RATIO = 3.875 / 51;//inchPerPulse
 	
 	public TankDrive() {
 		super();

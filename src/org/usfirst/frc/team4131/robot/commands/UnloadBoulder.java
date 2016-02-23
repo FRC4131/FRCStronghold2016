@@ -12,8 +12,6 @@ public class UnloadBoulder extends Command {
 	
 	private static final double UNLOAD_SPEED = 0.7;
 	
-	private Timer timer;
-
     public UnloadBoulder() {
     	requires(Robot.handler);
     }
@@ -29,7 +27,7 @@ public class UnloadBoulder extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.oi.getSpitOut();
+        return !Robot.oi.getSpitOut();
     }
 
     // Called once after isFinished returns true
