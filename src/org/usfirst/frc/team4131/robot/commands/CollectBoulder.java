@@ -29,7 +29,7 @@ public class CollectBoulder extends Command {
         return Robot.handler.isCaptured();
     }
 
-    // Called once after isFinished returns true
+    // Called once after isFinished returns tru
     protected void end() {
     	Robot.handler.spin(0);
     	Robot.collector.spin(0);
