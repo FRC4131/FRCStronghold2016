@@ -33,7 +33,6 @@ public class TurnToAtRate extends Command {
 	protected void execute() {
 		double speed = controller.update(getError());
 		SmartDashboard.putNumber("Angle Error", getError());
-		SmartDashboard.putNumber("Angle", Robot.drive.getAngle());
 		Robot.drive.move(speed, -speed);
 	}
 

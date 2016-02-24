@@ -25,7 +25,7 @@ public class LoadBoulder extends Command {
     	timer.reset();
     	timer.start();
     	
-    	Robot.handler.spin(LOAD_SPEED);
+    	Robot.handler.spin(-LOAD_SPEED);
     }
 
     // Called repeatedly when this Command is scheduled to run

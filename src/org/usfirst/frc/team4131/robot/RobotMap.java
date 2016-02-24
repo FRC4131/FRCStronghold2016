@@ -16,45 +16,45 @@ public class RobotMap {
 	
 	public static final int LAUNCHPAD = 2;
 
-	public static final int HANDLER_MOTOR = 7;
+	public static final int HANDLER_MOTOR = 5;//7 on Gretta
 
-	public static final int SHOOTER_MOTOR = 5;
+	public static final int SHOOTER_MOTOR = 4;//5 on Gretta
 
-	public static final int SHOOTER_ENCODER_A = 2;
+	public static final int SHOOTER_ENCODER_A = 4;//2 on Gretta
 
-	public static final int SHOOTER_ENCODER_B = 3;
+	public static final int SHOOTER_ENCODER_B = 5;//3 on Gretta
 
-	public static final int DRIVE_LEFT_MOTOR1 = 1;
+	public static final int DRIVE_LEFT_MOTOR1 = 0;//1 on Gretta
 
-	public static final int DRIVE_LEFT_MOTOR2 = 2;
+	public static final int DRIVE_LEFT_MOTOR2 = 1;//2 on Gretta
 
-	public static final int DRIVE_RIGHT_MOTOR1 = 4;
+	public static final int DRIVE_RIGHT_MOTOR1 = 2;//3 on Gretta
 
-	public static final int DRIVE_RIGHT_MOTOR2 = 3;
+	public static final int DRIVE_RIGHT_MOTOR2 = 3;//4 on Gretta
 
-	public static final int DRIVE_LEFT_ENCODERA = 4;
+	public static final int DRIVE_LEFT_ENCODERA = 2;//4 on Gretta
 
-	public static final int DRIVE_LEFT_ENCODERB = 5;
+	public static final int DRIVE_LEFT_ENCODERB = 3;//5 on Gretta
 
-	public static final int DRIVE_RIGHT_ENCODERA = 7;
+	public static final int DRIVE_RIGHT_ENCODERA = 0;//7 on Gretta
 
-	public static final int DRIVE_RIGHT_ENCODERB = 6;
+	public static final int DRIVE_RIGHT_ENCODERB = 1;//6 on Gretta
 	
 	public static final int GYRO = 1;
+	//Direct wired
+//	public static final int LIGHT = 9;
 	
-	public static final int LIGHT = 9;
+	public static final int ARMS_MOTOR = 6;//8 on Gretta
 	
-	public static final int ARMS_MOTOR = 8;
-	
-	public static final int ARMS_ENCODERA = 9;
+	public static final int ARMS_ENCODERA = 8;//8 on Gretta
 
-	public static final int ARMS_ENCODERB = 8;
+	public static final int ARMS_ENCODERB = 9;//9 on Gretta
 
-	public static final int ARMS_SWITCH = 1;	//switch that tells 
+	public static final int ARMS_SWITCH = 7;// 1 on Gretta 
 	
-	public static final int COLLECTOR_MOTOR = 6;//rolling pin motor
+	public static final int COLLECTOR_MOTOR = 8;//rolling pin motor; 6 on Gretta
 	
-	public static final int HANDLER_SWITCH = 0;
+	public static final int HANDLER_SWITCH = 6;//0 on Gretta
 	/**
 	 * Joystick mappings
 	 */

@@ -11,15 +11,20 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveStraight extends PositionCommand {
 	
-	private PIDController speedController;
 	private PIDController angleController;
 	
 	private double distance;
 	private double angle;
 	private double maxSpeed;
 	
-	private static final double DEAD_ZONE = 1.0;
+	private static final double DEAD_ZONE = 3.0;
 
+	/**
+	 * Distance, heading, speed params
+	 * @param distance
+	 * @param heading
+	 * @param speed
+	 */
 	public DriveStraight(double distance, double heading, double speed) {
 		super();
     	requires(Robot.drive);
@@ -31,7 +36,6 @@ public class DriveStraight extends PositionCommand {
     	if (distance < 0)
     		maxSpeed *= -1;
     	
-    	speedController = new PIDController(1, 0.1, 0, -(Math.abs(maxSpeed)), Math.abs(maxSpeed));
     	angleController = new PIDController(1, 0, 0, -(Math.abs(maxSpeed)) / 2, Math.abs(maxSpeed) / 2);
     }
 	public DriveStraight(Point coord, double speed) {
@@ -52,32 +56,25 @@ public class DriveStraight extends PositionCommand {
     	if (distance < 0)
     		maxSpeed *= -1;
     	
-    	speedController = new PIDController(1, 0.1, 0, -(Math.abs(maxSpeed)), Math.abs(maxSpeed));
     	angleController = new PIDController(1, 0, 0, -(Math.abs(maxSpeed)) / 2, Math.abs(maxSpeed) / 2);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	double distanceError = Robot.constrain(distance, -1.0, 1.0);
     	double angleError = angle - Robot.drive.getAngle();
     	
-    	speedController.start(distanceError);
     	angleController.start(angleError);
-    	
-    	Robot.drive.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double distanceError = Robot.constrain(Robot.drive.getDistance() - distance, -10, 10);
     	double angleError = angle - Robot.drive.getAngle();
     	
-    	double speed = -speedController.update(distanceError);
     	double angleCommand = angleController.update(angleError);
     	
 //    	if((maxSpeed < 0) != (angleCommand < 0)) angleCommand = -angleCommand;
-		
-    	Robot.drive.move(speed + angleCommand, speed - angleCommand);
+		angleCommand = 0;
+    	Robot.drive.move(maxSpeed + angleCommand, maxSpeed - angleCommand);
     }
 
     // Make this return true when this Command no longer needs to run execute()

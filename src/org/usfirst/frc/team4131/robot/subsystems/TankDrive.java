@@ -5,9 +5,11 @@ import org.usfirst.frc.team4131.robot.commands.Move;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -16,7 +18,7 @@ public class TankDrive extends Subsystem {
 	private CANTalon leftMotor1, leftMotor2, rightMotor1, rightMotor2;
 	private Encoder leftEncoder, rightEncoder;
 	private Gyro gyro;
-	private final double RATIO = 3.875 / 51;//inchPerPulse
+	private final double RATIO = (43.0 + 17.0 / 32.0) / 1073.00; //3.049 /  48.750;
 	
 	public TankDrive() {
 		super();
@@ -25,7 +27,7 @@ public class TankDrive extends Subsystem {
 		rightMotor1 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR1);
 		rightMotor2 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR2);
 		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODERA, RobotMap.DRIVE_LEFT_ENCODERB, false);// would spin clockwise or +
-		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB, true);// would spin counter-clockwise or -; boolean reverses direction
+		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB, false);// would spin counter-clockwise or -; boolean reverses direction
 		leftEncoder.setDistancePerPulse(RATIO);
 		rightEncoder.setDistancePerPulse(RATIO);
 		
@@ -41,6 +43,7 @@ public class TankDrive extends Subsystem {
 	}
 	
 	public void resetEncoders() {
+		DriverStation.reportError("ENCODER RESET", true);
 		leftEncoder.reset();
 		rightEncoder.reset();
 	}
@@ -68,6 +71,9 @@ public class TankDrive extends Subsystem {
 	 * @return (double) Average of two encoders
 	 */
 	public double getDistance() {
-		return (leftEncoder.getDistance() + rightEncoder.getDistance() / 2.0);
+//		return (leftEncoder.get() + rightEncoder.get()) / 2.0;
+		SmartDashboard.putNumber("LEFT ENCODER DISTANCE: ", leftEncoder.getDistance());
+		SmartDashboard.putNumber("RIGHT ENCODER DISTANCE: ", rightEncoder.getDistance());
+		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0;
 	}
 }

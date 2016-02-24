@@ -21,14 +21,16 @@ public class Handler extends Subsystem {
 	}
 
 	public void spin(double speed) {
-		motor.set(speed);
-	}
-	
-	public boolean isCaptured()
-	{
-		return captured.get();
+		motor.set(-speed);
 	}
 
-	public void initDefaultCommand() {
+	public boolean isCaptured() {
+		return captured.get();
+	}
+	
+	protected void initDefaultCommand() {
+	}
+	public double getSpeed(){
+		return motor.get();
 	}
 }

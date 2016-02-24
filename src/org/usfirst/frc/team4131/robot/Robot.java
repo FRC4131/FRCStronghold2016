@@ -1,10 +1,11 @@
 
 package org.usfirst.frc.team4131.robot;
+
+import org.usfirst.frc.team4131.robot.commands.DriveStraight;
 import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
-import org.usfirst.frc.team4131.robot.subsystems.LightRing;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
 import org.usfirst.frc.team4131.utilities.Point;
@@ -33,100 +34,114 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter;
 	public static Collector collector;
 	public static Arms arms;
-	public static LightRing lightRing;
+//	public static LightRing lightRing;
 
-    Command autonomousCommand, gridDrive;
+	Command autonomousCommand, gridDrive;
 
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
-    public void robotInit() {
+	/**
+	 * This function is run when the robot is first started up and should be
+	 * used for any initialization code.
+	 */
+	public void robotInit() {
 		drive = new TankDrive();
 		handler = new Handler();
 		shooter = new Shooter();
 		collector = new Collector();
 		arms = new Arms();
-		lightRing = new LightRing();
-		
-		gridDrive = new GridAutoDrive(new Point(0, 100));
-		
+//		lightRing = new LightRing();
+
+//		gridDrive = new GridAutoDrive(new Point(0, 100));
+		gridDrive = new DriveStraight(10, Robot.drive.getAngle(), 0.4);
+
 		oi = new OI();
-    }
-	
-	/**
-     * This function is called once each time the robot enters Disabled mode.
-     * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
-     */
-    public void disabledInit(){
-    	gridDrive.cancel();
-    }
-	
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
 	}
 
 	/**
-	 * This autonomous (along with the chooser code above) shows how to select between different autonomous modes
-	 * using the dashboard. The sendable chooser code works with the Java SmartDashboard. If you prefer the LabVIEW
-	 * Dashboard, remove all of the chooser code and uncomment the getString code to get the auto name from the text box
-	 * below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
-	 * or additional comparisons to the switch structure below with additional strings & commands.
+	 * This function is called once each time the robot enters Disabled mode.
+	 * You can use it to reset any subsystem information you want to clear when
+	 * the robot is disabled.
 	 */
-    public void autonomousInit() {
-    	drive.resetEncoders();
-    	CURRENT_X = 0;//TODO whatever our starting position is based on
-    	CURRENT_Y = 0;//TODO whatever our starting position is based on
-//    	autonomousCommand = new DriveBackAndForth();
-//        if (autonomousCommand != null) autonomousCommand.start();
-    	gridDrive.start();
-    }
+	public void disabledInit() {
+		gridDrive.cancel();
+	}
 
-    /**
-     * This function is called periodically during autonomous
-     */
-    public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-        CURRENT_ANGLE = drive.getAngle();
-        SmartDashboard.putNumber("Distance Travled", drive.getDistance());
-        SmartDashboard.putNumber("Angle: ", CURRENT_ANGLE);
-        SmartDashboard.putNumber("Current x: ", CURRENT_X);
-        SmartDashboard.putNumber("Current y:", CURRENT_Y);
-    }
-    public void updateDeltaMovement(double x, double y){
-    	CURRENT_X += x;
-    	CURRENT_Y += y;
-    }
-    public void teleopInit() {
+	public void disabledPeriodic() {
+		Scheduler.getInstance().run();
+		dashboard();
+	}
+
+	/**
+	 * This autonomous (along with the chooser code above) shows how to select
+	 * between different autonomous modes using the dashboard. The sendable
+	 * chooser code works with the Java SmartDashboard. If you prefer the
+	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
+	 * getString code to get the auto name from the text box below the Gyro
+	 *
+	 * You can add additional auto modes by adding additional commands to the
+	 * chooser code above (like the commented example) or additional comparisons
+	 * to the switch structure below with additional strings & commands.
+	 */
+	public void autonomousInit() {
+		drive.resetEncoders();
+		CURRENT_X = 0;// TODO whatever our starting position is based on
+		CURRENT_Y = 0;// TODO whatever our starting position is based on
+		// autonomousCommand = new DriveBackAndForth();
+		// if (autonomousCommand != null) autonomousCommand.start();
+		gridDrive.start();
+	}
+
+	/**
+	 * This function is called periodically during autonomous
+	 */
+	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
+		CURRENT_ANGLE = drive.getAngle();
+		dashboard();
+		SmartDashboard.putNumber("Distance Traveled", drive.getDistance());
+		SmartDashboard.putNumber("Angle: ", CURRENT_ANGLE);
+		SmartDashboard.putNumber("Current x: ", CURRENT_X);
+		SmartDashboard.putNumber("Current y:", CURRENT_Y);
+	}
+
+	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-    	
-    	gridDrive.cancel();
-        if (autonomousCommand != null) autonomousCommand.cancel();
-    }
+		// teleop starts running. If you want the autonomous to
+		// continue until interrupted by another command, remove
+		// this line or comment it out.
 
-    /**
-     * This function is called periodically during operator control
-     */
-    public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Arms Angle", Robot.arms.getAngle());
-    }
-    
-    /**
-     * This function is called periodically during test mode
-     */
-    public void testPeriodic() {
-        LiveWindow.run();
-    }
-    
-    public static double constrain(double value, double min, double max)
-    {
-    	return Math.min(Math.max(value, min), max);
-    }
+		gridDrive.cancel();
+		if (autonomousCommand != null)
+			autonomousCommand.cancel();
+	}
+
+	/**
+	 * This function is called periodically during operator control
+	 */
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
+		dashboard();
+	}
+
+	/**
+	 * This function is called periodically during test mode
+	 */
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
+
+	public static double constrain(double value, double min, double max) {
+		return Math.min(Math.max(value, min), max);
+	}
+	
+	private void dashboard(){
+		SmartDashboard.putNumber("Handler Speed", handler.getSpeed());
+        SmartDashboard.putNumber("Arms Angle", arms.getAngle());
+        SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
+        SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
+        SmartDashboard.putNumber("Drive Distance", drive.getDistance());
+        SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
+        SmartDashboard.putNumber("Gyro Angle", drive.getAngle());
+        SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
+//        SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
+	}
 }

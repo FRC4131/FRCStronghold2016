@@ -11,18 +11,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Collector extends Subsystem {
 	private SpeedController motor;
-	
-	public Collector()
-	{
+
+	public Collector() {
 		motor = new CANTalon(RobotMap.COLLECTOR_MOTOR);
+		((CANTalon)motor).enableBrakeMode(true);
 	}
-	
-	public void spin(double speed)
-	{
+
+	public void spin(double speed) {
 		motor.set(speed);
 	}
 
-    public void initDefaultCommand() {
-    }
+	public void initDefaultCommand() {
+	}
 }
-

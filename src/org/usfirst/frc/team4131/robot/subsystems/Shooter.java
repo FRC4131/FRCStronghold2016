@@ -12,28 +12,29 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Shooter extends Subsystem {
-	
+
 	private SpeedController motor;
 	private Encoder encoder;
-	
-	public Shooter()
-	{
+
+	public Shooter() {
 		motor = new CANTalon(RobotMap.SHOOTER_MOTOR);
 		encoder = new Encoder(RobotMap.SHOOTER_ENCODER_A, RobotMap.SHOOTER_ENCODER_B);
 	}
-	
-	public double getRate()
-	{
+
+	public double getRate() {
 		return encoder.getRate();
 	}
 
-    public void initDefaultCommand() {
-    	setDefaultCommand(new ChargeShooter());
-    	encoder.reset();
-    }
+	public void initDefaultCommand() {
+		setDefaultCommand(new ChargeShooter());
+		encoder.reset();
+	}
 
 	public void setSpeed(double speed) {
-//		motor.set(speed);
+		 motor.set(speed);
+	}
+
+	public double getSpeed() {
+		return motor.get();
 	}
 }
-

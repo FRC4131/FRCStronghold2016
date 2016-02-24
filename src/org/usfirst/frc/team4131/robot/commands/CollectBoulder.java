@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class CollectBoulder extends Command {
 	private static final double COLLECTOR_SPEED = 1.0;
-	private static final double HANDLER_SPEED = 1.0;
+	private static final double HANDLER_SPEED = -1.0;
 	
     public CollectBoulder() {
     	requires(Robot.collector);

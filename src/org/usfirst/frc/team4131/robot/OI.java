@@ -6,8 +6,6 @@ import org.usfirst.frc.team4131.robot.commands.EmergencyStop;
 import org.usfirst.frc.team4131.robot.commands.LoadBoulder;
 import org.usfirst.frc.team4131.robot.commands.StowArms;
 import org.usfirst.frc.team4131.robot.commands.ToggleDirection;
-//import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
-import org.usfirst.frc.team4131.robot.commands.ToggleLight;
 import org.usfirst.frc.team4131.robot.commands.UnloadBoulder;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -34,7 +32,7 @@ public class OI {
 	private Button controlArms;
 	private Button portcullis;
 	private Button inverseDrive;
-	private Button toggleLight;
+//	private Button toggleLight;
 	
 	private Command collectCommand = new CollectBoulder();
 	private boolean inverse = false;
@@ -52,7 +50,7 @@ public class OI {
 		
 		collectBoulder = new JoystickButton(launchpad, RobotMap.COLLECT_BOULDER);
 		collectBoulder.whenPressed(collectCommand);
-		collectBoulder.whenPressed(new DeployArms(1600));
+		collectBoulder.whenPressed(new DeployArms(-700));
 		
 		emergencyStop = new JoystickButton(launchpad, RobotMap.EMERGENCY_STOP);
 		emergencyStop.whenPressed(new EmergencyStop(emergencyState = !emergencyState));
@@ -64,23 +62,23 @@ public class OI {
 		stowArms.whenPressed(new StowArms());
 		
 		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
-		deployArms.whenPressed(new DeployArms(1800)); //Magic number!
+		deployArms.whenPressed(new DeployArms(700)); //Magic number!
 		
-		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
-		toggleLight.whenPressed(new ToggleLight());
+//		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
+//		toggleLight.whenPressed(new ToggleLight());
 		
 		inverseDrive = new JoystickButton(rightStick, RobotMap.INVERSE);
 		inverseDrive.whenPressed(new ToggleDirection());
 	}
 	public double getLeftSpeed() {
-		return leftStick.getRawAxis(1) * (ToggleDirection.isForward() ? -1 : 1);
+		return Math.pow(leftStick.getRawAxis(1), 3) * (ToggleDirection.isForward() ? -1 : 1);
 	}
 	public double getRightSpeed() {
 //		if (ToggleDirection.isForward())
 //			return rightStick.getRawAxis(1)*-1;
 //		else
 //			return leftStick.getRawAxis(1);
-		return rightStick.getRawAxis(1) * (ToggleDirection.isForward() ? -1 : 1);
+		return Math.pow(rightStick.getRawAxis(1), 3) * (ToggleDirection.isForward() ? -1 : 1);
 	}
 	public boolean getSpitOut(){
 		return unloadBoulder.get();
