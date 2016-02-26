@@ -7,6 +7,7 @@ package org.usfirst.frc.team4131.robot;
  * floating around.
  */
 public class RobotMap {
+	private static final boolean GRETTA = true;
 	/**
 	 * Ports for motor controllers, encoders, etc
 	 */
@@ -16,45 +17,45 @@ public class RobotMap {
 	
 	public static final int LAUNCHPAD = 2;
 
-	public static final int HANDLER_MOTOR = 5;//7 on Gretta
+	public static final int HANDLER_MOTOR = GRETTA ? 7 : 5;//7 on Gretta
 
-	public static final int SHOOTER_MOTOR = 4;//5 on Gretta
+	public static final int SHOOTER_MOTOR = GRETTA ? 5 : 4;//5 on Gretta
 
-	public static final int SHOOTER_ENCODER_A = 4;//2 on Gretta
+	public static final int SHOOTER_ENCODER_A = GRETTA ? 2 : 4;//2 on Gretta
 
-	public static final int SHOOTER_ENCODER_B = 5;//3 on Gretta
+	public static final int SHOOTER_ENCODER_B = GRETTA ? 3 : 5;//3 on Gretta
 
-	public static final int DRIVE_LEFT_MOTOR1 = 0;//1 on Gretta
+	public static final int DRIVE_LEFT_MOTOR1 = GRETTA ? 1 : 0;//1 on Gretta
 
-	public static final int DRIVE_LEFT_MOTOR2 = 1;//2 on Gretta
+	public static final int DRIVE_LEFT_MOTOR2 = GRETTA ? 2 : 1;//2 on Gretta
 
-	public static final int DRIVE_RIGHT_MOTOR1 = 2;//3 on Gretta
+	public static final int DRIVE_RIGHT_MOTOR1 = GRETTA ? 3 : 2;//3 on Gretta
 
-	public static final int DRIVE_RIGHT_MOTOR2 = 3;//4 on Gretta
+	public static final int DRIVE_RIGHT_MOTOR2 = GRETTA ? 4 : 3;//4 on Gretta
 
-	public static final int DRIVE_LEFT_ENCODERA = 2;//4 on Gretta
+	public static final int DRIVE_LEFT_ENCODERA = GRETTA ? 4 : 2;//4 on Gretta
 
-	public static final int DRIVE_LEFT_ENCODERB = 3;//5 on Gretta
+	public static final int DRIVE_LEFT_ENCODERB = GRETTA ? 5 : 3;//5 on Gretta
 
-	public static final int DRIVE_RIGHT_ENCODERA = 0;//7 on Gretta
+	public static final int DRIVE_RIGHT_ENCODERA = GRETTA ? 7 : 0;//7 on Gretta
 
-	public static final int DRIVE_RIGHT_ENCODERB = 1;//6 on Gretta
+	public static final int DRIVE_RIGHT_ENCODERB = GRETTA ? 6 : 1;//6 on Gretta
 	
 	public static final int GYRO = 1;
 	//Direct wired
 //	public static final int LIGHT = 9;
 	
-	public static final int ARMS_MOTOR = 6;//8 on Gretta
+	public static final int ARMS_MOTOR = GRETTA ? 8 : 6;//8 on Gretta
 	
-	public static final int ARMS_ENCODERA = 8;//8 on Gretta
+	public static final int ARMS_ENCODERA = GRETTA ? 8 : 8;//8 on Gretta
 
-	public static final int ARMS_ENCODERB = 9;//9 on Gretta
+	public static final int ARMS_ENCODERB = GRETTA ? 9 : 9;//9 on Gretta
 
-	public static final int ARMS_SWITCH = 7;// 1 on Gretta 
+	public static final int ARMS_SWITCH = GRETTA ? 1 : 7;// 1 on Gretta 
 	
-	public static final int COLLECTOR_MOTOR = 8;//rolling pin motor; 6 on Gretta
+	public static final int COLLECTOR_MOTOR = GRETTA ? 6 : 8;//rolling pin motor; 6 on Gretta
 	
-	public static final int HANDLER_SWITCH = 6;//0 on Gretta
+	public static final int HANDLER_SWITCH = GRETTA ? 0 : 6;//0 on Gretta
 	/**
 	 * Joystick mappings
 	 */
