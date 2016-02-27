@@ -18,7 +18,6 @@ public class TankDrive extends Subsystem {
 	private CANTalon leftMotor1, leftMotor2, rightMotor1, rightMotor2;
 	private Encoder leftEncoder, rightEncoder;
 	private Gyro gyro;
-	private final double RATIO = (43.0 + 17.0 / 32.0) / 1073.00; //3.049 /  48.750;
 	
 	public TankDrive() {
 		super();
@@ -27,9 +26,9 @@ public class TankDrive extends Subsystem {
 		rightMotor1 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR1);
 		rightMotor2 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR2);
 		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODERA, RobotMap.DRIVE_LEFT_ENCODERB, false);// would spin clockwise or +
-		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB, false);// would spin counter-clockwise or -; boolean reverses direction
-		leftEncoder.setDistancePerPulse(RATIO);
-		rightEncoder.setDistancePerPulse(RATIO);
+		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB, RobotMap.GRETTA);// would spin counter-clockwise or -; boolean reverses direction
+		leftEncoder.setDistancePerPulse(RobotMap.DRIVE_RATIO);
+		rightEncoder.setDistancePerPulse(RobotMap.DRIVE_RATIO);
 		
 		gyro = new AnalogGyro(RobotMap.GYRO);
 	}
@@ -62,7 +61,7 @@ public class TankDrive extends Subsystem {
 	}
 	
 	public double getAngle(){
-		return gyro.getAngle();
+		return (gyro.getAngle() % 360) + (gyro.getAngle() < 0 ? 360 : 0);
 	}
 	
 	/**
@@ -72,8 +71,6 @@ public class TankDrive extends Subsystem {
 	 */
 	public double getDistance() {
 //		return (leftEncoder.get() + rightEncoder.get()) / 2.0;
-		SmartDashboard.putNumber("LEFT ENCODER DISTANCE: ", leftEncoder.getDistance());
-		SmartDashboard.putNumber("RIGHT ENCODER DISTANCE: ", rightEncoder.getDistance());
 		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0;
 	}
 }

@@ -7,7 +7,7 @@ package org.usfirst.frc.team4131.robot;
  * floating around.
  */
 public class RobotMap {
-	private static final boolean GRETTA = true;
+	public static final boolean GRETTA = true;
 	/**
 	 * Ports for motor controllers, encoders, etc
 	 */
@@ -40,6 +40,8 @@ public class RobotMap {
 	public static final int DRIVE_RIGHT_ENCODERA = GRETTA ? 7 : 0;//7 on Gretta
 
 	public static final int DRIVE_RIGHT_ENCODERB = GRETTA ? 6 : 1;//6 on Gretta
+	
+	public static final double DRIVE_RATIO = GRETTA ? ((3D + 9D / 32D) / 48D) : (43.0 + 17.0 / 32.0) / 1073.00;
 	
 	public static final int GYRO = 1;
 	//Direct wired
@@ -75,5 +77,5 @@ public class RobotMap {
 
 	public static final int TOGGLE_LIGHT = 1;
 	
-	public static final int INVERSE = 2;
+	public static final int INVERSE = 5;
 }

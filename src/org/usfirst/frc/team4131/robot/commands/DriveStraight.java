@@ -5,6 +5,7 @@ import org.usfirst.frc.team4131.utilities.PIDController;
 import org.usfirst.frc.team4131.utilities.Point;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -14,8 +15,9 @@ public class DriveStraight extends PositionCommand {
 	private PIDController angleController;
 	
 	private double distance;
-	private double angle;
+	private double heading;
 	private double maxSpeed;
+	private boolean headingSet = false;
 	
 	private static final double DEAD_ZONE = 3.0;
 
@@ -29,9 +31,11 @@ public class DriveStraight extends PositionCommand {
 		super();
     	requires(Robot.drive);
     	
-    	maxSpeed = speed;
+    	this.maxSpeed = speed;
     	this.distance = distance;
-    	angle = heading;
+    	this.heading = heading;
+    	
+    	headingSet = true;
     	
     	if (distance < 0)
     		maxSpeed *= -1;
@@ -45,13 +49,9 @@ public class DriveStraight extends PositionCommand {
 		
 		distance = movementEncured;
 		
-		double heading = Robot.CURRENT_ANGLE;
-		
     	requires(Robot.drive);
     	
     	maxSpeed = speed;
-    	
-    	angle = heading;
     	
     	if (distance < 0)
     		maxSpeed *= -1;
@@ -61,19 +61,20 @@ public class DriveStraight extends PositionCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	double angleError = angle - Robot.drive.getAngle();
+    	double angleError = heading - Robot.drive.getAngle();
     	
     	angleController.start(angleError);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double angleError = angle - Robot.drive.getAngle();
+
+    	if(!this.headingSet){
+    		this.heading = Robot.CURRENT_ANGLE;
+    		this.headingSet = true;
+    	}
+    	double angleCommand = angleController.update(getError());
     	
-    	double angleCommand = angleController.update(angleError);
-    	
-//    	if((maxSpeed < 0) != (angleCommand < 0)) angleCommand = -angleCommand;
-		angleCommand = 0;
     	Robot.drive.move(maxSpeed + angleCommand, maxSpeed - angleCommand);
     }
 
@@ -94,4 +95,10 @@ public class DriveStraight extends PositionCommand {
     	Robot.drive.move(0, 0);
     	super.interrupted();
     }
+	private double getError(){
+		double error =(Robot.drive.getAngle() - heading % 360);
+		if (error < 0 )  error  = error + 360;
+		if (error > 180) error  = error - 360;
+		return (-error);
+	}
 }

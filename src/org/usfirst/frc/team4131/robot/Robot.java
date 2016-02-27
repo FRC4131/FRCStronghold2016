@@ -3,6 +3,7 @@ package org.usfirst.frc.team4131.robot;
 
 import org.usfirst.frc.team4131.robot.commands.DriveStraight;
 import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
+import org.usfirst.frc.team4131.robot.commands.TurnToAtRate;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
@@ -49,10 +50,8 @@ public class Robot extends IterativeRobot {
 		collector = new Collector();
 		arms = new Arms();
 //		lightRing = new LightRing();
-
-//		gridDrive = new GridAutoDrive(new Point(0, 100));
-		gridDrive = new DriveStraight(10, Robot.drive.getAngle(), 0.4);
-
+//
+		gridDrive = new GridAutoDrive(new Point(0, 24), new Point(24, 24), new Point(24, 48));
 		oi = new OI();
 	}
 

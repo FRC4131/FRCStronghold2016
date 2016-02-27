@@ -5,12 +5,13 @@ import org.usfirst.frc.team4131.utilities.Point;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class GridAutoDrive extends CommandGroup {
-    public Command driveStraight, turn;
+	private Command[] cmds;
     public  GridAutoDrive(Point...points) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -28,12 +29,16 @@ public class GridAutoDrive extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	goTo(points);
-    }
-    public void goTo(Point...coordinates){
-		for(Point coord:coordinates){
-				addSequential(new TurnToAtRate(coord, 5));
-				addSequential(new DriveStraight(coord, 0.75));
-		}
-	}
+    	this.cmds = new Command[3 * points.length];
+    	int cmdCounter = 0;
+    	for(int i = 0; i < points.length; ++i){
+    		cmds[cmdCounter++] = new TurnToAtRate(points[i], 1);
+    		cmds[cmdCounter++] = new Wait(0.25);
+    		cmds[cmdCounter++] = new DriveStraight(points[i], 0.6);
+    	}
+    	for(Command cmd : cmds){
+    		addSequential(cmd);
+            SmartDashboard.putString("Current Drive Command", cmd.getClass().getSimpleName());
+    	}
+   }
 }

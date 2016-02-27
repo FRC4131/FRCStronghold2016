@@ -13,16 +13,16 @@ public class TurnToAtRate extends Command {
 	public TurnToAtRate(double heading, double rate){
 		requires(Robot.drive);
 		this.heading = heading; this.rate = rate;
-		controller = new PIDController(0.65, 0, 0.4, -rate, rate);
+		controller = new PIDController(0.8, 0.2, 0.6, -rate, rate);
 	}
 	public TurnToAtRate(Point coord, double rate){
 		double x, y, angle;
 		x = coord.x - Robot.CURRENT_X;
 		y = coord.y - Robot.CURRENT_Y;
 		angle = Math.toDegrees(Math.atan2(x, y));
-		angle = angle - Robot.CURRENT_ANGLE;//correct Magnitude
+		angle = angle - Robot.CURRENT_ANGLE;
 		this.heading = angle;
-		controller = new PIDController(0.65, 0, 0.4, -rate, rate);
+		controller = new PIDController(0.8, 0.2, 0.6, -rate, rate);
 	}
 	@Override
 	protected void initialize() {
@@ -31,14 +31,18 @@ public class TurnToAtRate extends Command {
 
 	@Override
 	protected void execute() {
-		double speed = controller.update(getError());
-		SmartDashboard.putNumber("Angle Error", getError());
+		double error = getError();
+		if(Math.abs(error) < 5){
+			return;
+		}
+		double speed = controller.update(error);
+		SmartDashboard.putNumber("Angle Error", error);
 		Robot.drive.move(speed, -speed);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(getError()) < 2;
+		return Math.abs(getError()) < 5;
 	}
 
 	@Override
@@ -50,6 +54,9 @@ public class TurnToAtRate extends Command {
 		Robot.drive.move(0, 0);
 	}
 	private double getError(){
-		return heading - Robot.drive.getAngle();
+		double error =(Robot.drive.getAngle() - heading % 360);
+		if (error < 0 )  error  += 360;
+		if (error > 180) error  -= 360;
+		return (-error);
 	}
 }
