@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveStraight extends PositionCommand {
 	
 	private PIDController angleController;
-	
 	private double distance;
 	private double heading;
 	private double maxSpeed;
 	private boolean headingSet = false;
+	private Point p = null;
 	
 	private static final double DEAD_ZONE = 3.0;
 
@@ -43,11 +43,8 @@ public class DriveStraight extends PositionCommand {
     	angleController = new PIDController(1, 0, 0, -(Math.abs(maxSpeed)) / 2, Math.abs(maxSpeed) / 2);
     }
 	public DriveStraight(Point coord, double speed) {
-		double x = coord.x - Robot.CURRENT_X;
-		double y = coord.y - Robot.CURRENT_Y;
-		double movementEncured = Math.pow(x * x + y * y, 0.5);
-		
-		distance = movementEncured;
+		p = coord;
+		this.maxSpeed = speed;
 		
     	requires(Robot.drive);
     	
@@ -61,6 +58,8 @@ public class DriveStraight extends PositionCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.drive.resetEncoders();
+    	
     	double angleError = heading - Robot.drive.getAngle();
     	
     	angleController.start(angleError);
@@ -70,6 +69,13 @@ public class DriveStraight extends PositionCommand {
     protected void execute() {
 
     	if(!this.headingSet){
+    		if(p != null){
+    			double x = p.x - Robot.CURRENT_X;
+				double y = p.y - Robot.CURRENT_Y;
+				double movementEncured = Math.pow(x * x + y * y, 0.5);
+				
+				distance = movementEncured;
+    		}
     		this.heading = Robot.CURRENT_ANGLE;
     		this.headingSet = true;
     	}
