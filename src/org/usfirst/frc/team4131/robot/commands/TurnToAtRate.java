@@ -42,7 +42,7 @@ public class TurnToAtRate extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(getError()) < 5;
+		return Math.abs(getError()) < 3;
 	}
 
 	@Override

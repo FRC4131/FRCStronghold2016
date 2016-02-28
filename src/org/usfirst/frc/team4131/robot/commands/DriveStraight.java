@@ -75,9 +75,10 @@ public class DriveStraight extends PositionCommand {
 				double movementEncured = Math.pow(x * x + y * y, 0.5);
 				
 				distance = movementEncured;
+				
+	    		this.heading = Robot.CURRENT_ANGLE;
+	    		this.headingSet = true;
     		}
-    		this.heading = Robot.CURRENT_ANGLE;
-    		this.headingSet = true;
     	}
     	double angleCommand = angleController.update(getError());
     	
