@@ -41,7 +41,7 @@ public class RobotMap {
 
 	public static final int DRIVE_RIGHT_ENCODERB = GRETTA ? 6 : 1;//6 on Gretta
 	
-	public static final double DRIVE_RATIO = GRETTA ? ((3D + 9D / 32D) / 48D) : (43.0 + 17.0 / 32.0) / 1073.00;
+	public static final double DRIVE_RATIO = GRETTA ? ((125D + 3D/16D) / 1033D) : (43.0 + 17.0 / 32.0) / 1073.00;
 	
 	public static final int GYRO = 1;
 	//Direct wired

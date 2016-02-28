@@ -51,7 +51,8 @@ public class Robot extends IterativeRobot {
 		arms = new Arms();
 //		lightRing = new LightRing();
 //
-		gridDrive = new GridAutoDrive(new Point(0, 24), new Point(24, 24), new Point(24, 48));
+		gridDrive = new GridAutoDrive(new Point(0, 24), new Point(24, 24), new Point(24, 0), new Point(0, 0));
+
 		oi = new OI();
 	}
 

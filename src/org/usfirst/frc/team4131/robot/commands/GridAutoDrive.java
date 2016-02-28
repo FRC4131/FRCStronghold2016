@@ -29,12 +29,13 @@ public class GridAutoDrive extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	this.cmds = new Command[3 * points.length];
+    	this.cmds = new Command[4 * points.length];
     	int cmdCounter = 0;
     	for(int i = 0; i < points.length; ++i){
-    		cmds[cmdCounter++] = new TurnToAtRate(points[i], .8);
-    		cmds[cmdCounter++] = new Wait(0.25);
-    		cmds[cmdCounter++] = new DriveStraight(points[i], 0.4);
+    		cmds[cmdCounter++] = new TurnToAtRate(points[i], .5);
+    		cmds[cmdCounter++] = new Wait(1);
+    		cmds[cmdCounter++] = new DriveStraight(points[i], 0.25);
+    		cmds[cmdCounter++] = new Wait(1);
     	}
     	for(Command cmd : cmds){
     		addSequential(cmd);

@@ -19,7 +19,7 @@ public class DriveStraight extends PositionCommand {
 	private boolean headingSet = false;
 	private Point p = null;
 	
-	private static final double DEAD_ZONE = 3.0;
+	private static final double DEAD_ZONE = 2.0;
 
 	/**
 	 * Distance, heading, speed params
@@ -58,7 +58,6 @@ public class DriveStraight extends PositionCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drive.resetEncoders();
     	
     	double angleError = heading - Robot.drive.getAngle();
     	
@@ -68,7 +67,7 @@ public class DriveStraight extends PositionCommand {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-    	if(!this.headingSet){
+    	if(!this.headingSet){//this is only here because init is called before the command starts
     		if(p != null){
     			double x = p.x - Robot.CURRENT_X;
 				double y = p.y - Robot.CURRENT_Y;
@@ -76,8 +75,10 @@ public class DriveStraight extends PositionCommand {
 				
 				distance = movementEncured;
 				
-	    		this.heading = Robot.CURRENT_ANGLE;
+	    		this.heading = Robot.drive.getAngle();
 	    		this.headingSet = true;
+	    		
+	    		SmartDashboard.putNumber("Point (" + p.x + "," + p.y + ") DriveStraight heading: ", heading);
     		}
     	}
     	double angleCommand = angleController.update(getError());
@@ -94,6 +95,7 @@ public class DriveStraight extends PositionCommand {
     protected void end() {
     	Robot.drive.move(0, 0);
     	super.end();
+    	Robot.drive.resetEncoders();
     }
 
     // Called when another command which requires one or more of the same
