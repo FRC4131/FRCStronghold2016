@@ -62,6 +62,8 @@ public class DriveStraight extends PositionCommand {
     	double angleError = heading - Robot.drive.getAngle();
     	
     	angleController.start(angleError);
+    	
+    	super.initialize();
     }
 
     // Called repeatedly when this Command is scheduled to run
