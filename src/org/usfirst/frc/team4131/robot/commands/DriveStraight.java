@@ -78,7 +78,7 @@ public class DriveStraight extends PositionCommand {
 	    		this.heading = Robot.drive.getAngle();
 	    		this.headingSet = true;
 	    		
-	    		SmartDashboard.putNumber("Point (" + p.x + "," + p.y + ") DriveStraight heading: ", heading);
+	    		super.initialize();
     		}
     	}
     	double angleCommand = angleController.update(getError());
