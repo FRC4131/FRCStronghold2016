@@ -10,14 +10,16 @@ import edu.wpi.first.wpilibj.command.Command;
 public class PositionCommand extends Command {
 	private double distanceInit;
 	public double distanceTravled = 0;
+	public boolean initialized = false;
 	public PositionCommand(){
     	distanceInit = Robot.drive.getDistance();
 	}
     protected void initialize() {
+    	initialized = true;
     	distanceInit = Robot.drive.getDistance();
     }
     protected void execute() {
-    	distanceTravled = distanceInit - Robot.drive.getDistance();
+    	updatePosition();
     }
     protected void end() {
     	updatePosition();
@@ -35,5 +37,6 @@ public class PositionCommand extends Command {
 		double yMoved = -Math.cos(Math.toRadians(angleOfMovement)) * distanceTravled;
     	Robot.CURRENT_X += xMoved;
     	Robot.CURRENT_Y += yMoved;
+    	distanceInit = Robot.drive.getDistance();
 	}
 }

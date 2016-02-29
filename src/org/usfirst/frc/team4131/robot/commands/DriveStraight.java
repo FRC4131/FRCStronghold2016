@@ -4,9 +4,6 @@ import org.usfirst.frc.team4131.robot.Robot;
 import org.usfirst.frc.team4131.utilities.PIDController;
 import org.usfirst.frc.team4131.utilities.Point;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  *
  */
@@ -67,8 +64,8 @@ public class DriveStraight extends PositionCommand {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-    	if(!this.headingSet){//this is only here because init is called before the command starts
-    		if(p != null){
+    	if(!this.headingSet){//this is only here because init is called before the command physically starts
+        	if(p != null){
     			double x = p.x - Robot.CURRENT_X;
 				double y = p.y - Robot.CURRENT_Y;
 				double movementEncured = Math.pow(x * x + y * y, 0.5);
@@ -80,10 +77,13 @@ public class DriveStraight extends PositionCommand {
 	    		
 	    		super.initialize();
     		}
-    	}
+    	}else if(!initialized){
+    		super.initialize();
+    	} 
     	double angleCommand = angleController.update(getError());
     	
     	Robot.drive.move(maxSpeed + angleCommand, maxSpeed - angleCommand);
+    	super.execute();
     }
 
     // Make this return true when this Command no longer needs to run execute()
