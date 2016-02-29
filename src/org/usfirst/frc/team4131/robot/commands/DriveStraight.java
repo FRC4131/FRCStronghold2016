@@ -65,7 +65,6 @@ public class DriveStraight extends PositionCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-
     	if(!this.headingSet){//this is only here because init is called before the command physically starts
         	if(p != null){
     			double x = p.x - Robot.CURRENT_X;
@@ -85,7 +84,6 @@ public class DriveStraight extends PositionCommand {
     	double angleCommand = angleController.update(getError());
     	
     	Robot.drive.move(maxSpeed + angleCommand, maxSpeed - angleCommand);
-    	super.execute();
     }
 
     // Make this return true when this Command no longer needs to run execute()

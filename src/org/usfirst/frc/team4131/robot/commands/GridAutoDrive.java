@@ -32,9 +32,9 @@ public class GridAutoDrive extends CommandGroup {
     	this.cmds = new Command[4 * points.length];
     	int cmdCounter = 0;
     	for(int i = 0; i < points.length; ++i){
-    		cmds[cmdCounter++] = new TurnToAtRate(points[i], .5);
+    		cmds[cmdCounter++] = new TurnToAtRate(points[i], 0.8);
     		cmds[cmdCounter++] = new Wait(1);
-    		cmds[cmdCounter++] = new DriveStraight(points[i], 0.25);
+    		cmds[cmdCounter++] = new DriveStraight(points[i], 0.5);
     		cmds[cmdCounter++] = new Wait(1);
     	}
     	for(Command cmd : cmds){

@@ -16,6 +16,7 @@ public class PositionCommand extends Command {
 	}
     protected void initialize() {
     	initialized = true;
+    	Robot.drive.resetEncoders();
     	distanceInit = Robot.drive.getDistance();
     }
     protected void execute() {

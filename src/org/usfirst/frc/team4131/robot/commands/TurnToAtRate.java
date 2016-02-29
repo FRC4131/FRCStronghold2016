@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurnToAtRate extends Command {
+	private static final double DEAD_ZONE = 8.0;//degrees
 	private double heading;
 	private boolean headingSet = false;
 	private Point p = null;
@@ -44,7 +45,7 @@ public class TurnToAtRate extends Command {
 			controller.start(getError());
 		}
 		double error = getError();
-		if(Math.abs(error) < 3){
+		if(Math.abs(error) < DEAD_ZONE){
 			return;
 		}
 		double speed = controller.update(error);
@@ -53,7 +54,7 @@ public class TurnToAtRate extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(getError()) < 3;
+		return Math.abs(getError()) < DEAD_ZONE;
 	}
 
 	@Override
