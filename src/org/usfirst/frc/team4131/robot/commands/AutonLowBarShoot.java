@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
     	public class AutonLowBarShoot extends CommandGroup {
-    		private static final double speed = 0.5, distance = 63, shotAngle = 48, shotDistance = 29;
+    		private static final double speed = 0.5, distance = 153, shotAngle = 48, shotDistance = 29;
     		public AutonLowBarShoot() {
 //    			addParallel(new SDLog("Auton Status", "Driving 1"));
     			addSequential(new DriveStraight(distance, 0, speed));
