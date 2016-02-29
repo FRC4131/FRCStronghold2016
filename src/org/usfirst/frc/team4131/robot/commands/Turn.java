@@ -27,6 +27,9 @@ public class Turn extends Command {
     protected void execute() {
     	double speed = controller.update(angle - Robot.drive.getAngle());
     	SmartDashboard.putNumber("Spin Command", speed);
+    	if (speed < 0){
+    		speed = -speed;
+    	}
     	Robot.drive.move(speed, -speed);//Positive error (right turn) means left goes forward, right goes back
     }
 

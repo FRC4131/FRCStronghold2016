@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team4131.robot;
 
+import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
+import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.DriveStraight;
 import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
 import org.usfirst.frc.team4131.robot.commands.TurnToAtRate;
@@ -15,6 +17,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -29,15 +32,16 @@ public class Robot extends IterativeRobot {
 	public static double CURRENT_Y;
 	public static double CURRENT_ANGLE;
 
-	public static OI oi;
 	public static TankDrive drive;
 	public static Handler handler;
 	public static Shooter shooter;
 	public static Collector collector;
 	public static Arms arms;
+	public static OI oi;
 //	public static LightRing lightRing;
 
-	Command autonomousCommand, gridDrive;
+	private SendableChooser chooser;
+	private Command autonomous;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -50,10 +54,13 @@ public class Robot extends IterativeRobot {
 		collector = new Collector();
 		arms = new Arms();
 //		lightRing = new LightRing();
-//
-//		gridDrive = new GridAutoDrive(new Point(0, 24), new Point(24, 24), new Point(24, 0), new Point(0, 0));
 		
 		oi = new OI();
+		chooser = new SendableChooser();
+		chooser.addDefault("DriveStraight", new DriveStraight(60, 0, 0.9));
+		chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
+		chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
+		SmartDashboard.putData("Autonomous", chooser);
 	}
 
 	/**
@@ -62,7 +69,7 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
 	 */
 	public void disabledInit() {
-		gridDrive.cancel();
+//		gridDrive.cancel();
 	}
 
 	public void disabledPeriodic() {
@@ -83,11 +90,12 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousInit() {
 		drive.resetEncoders();
-		CURRENT_X = 0;// TODO whatever our starting position is based on
-		CURRENT_Y = 0;// TODO whatever our starting position is based on
-		// autonomousCommand = new DriveBackAndForth();
-		// if (autonomousCommand != null) autonomousCommand.start();
-		gridDrive.start();
+//		CURRENT_X = 0;// TODO whatever our starting position is based on
+//		CURRENT_Y = 0;// TODO whatever our starting position is based on
+//		// autonomousCommand = new DriveBackAndForth();
+//		// if (autonomousCommand != null) autonomousCommand.start();
+		autonomous = (Command) chooser.getSelected();
+		if (autonomous != null) autonomous.start();
 	}
 
 	/**
@@ -108,10 +116,8 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-
-		gridDrive.cancel();
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+		if (autonomous != null)
+			autonomous.cancel();// End autonomous when teleop starts
 	}
 
 	/**
