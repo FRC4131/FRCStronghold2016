@@ -14,9 +14,10 @@ public class DriveStraight extends PositionCommand {
 	private double heading;
 	private double maxSpeed;
 	private boolean headingSet = false;
+	private boolean noHeading = false;
 	private Point p = null;
 	
-	private static final double DEAD_ZONE = 2.0;
+	private static final double DEAD_ZONE = 3;
 
 	/**
 	 * Distance, heading, speed params
@@ -36,8 +37,6 @@ public class DriveStraight extends PositionCommand {
     	
     	if (distance < 0)
     		maxSpeed *= -1;
-    	
-    	angleController = new PIDController(1, 0, 0, -(Math.abs(maxSpeed)) / 2, Math.abs(maxSpeed) / 2);
     }
 	public DriveStraight(Point coord, double speed) {
 		p = coord;
@@ -50,17 +49,25 @@ public class DriveStraight extends PositionCommand {
     	if (distance < 0)
     		maxSpeed *= -1;
     	
-    	angleController = new PIDController(1, 0, 0, -(Math.abs(maxSpeed)) / 2, Math.abs(maxSpeed) / 2);
     }
-
+	public DriveStraight(double distance, double speed){
+		this.distance = distance;
+		this.maxSpeed = speed;
+		this.noHeading = true;
+	}
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
-    	double angleError = heading - Robot.drive.getAngle();
-    	
-    	angleController.start(angleError);
-    	
-    	super.initialize();
+    	if(noHeading){
+    		this.headingSet = true;//to pass the next conditional
+    		super.initialize();
+    	}else{
+	    	angleController = new PIDController(1, 0, 0, -(Math.abs(maxSpeed)) / 2, Math.abs(maxSpeed) / 2);
+	    	double angleError = heading - Robot.drive.getAngle();
+	    	
+	    	angleController.start(angleError);
+	    	
+	    	super.initialize();
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -73,17 +80,21 @@ public class DriveStraight extends PositionCommand {
 				
 				distance = movementEncured;
 				
-	    		this.heading = Robot.drive.getAngle();
+	    		this.heading = Robot.CURRENT_ANGLE;
 	    		this.headingSet = true;
 	    		
 	    		super.initialize();
     		}
     	}else if(!initialized){
     		super.initialize();
-    	} 
-    	double angleCommand = angleController.update(getError());
-    	
-    	Robot.drive.move(maxSpeed + angleCommand, maxSpeed - angleCommand);
+    	}
+    	if(noHeading){
+        	Robot.drive.move(maxSpeed, maxSpeed);
+    	}else{
+    		double angleCommand = angleController.update(getError());
+        	
+        	Robot.drive.move(maxSpeed + angleCommand, maxSpeed - angleCommand);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

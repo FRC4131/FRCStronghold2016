@@ -5,6 +5,7 @@ import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
 import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.DriveStraight;
 import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
+import org.usfirst.frc.team4131.robot.commands.Turn;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
@@ -60,6 +61,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0,0)));
 		chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
 		chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
+		chooser.addObject("Turn", new Turn(30));
 		SmartDashboard.putData("Autonomous", chooser);
 	}
 
@@ -90,6 +92,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousInit() {
 		drive.resetEncoders();
+		CURRENT_ANGLE = drive.getAngle();
 		CURRENT_X = 0;// TODO whatever our starting position is based on
 		CURRENT_Y = 0;// TODO whatever our starting position is based on
 //		// autonomousCommand = new DriveBackAndForth();

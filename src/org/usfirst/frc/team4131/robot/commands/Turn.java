@@ -25,6 +25,9 @@ public class Turn extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if(Math.abs(Robot.drive.getAngle() - angle) <= 5){
+    		return;
+    	}
     	double speed = controller.update(angle - Robot.drive.getAngle());
     	SmartDashboard.putNumber("Spin Command", speed);
     	if (speed < 0){
