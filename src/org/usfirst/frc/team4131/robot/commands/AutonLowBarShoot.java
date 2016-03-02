@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4131.robot.commands;
 
+import org.usfirst.frc.team4131.utilities.Point;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -11,7 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 //    			addParallel(new SDLog("Auton Status", "Driving 1"));
     			addSequential(new DriveStraight(distance, 0, speed));
 //    			addSequential(new SDLog("Auton Status", "Turning"));
-    			addSequential(new Turn(shotAngle));
+    			addSequential(new TurnToAtRate(new Point(120, 136 + 179), speed));
 //    			addSequential(new ResetEncoders());
 //    			addSequential(new SDLog("Auton Status", "Driving 2"));
     			addSequential(new DriveStraight(shotDistance, shotAngle, speed));

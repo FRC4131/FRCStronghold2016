@@ -5,21 +5,23 @@ import org.usfirst.frc.team4131.utilities.PIDController;
 import org.usfirst.frc.team4131.utilities.Point;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurnToAtRate extends Command {
-	private static final double DEAD_ZONE = 8.0;//degrees
+	private static double DEAD_ZONE = 6;
 	private double heading;
 	private boolean headingSet = false;
 	private Point p = null;
 	private PIDController controller;
 	public TurnToAtRate(double heading, double rate){
 		requires(Robot.drive);
+		DEAD_ZONE *= rate;
 		this.heading = heading;
 		controller = new PIDController(0.8, 0.2, 0.6, -rate, rate);
 		headingSet = true;
 	}
 	public TurnToAtRate(Point coord, double rate){
+		requires(Robot.drive);
+		DEAD_ZONE *= rate;
 		p = coord;
 		controller = new PIDController(0.8, 0.2, 0.6, -rate, rate);
 	}
@@ -60,7 +62,6 @@ public class TurnToAtRate extends Command {
 	@Override
 	protected void end() {
 		Robot.drive.move(0, 0);
-		SmartDashboard.putNumber("Point (" + p.x + "," + p.y + ") TurnToAtRate heading: ", heading);
 	}
 	@Override
 	protected void interrupted() {

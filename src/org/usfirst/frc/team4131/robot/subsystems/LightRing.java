@@ -10,6 +10,7 @@ public class LightRing extends Subsystem {
 
 	private Relay relay;
 	private boolean isOn;
+	public static final int FOV = 50;
 
 	public LightRing() {
 		relay = new Relay(0, Relay.Direction.kBoth);
