@@ -6,9 +6,12 @@ import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.DriveStraight;
 import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
 import org.usfirst.frc.team4131.robot.commands.Turn;
+import org.usfirst.frc.team4131.robot.commands.VisionAssistAim;
+import org.usfirst.frc.team4131.robot.subsystems.AimingFlashlight;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
+import org.usfirst.frc.team4131.robot.subsystems.RangeFlap;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
 import org.usfirst.frc.team4131.utilities.Point;
@@ -39,6 +42,8 @@ public class Robot extends IterativeRobot {
 	public static Arms arms;
 	public static OI oi;
 //	public static LightRing lightRing;
+	public static AimingFlashlight aimingFlashlight;
+	public static RangeFlap rangeFlap;
 
 	private SendableChooser chooser;
 	private Command autonomous;
@@ -53,7 +58,8 @@ public class Robot extends IterativeRobot {
 		shooter = new Shooter();
 		collector = new Collector();
 		arms = new Arms();
-//		lightRing = new LightRing();
+		aimingFlashlight = new AimingFlashlight();
+		rangeFlap = new RangeFlap();
 		
 		oi = new OI();
 		chooser = new SendableChooser();
@@ -62,6 +68,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
 		chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
 		chooser.addObject("Turn", new Turn(30));
+		chooser.addObject("VisionAssistAim", new VisionAssistAim());
 		SmartDashboard.putData("Autonomous", chooser);
 	}
 

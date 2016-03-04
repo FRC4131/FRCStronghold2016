@@ -17,9 +17,9 @@ public class StowArms extends Command {
 	protected void execute() {
 //		Robot.arms.setSpeed(Robot.arms.getAngle() > 200 ? 1 : 0.7);
 		if(Robot.arms.getAngle() > 200){
-			Robot.arms.setSpeed(1);
+			Robot.arms.setSpeed(-1);
 		}else{
-			Robot.arms.setSpeed(0.7);
+			Robot.arms.setSpeed(-0.7);
 		}
 		Robot.collector.spin(0);
 	}

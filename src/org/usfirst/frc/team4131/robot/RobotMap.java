@@ -19,7 +19,7 @@ public class RobotMap {
 
 	public static final int HANDLER_MOTOR = GRETTA ? 7 : 5;//7 on Gretta
 
-	public static final int SHOOTER_MOTOR = GRETTA ? 5 : 4;//5 on Gretta
+	public static final int SHOOTER_MOTOR = GRETTA ? 5 : 4;//5 on Gretta ok
 
 	public static final int SHOOTER_ENCODER_A = GRETTA ? 2 : 4;//2 on Gretta
 
@@ -75,7 +75,9 @@ public class RobotMap {
 	
 	public static final int STOW_ARMS = 5;		//launchpad, the stow arms button
 
-	public static final int TOGGLE_LIGHT = 1;
+	public static final int TOGGLE_LIGHT = 11;
 	
 	public static final int INVERSE = 5;
+	public static final int FLASHLIGHT_CONTROLLER = 0;
+	public static final int RANGE_FLAP_BUTTON = 10;
 }
