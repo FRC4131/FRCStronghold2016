@@ -17,7 +17,7 @@ public class DeployArms extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.arms.setSpeed(1);
+		Robot.arms.setSpeed(-1);
 	}
 
 	@Override
