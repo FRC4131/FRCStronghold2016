@@ -1,14 +1,12 @@
 package org.usfirst.frc.team4131.robot.commands;
 
-import org.usfirst.frc.team4131.utilities.Point;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
     	public class AutonLowBarShoot extends CommandGroup {
-    		private static final double speed = 0.5, distance = 153, shotAngle = 33.5, shotDistance = 29;
+    		private static final double speed = 0.5, distance = 190, shotAngle = 60, shotDistance =94;
     		public AutonLowBarShoot() {
 //    			addParallel(new SDLog("Auton Status", "Driving 1"));
     			addSequential(new DriveStraight(distance, 0, speed));

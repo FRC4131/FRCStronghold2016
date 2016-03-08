@@ -40,7 +40,6 @@ public class ChargeShooter extends Command {
 		error = TARGET_SPEED * PULSE_RATIO - readSpeed;
 		SmartDashboard.putNumber("Shooter Error", error);
 		command = controller.update(TARGET_SPEED * PULSE_RATIO - readSpeed);
-		SmartDashboard.putNumber("Shooter Command", command);
 		Robot.shooter.setSpeed(command);
 	}
 

@@ -27,11 +27,11 @@ public class Shooter extends Subsystem {
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new ChargeShooter());
-		encoder.reset();
+//		encoder.reset();
 	}
 
 	public void setSpeed(double speed) {
-//		 motor.set(speed);
+		 motor.set(speed);
 	}
 
 	public double getSpeed() {

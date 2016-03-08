@@ -2,22 +2,17 @@
 package org.usfirst.frc.team4131.robot;
 
 import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
-import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.DriveStraight;
-import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
-import org.usfirst.frc.team4131.robot.commands.Turn;
-import org.usfirst.frc.team4131.robot.commands.VisionAssistAim;
-import org.usfirst.frc.team4131.robot.subsystems.AimingFlashlight;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
 import org.usfirst.frc.team4131.robot.subsystems.RangeFlap;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
-import org.usfirst.frc.team4131.utilities.Point;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -42,7 +37,7 @@ public class Robot extends IterativeRobot {
 	public static Arms arms;
 	public static OI oi;
 //	public static LightRing lightRing;
-	public static AimingFlashlight aimingFlashlight;
+//	public static AimingFlashlight aimingFlashlight;
 	public static RangeFlap rangeFlap;
 
 	private SendableChooser chooser;
@@ -58,17 +53,19 @@ public class Robot extends IterativeRobot {
 		shooter = new Shooter();
 		collector = new Collector();
 		arms = new Arms();
-		aimingFlashlight = new AimingFlashlight();
+//		aimingFlashlight = new AimingFlashlight();
 		rangeFlap = new RangeFlap();
 		
 		oi = new OI();
 		chooser = new SendableChooser();
-		chooser.addDefault("DriveStraight", new DriveStraight(60, 0, 0.9));
-		chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0,0)));
-		chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
-		chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
-		chooser.addObject("Turn", new Turn(30));
-		chooser.addObject("VisionAssistAim", new VisionAssistAim());
+		chooser.addDefault("AutonLowBarShoot", new AutonLowBarShoot());
+		chooser.addObject("DriveStraight", new DriveStraight(190, 0, 0.9));
+		chooser.addObject("Nothing", new CommandGroup());
+//		chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0,0)));
+//		chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
+//		chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
+//		chooser.addObject("Turn", new Turn(30));
+//		chooser.addObject("VisionAssistAim", new VisionAssistAim());
 		SmartDashboard.putData("Autonomous", chooser);
 	}
 
@@ -115,9 +112,6 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		CURRENT_ANGLE = drive.getAngle();
 		dashboard();
-		SmartDashboard.putNumber("Angle: ", CURRENT_ANGLE);
-		SmartDashboard.putNumber("Current x: ", CURRENT_X);
-		SmartDashboard.putNumber("Current y:", CURRENT_Y);
 	}
 
 	public void teleopInit() {
@@ -158,5 +152,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Gyro Angle", drive.getAngle());
         SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
 //        SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
+        SmartDashboard.putString("Flap State", rangeFlap.get().name());
+		SmartDashboard.putNumber("Robot Angle", CURRENT_ANGLE);
+		SmartDashboard.putNumber("Robot X", CURRENT_X);
+		SmartDashboard.putNumber("Robot Y", CURRENT_Y);
+		SmartDashboard.putNumber("Collector Speed", collector.get());
 	}
 }
