@@ -1,12 +1,7 @@
 
 package org.usfirst.frc.team4131.robot;
 
-import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
-import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
-import org.usfirst.frc.team4131.robot.commands.DriveStraight;
-import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
-import org.usfirst.frc.team4131.robot.commands.Turn;
-import org.usfirst.frc.team4131.robot.commands.VisionAssistAim;
+import org.usfirst.frc.team4131.robot.commands.TestGyro;
 import org.usfirst.frc.team4131.robot.subsystems.AimingFlashlight;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
@@ -14,7 +9,7 @@ import org.usfirst.frc.team4131.robot.subsystems.Handler;
 import org.usfirst.frc.team4131.robot.subsystems.RangeFlap;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
-import org.usfirst.frc.team4131.utilities.Point;
+import org.usfirst.frc.team4131.utilities.SparkfunGyro;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -53,22 +48,22 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
-		drive = new TankDrive();
-		handler = new Handler();
-		shooter = new Shooter();
-		collector = new Collector();
-		arms = new Arms();
-		aimingFlashlight = new AimingFlashlight();
-		rangeFlap = new RangeFlap();
+		//drive = new TankDrive();
+		//handler = new Handler();
+		//shooter = new Shooter();
+		//collector = new Collector();
+		//arms = new Arms();
+		//aimingFlashlight = new AimingFlashlight();
+		//rangeFlap = new RangeFlap();
 		
 		oi = new OI();
 		chooser = new SendableChooser();
-		chooser.addDefault("DriveStraight", new DriveStraight(60, 0, 0.9));
-		chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0,0)));
-		chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
-		chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
-		chooser.addObject("Turn", new Turn(30));
-		chooser.addObject("VisionAssistAim", new VisionAssistAim());
+		//chooser.addDefault("DriveStraight", new DriveStraight(60, 0, 0.9));
+//		//chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0,0)));
+//		chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
+//		chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
+//		chooser.addObject("Turn", new Turn(30));
+//		chooser.addObject("VisionAssistAim", new VisionAssistAim());
 		SmartDashboard.putData("Autonomous", chooser);
 	}
 
@@ -98,13 +93,16 @@ public class Robot extends IterativeRobot {
 	 * to the switch structure below with additional strings & commands.
 	 */
 	public void autonomousInit() {
-		drive.resetEncoders();
-		CURRENT_ANGLE = drive.getAngle();
-		CURRENT_X = 0;// TODO whatever our starting position is based on
-		CURRENT_Y = 0;// TODO whatever our starting position is based on
+		//drive.resetEncoders();
+		//CURRENT_ANGLE = drive.getAngle();
+		//CURRENT_X = 0;// TODO whatever our starting position is based on
+		//CURRENT_Y = 0;// TODO whatever our starting position is based on
 //		// autonomousCommand = new DriveBackAndForth();
 //		// if (autonomousCommand != null) autonomousCommand.start();
-		autonomous = (Command) chooser.getSelected();
+		//autonomous = (Command) chooser.getSelected();
+		
+		SparkfunGyro gyro = new SparkfunGyro();
+		autonomous = new TestGyro();
 		if (autonomous != null) autonomous.start();
 	}
 
@@ -113,11 +111,11 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		CURRENT_ANGLE = drive.getAngle();
-		dashboard();
-		SmartDashboard.putNumber("Angle: ", CURRENT_ANGLE);
-		SmartDashboard.putNumber("Current x: ", CURRENT_X);
-		SmartDashboard.putNumber("Current y:", CURRENT_Y);
+		//CURRENT_ANGLE = drive.getAngle();
+		//dashboard();
+		//SmartDashboard.putNumber("Angle: ", CURRENT_ANGLE);
+		//SmartDashboard.putNumber("Current x: ", CURRENT_X);
+		//SmartDashboard.putNumber("Current y:", CURRENT_Y);
 	}
 
 	public void teleopInit() {
@@ -149,14 +147,14 @@ public class Robot extends IterativeRobot {
 	}
 	
 	private void dashboard(){
-		SmartDashboard.putNumber("Handler Speed", handler.getSpeed());
-        SmartDashboard.putNumber("Arms Angle", arms.getAngle());
-        SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
-        SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
-        SmartDashboard.putNumber("Drive Distance", drive.getDistance());
-        SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
-        SmartDashboard.putNumber("Gyro Angle", drive.getAngle());
-        SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
+		//SmartDashboard.putNumber("Handler Speed", handler.getSpeed());
+        //SmartDashboard.putNumber("Arms Angle", arms.getAngle());
+        //SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
+        //SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
+        //SmartDashboard.putNumber("Drive Distance", drive.getDistance());
+        //SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
+        //SmartDashboard.putNumber("Gyro Angle", drive.getAngle());
+        //SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
 //        SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
 	}
 }

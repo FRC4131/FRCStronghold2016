@@ -41,40 +41,40 @@ public class OI {
 	private boolean inverse = false;
 	
 	public OI(){
-		leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
-		rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
-		launchpad = new Joystick(RobotMap.LAUNCHPAD);
+		//leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
+		//rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
+		//launchpad = new Joystick(RobotMap.LAUNCHPAD);
 		
-		loadBoulder = new JoystickButton(rightStick, RobotMap.LOAD);
-		loadBoulder.whenPressed(new LoadBoulder());
+		//loadBoulder = new JoystickButton(rightStick, RobotMap.LOAD);
+		//loadBoulder.whenPressed(new LoadBoulder());
 		
-		unloadBoulder = new JoystickButton(launchpad, RobotMap.UNLOAD);
-		unloadBoulder.whileHeld(new UnloadBoulder());
+		//unloadBoulder = new JoystickButton(launchpad, RobotMap.UNLOAD);
+		//unloadBoulder.whileHeld(new UnloadBoulder());
 		
-		collectBoulder = new JoystickButton(launchpad, RobotMap.COLLECT_BOULDER);
-		collectBoulder.whenPressed(new CollectBoulder());
+		//collectBoulder = new JoystickButton(launchpad, RobotMap.COLLECT_BOULDER);
+		//collectBoulder.whenPressed(new CollectBoulder());
 		//collectBoulder.whenPressed(new DeployArms(-700));
 		
-		emergencyStop = new JoystickButton(launchpad, RobotMap.EMERGENCY_STOP);
-		emergencyStop.whenPressed(new EmergencyStop(emergencyState = !emergencyState));
+		//emergencyStop = new JoystickButton(launchpad, RobotMap.EMERGENCY_STOP);
+		//emergencyStop.whenPressed(new EmergencyStop(emergencyState = !emergencyState));
 		
 //		portcullis = new JoystickButton(launchpad, RobotMap.PORTCULLIS);
 //		portcullis.whenPressed(new AutonThruPortcullis());
 		
-		stowArms = new JoystickButton(launchpad, RobotMap.STOW_ARMS);
-		stowArms.whenPressed(new StowArms());
+		//stowArms = new JoystickButton(launchpad, RobotMap.STOW_ARMS);
+		//stowArms.whenPressed(new StowArms());
 		
-		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
-		deployArms.whenPressed(new DeployArms(700)); //Magic number!
+		//deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
+		//deployArms.whenPressed(new DeployArms(700)); //Magic number!
 		
-		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
-		toggleLight.whenPressed(new ToggleLight());
+		//toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
+		//toggleLight.whenPressed(new ToggleLight());
 		
-		inverseDrive = new JoystickButton(rightStick, RobotMap.INVERSE);
-		inverseDrive.whenPressed(new ToggleDirection());
+		//inverseDrive = new JoystickButton(rightStick, RobotMap.INVERSE);
+		//inverseDrive.whenPressed(new ToggleDirection());
 		
-		rangeFlap = new JoystickButton(leftStick, RobotMap.RANGE_FLAP_BUTTON);
-		rangeFlap.whenPressed(new ToggleRangeFlap());
+		//rangeFlap = new JoystickButton(leftStick, RobotMap.RANGE_FLAP_BUTTON);
+		//rangeFlap.whenPressed(new ToggleRangeFlap());
 	}
 	public double getLeftSpeed() {
 		return Math.pow(leftStick.getRawAxis(1), 3) * (ToggleDirection.isForward() ? -1 : 1);
@@ -88,6 +88,11 @@ public class OI {
 	}
 	public boolean getSpitOut(){
 		return unloadBoulder.get();
+	}
+	
+	public double getAngle()
+	{
+		return 0;
 	}
 }
 
