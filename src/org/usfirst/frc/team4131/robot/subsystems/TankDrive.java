@@ -5,7 +5,6 @@ import org.usfirst.frc.team4131.robot.commands.Move;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -25,7 +24,7 @@ public class TankDrive extends Subsystem {
 		rightMotor1 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR1);
 		rightMotor2 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR2);
 		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODERA, RobotMap.DRIVE_LEFT_ENCODERB, false);// would spin clockwise or +
-		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB, RobotMap.GRETTA);// would spin counter-clockwise or -; boolean reverses direction
+		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB, RobotMap.TEST_BOT);// would spin counter-clockwise or -; boolean reverses direction
 		leftEncoder.setDistancePerPulse(RobotMap.DRIVE_RATIO);
 		rightEncoder.setDistancePerPulse(RobotMap.DRIVE_RATIO);
 		
@@ -41,7 +40,6 @@ public class TankDrive extends Subsystem {
 	}
 	
 	public void resetEncoders() {
-		DriverStation.reportError("ENCODER RESET", true);
 		leftEncoder.reset();
 		rightEncoder.reset();
 	}

@@ -7,7 +7,7 @@ package org.usfirst.frc.team4131.robot;
  * floating around.
  */
 public class RobotMap {
-	public static final boolean GRETTA = true;
+	public static final boolean TEST_BOT = false;
 	/**
 	 * Ports for motor controllers, encoders, etc
 	 */
@@ -17,47 +17,47 @@ public class RobotMap {
 	
 	public static final int LAUNCHPAD = 2;
 
-	public static final int HANDLER_MOTOR = GRETTA ? 7 : 5;//7 on Gretta
+	public static final int HANDLER_MOTOR = TEST_BOT ? 7 : 5;//7 on Gretta
 
-	public static final int SHOOTER_MOTOR = GRETTA ? 5 : 4;//5 on Gretta ok
+	public static final int SHOOTER_MOTOR = TEST_BOT ? 5 : 4;//5 on Gretta ok
 
-	public static final int SHOOTER_ENCODER_A = GRETTA ? 2 : 4;//2 on Gretta
+	public static final int SHOOTER_ENCODER_A = TEST_BOT ? 2 : 4;//2 on Gretta
 
-	public static final int SHOOTER_ENCODER_B = GRETTA ? 3 : 5;//3 on Gretta
+	public static final int SHOOTER_ENCODER_B = TEST_BOT ? 3 : 5;//3 on Gretta
 
-	public static final int DRIVE_LEFT_MOTOR1 = GRETTA ? 1 : 0;//1 on Gretta
+	public static final int DRIVE_LEFT_MOTOR1 = TEST_BOT ? 1 : 0;//1 on Gretta
 
-	public static final int DRIVE_LEFT_MOTOR2 = GRETTA ? 2 : 1;//2 on Gretta
+	public static final int DRIVE_LEFT_MOTOR2 = TEST_BOT ? 2 : 1;//2 on Gretta
 
-	public static final int DRIVE_RIGHT_MOTOR1 = GRETTA ? 3 : 2;//3 on Gretta
+	public static final int DRIVE_RIGHT_MOTOR1 = TEST_BOT ? 3 : 2;//3 on Gretta
 
-	public static final int DRIVE_RIGHT_MOTOR2 = GRETTA ? 4 : 3;//4 on Gretta
+	public static final int DRIVE_RIGHT_MOTOR2 = TEST_BOT ? 4 : 3;//4 on Gretta
 
-	public static final int DRIVE_LEFT_ENCODERA = GRETTA ? 4 : 2;//4 on Gretta
+	public static final int DRIVE_LEFT_ENCODERA = TEST_BOT ? 4 : 2;//4 on Gretta
 
-	public static final int DRIVE_LEFT_ENCODERB = GRETTA ? 5 : 3;//5 on Gretta
+	public static final int DRIVE_LEFT_ENCODERB = TEST_BOT ? 5 : 3;//5 on Gretta
 
-	public static final int DRIVE_RIGHT_ENCODERA = GRETTA ? 7 : 0;//7 on Gretta
+	public static final int DRIVE_RIGHT_ENCODERA = TEST_BOT ? 7 : 0;//7 on Gretta
 
-	public static final int DRIVE_RIGHT_ENCODERB = GRETTA ? 6 : 1;//6 on Gretta
+	public static final int DRIVE_RIGHT_ENCODERB = TEST_BOT ? 6 : 1;//6 on Gretta
 	
-	public static final double DRIVE_RATIO = GRETTA ? ((125D + 3D/16D) / 1033D) : (43.0 + 17.0 / 32.0) / 1073.00;
+	public static final double DRIVE_RATIO = TEST_BOT ? ((125D + 3D/16D) / 1033D) : (43.0 + 17.0 / 32.0) / 1073.00;
 	
 	public static final int GYRO = 1;
 	//Direct wired
 //	public static final int LIGHT = 9;
 	
-	public static final int ARMS_MOTOR = GRETTA ? 8 : 6;//8 on Gretta
+	public static final int ARMS_MOTOR = TEST_BOT ? 8 : 6;//8 on Gretta
 	
-	public static final int ARMS_ENCODERA = GRETTA ? 8 : 8;//8 on Gretta
+	public static final int ARMS_ENCODERA = TEST_BOT ? 8 : 8;//8 on Gretta
 
-	public static final int ARMS_ENCODERB = GRETTA ? 9 : 9;//9 on Gretta
+	public static final int ARMS_ENCODERB = TEST_BOT ? 9 : 9;//9 on Gretta
 
-	public static final int ARMS_SWITCH = GRETTA ? 1 : 7;// 1 on Gretta 
+	public static final int ARMS_SWITCH = TEST_BOT ? 1 : 7;// 1 on Gretta 
 	
-	public static final int COLLECTOR_MOTOR = GRETTA ? 6 : 8;//rolling pin motor; 6 on Gretta
+	public static final int COLLECTOR_MOTOR = TEST_BOT ? 6 : 7;//rolling pin motor; 6 on Gretta
 	
-	public static final int HANDLER_SWITCH = GRETTA ? 0 : 6;//0 on Gretta
+	public static final int HANDLER_SWITCH = TEST_BOT ? 0 : 6;//0 on Gretta
 	/**
 	 * Joystick mappings
 	 */
@@ -80,4 +80,5 @@ public class RobotMap {
 	public static final int INVERSE = 5;
 	public static final int FLASHLIGHT_CONTROLLER = 0;
 	public static final int RANGE_FLAP_BUTTON = 10;
+	public static final int TOGGLE_LAUNCHER = 1;//Left stick, toggle the launcher
 }

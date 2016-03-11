@@ -25,6 +25,7 @@ public class VisionAssistAim extends Command {
 	private double targetAngle;
 	
 	private static final double DEAD_ZONE = 1.1;
+	private static final double TIME_OUT_PERIOD = 5.0;
 	
     public VisionAssistAim() {
         requires(Robot.drive);
@@ -58,7 +59,7 @@ public class VisionAssistAim extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Math.abs(targetAngle - Robot.drive.getAngle()) <= DEAD_ZONE;
+        return Math.abs(targetAngle - Robot.drive.getAngle()) <= DEAD_ZONE && cameraTimer.hasPeriodPassed(TIME_OUT_PERIOD);
     }
 
     // Called once after isFinished returns true

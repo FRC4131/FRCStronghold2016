@@ -4,7 +4,6 @@ import org.usfirst.frc.team4131.robot.Robot;
 import org.usfirst.frc.team4131.utilities.PIDController;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -29,7 +28,6 @@ public class Turn extends Command {
     		return;
     	}
     	double speed = controller.update(angle - Robot.drive.getAngle());
-    	SmartDashboard.putNumber("Spin Command", speed);
     	if (speed < 0){
     		speed = -speed;
     	}

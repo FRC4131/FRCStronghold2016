@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class LoadBoulder extends Command {
 	
-	private Timer timer;
-	
 	private static final double LOAD_TIME = 2.0;
-	private static final double LOAD_SPEED = 0.7;
+	private static final double LOAD_SPEED = -0.7;
+	
+	private Timer timer;
 
     public LoadBoulder() {
     	requires(Robot.handler);
@@ -25,7 +25,7 @@ public class LoadBoulder extends Command {
     	timer.reset();
     	timer.start();
     	
-    	Robot.handler.spin(-LOAD_SPEED);
+    	Robot.handler.spin(LOAD_SPEED);
     }
 
     // Called repeatedly when this Command is scheduled to run

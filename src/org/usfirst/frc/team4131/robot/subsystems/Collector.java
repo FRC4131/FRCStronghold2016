@@ -23,4 +23,8 @@ public class Collector extends Subsystem {
 
 	public void initDefaultCommand() {
 	}
+
+	public double get() {
+		return motor.get();
+	}
 }

@@ -5,6 +5,7 @@ import org.usfirst.frc.team4131.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class StowArms extends Command {
+	private static final double FULL_REVERSE = 1, PARTIAL_REVERSE = 0.7;
 	public StowArms(){
 		requires(Robot.arms);
 		requires(Robot.collector);
@@ -16,11 +17,11 @@ public class StowArms extends Command {
 	@Override
 	protected void execute() {
 //		Robot.arms.setSpeed(Robot.arms.getAngle() > 200 ? 1 : 0.7);
-		if(Robot.arms.getAngle() > 200){
-			Robot.arms.setSpeed(-1);
-		}else{
-			Robot.arms.setSpeed(-0.7);
-		}
+//		if(Robot.arms.getAngle() > 200){
+			Robot.arms.setSpeed(FULL_REVERSE);
+//		}else{
+//			Robot.arms.setSpeed(PARTIAL_REVERSE);
+//		}
 		Robot.collector.spin(0);
 	}
 

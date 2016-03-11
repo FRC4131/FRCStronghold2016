@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DeployArms extends Command {
 	private static final double DEADBAND = 15;
+	private static final double SPEED = -1;
 	private double angle;
 	public DeployArms(double angle){
 		requires(Robot.arms);
@@ -17,7 +18,7 @@ public class DeployArms extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.arms.setSpeed(-1);
+		Robot.arms.setSpeed(SPEED);
 	}
 
 	@Override
