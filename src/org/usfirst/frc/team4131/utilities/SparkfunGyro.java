@@ -93,8 +93,10 @@ public class SparkfunGyro {
 	
 	public SparkfunGyro()
 	{
-		mag = new I2C(I2C.Port.kOnboard, MAG_ADDR);
+	}
+	
+	private initGyro()
+	{
 		
-		SmartDashboard.putBoolean("Mag Responding: ", mag.addressOnly());
 	}
 }
