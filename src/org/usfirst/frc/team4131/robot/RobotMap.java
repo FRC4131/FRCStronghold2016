@@ -112,5 +112,7 @@ public class RobotMap {
 	public static final int RANGE_FLAP_BUTTON = 10;
 	
 	public static final int TOGGLE_LAUNCHER = 1;//Left stick, toggle the launcher
+	
+	public static final int BLAST_FORWARD = 1;
 
 }

@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class LittleMove extends Command {
+	private static int littleSpeed;
 
-	public LittleMove() {
+	public LittleMove(int littleSpeed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
+		this.littleSpeed = littleSpeed;
 		requires(Robot.drive);
 	}
 
@@ -21,13 +23,13 @@ public class LittleMove extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.oi.getLittleSpeed() == 0){
+		if (littleSpeed == 0){
 			Robot.drive.move(0.3, 0.3);
-		}else if (Robot.oi.getLittleSpeed() == 2){
+		}else if (littleSpeed == 2){
 			Robot.drive.move(0.3, -0.3);
-		}else if (Robot.oi.getLittleSpeed() == 4){
+		}else if (littleSpeed == 4){
 			Robot.drive.move(-0.3, -0.3);
-		}else if (Robot.oi.getLittleSpeed() == 6){
+		}else if (littleSpeed == 6){
 			Robot.drive.move(-0.3, 0.3);
 		}else{
 			Robot.drive.move(0, 0);
@@ -36,7 +38,7 @@ public class LittleMove extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return Robot.oi.POV.get();
 	}
 
 	// Called once after isFinished returns true

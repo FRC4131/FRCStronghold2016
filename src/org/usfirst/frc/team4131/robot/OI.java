@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4131.robot;
 
 import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
+import org.usfirst.frc.team4131.robot.commands.BlastForward;
 import org.usfirst.frc.team4131.robot.commands.ChargeShooter;
 import org.usfirst.frc.team4131.robot.commands.CollectBoulder;
 import org.usfirst.frc.team4131.robot.commands.DeployArms;
@@ -38,17 +39,21 @@ public class OI {
 	private Button inverseDrive;
 //	private Button toggleLight;
 	private Button toggleLauncher;
+	public Button blastForward;
 	
 	private Button rangeFlap;
 	
-	private POVTrigger POV;
+	public POVTrigger POV;
 	
 	public OI(){
 		leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
 		rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
 		
 		POV = new POVTrigger(rightStick);
-		POV.whenActive(new LittleMove());
+		POV.whenActive(new LittleMove(POV.getLittleSpeed()));
+		
+		blastForward = new JoystickButton(leftStick, RobotMap.BLAST_FORWARD);
+		blastForward.whenPressed(new BlastForward());
 		
 		launchpad = new Joystick(RobotMap.LAUNCHPAD);
 		
@@ -96,33 +101,34 @@ public class OI {
 //			return leftStick.getRawAxis(1);
 		return Math.pow(rightStick.getRawAxis(1), 3) * (ToggleDirection.isForward() ? -1 : 1);
 	}
-	public int getLittleSpeed(){
-		if (rightStick.getPOV() == 0){
-			return 0;
-		}
-		if (rightStick.getPOV() == 2){
-			return 2;
-		}
-		if (rightStick.getPOV() == 4){
-			return 4;
-		}
-		if (rightStick.getPOV() == 6){
-			return 6;
-		}
-		else{
-			return -1;
-		}
-	}
+	
 	public boolean getSpitOut(){
 		return unloadBoulder.get();
 	}
-	class POVTrigger extends Trigger{
+	public class POVTrigger extends Trigger{
 		private final Joystick joystick;
 		public POVTrigger(Joystick joystick){
 			this.joystick = joystick;
 		}
 		public boolean get() {
 			return joystick.getPOV() != -1;
+		}
+		public int getLittleSpeed(){
+			if (joystick.getPOV() == 0){
+				return 0;
+			}
+			if (joystick.getPOV() == 2){
+				return 2;
+			}
+			if (joystick.getPOV() == 4){
+				return 4;
+			}
+			if (joystick.getPOV() == 6){
+				return 6;
+			}
+			else{
+				return -1;
+			}
 		}
 	}
 }
