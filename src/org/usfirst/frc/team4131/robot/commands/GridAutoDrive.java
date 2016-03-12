@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4131.robot.commands;
 
 
+import java.util.List;
+
 import org.usfirst.frc.team4131.utilities.Point;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,6 +13,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class GridAutoDrive extends CommandGroup {
 	private Command[] cmds;
+	public GridAutoDrive(List<Point> points){
+		Point[] pointArray = new Point[points.size()];
+		helper(points.toArray(pointArray));
+	}
     public  GridAutoDrive(Point...points) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -28,17 +34,19 @@ public class GridAutoDrive extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	this.cmds = new Command[4 * points.length];
-    	int cmdCounter = 0;
-    	for(int i = 0; i < points.length; ++i){
-    		cmds[cmdCounter++] = new TurnToAtRate(points[i], 0.8);
-    		cmds[cmdCounter++] = new Wait(1);
-    		cmds[cmdCounter++] = new DriveStraight(points[i], 0.5);
-    		cmds[cmdCounter++] = new Wait(1);
-    	}
-    	for(Command cmd : cmds){
-    		addSequential(cmd);
-    	}
+    	helper(points);
+   }
+   private void helper(Point[] points){
+	   this.cmds = new Command[4 * points.length];
+	   int cmdCounter = 0;
+	   for(int i = 0; i < points.length; ++i){
+		   cmds[cmdCounter++] = new TurnToAtRate(points[i], 0.8);
+		   cmds[cmdCounter++] = new Wait(1);
+		   cmds[cmdCounter++] = new DriveStraight(points[i], 0.5);
+		   cmds[cmdCounter++] = new Wait(1);
+   		}
+   		for(Command cmd : cmds){
+   			addSequential(cmd);
+   		}
    }
 }

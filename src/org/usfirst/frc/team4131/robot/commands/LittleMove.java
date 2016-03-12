@@ -23,15 +23,14 @@ public class LittleMove extends Command {
 	protected void execute() {
 		if (Robot.oi.getLittleSpeed() == 0){
 			Robot.drive.move(0.3, 0.3);
-		}
-		if (Robot.oi.getLittleSpeed() == 2){
+		}else if (Robot.oi.getLittleSpeed() == 2){
 			Robot.drive.move(0.3, -0.3);
-		}
-		if (Robot.oi.getLittleSpeed() == 4){
+		}else if (Robot.oi.getLittleSpeed() == 4){
 			Robot.drive.move(-0.3, -0.3);
-		}
-		if (Robot.oi.getLittleSpeed() == 6){
+		}else if (Robot.oi.getLittleSpeed() == 6){
 			Robot.drive.move(-0.3, 0.3);
+		}else{
+			Robot.drive.move(0, 0);
 		}
 	}
 

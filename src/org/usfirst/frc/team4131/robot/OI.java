@@ -5,6 +5,7 @@ import org.usfirst.frc.team4131.robot.commands.ChargeShooter;
 import org.usfirst.frc.team4131.robot.commands.CollectBoulder;
 import org.usfirst.frc.team4131.robot.commands.DeployArms;
 import org.usfirst.frc.team4131.robot.commands.EmergencyStop;
+import org.usfirst.frc.team4131.robot.commands.LittleMove;
 import org.usfirst.frc.team4131.robot.commands.LoadBoulder;
 import org.usfirst.frc.team4131.robot.commands.StowArms;
 import org.usfirst.frc.team4131.robot.commands.ToggleDirection;
@@ -14,6 +15,7 @@ import org.usfirst.frc.team4131.robot.commands.UnloadBoulder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -39,9 +41,15 @@ public class OI {
 	
 	private Button rangeFlap;
 	
+	private POVTrigger POV;
+	
 	public OI(){
 		leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
 		rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
+		
+		POV = new POVTrigger(rightStick);
+		POV.whenActive(new LittleMove());
+		
 		launchpad = new Joystick(RobotMap.LAUNCHPAD);
 		
 		loadBoulder = new JoystickButton(rightStick, RobotMap.LOAD);
@@ -102,11 +110,20 @@ public class OI {
 			return 6;
 		}
 		else{
-			return 1;
+			return -1;
 		}
 	}
 	public boolean getSpitOut(){
 		return unloadBoulder.get();
+	}
+	class POVTrigger extends Trigger{
+		private final Joystick joystick;
+		public POVTrigger(Joystick joystick){
+			this.joystick = joystick;
+		}
+		public boolean get() {
+			return joystick.getPOV() != -1;
+		}
 	}
 }
 

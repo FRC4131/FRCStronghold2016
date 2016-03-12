@@ -8,13 +8,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
+import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.DriveStraight;
+import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
+import org.usfirst.frc.team4131.robot.commands.Turn;
+import org.usfirst.frc.team4131.robot.commands.VisionAssistAim;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
 import org.usfirst.frc.team4131.robot.subsystems.RangeFlap;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
+import org.usfirst.frc.team4131.utilities.Point;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,6 +37,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+
+	private final boolean ELECTRICAL_BOT;
+	
 	public static double CURRENT_X;
 	public static double CURRENT_Y;
 	public static double CURRENT_ANGLE;
@@ -49,51 +57,50 @@ public class Robot extends IterativeRobot {
 	private SendableChooser chooser;
 	private Command autonomous;
 	
-	private static final String TEST_BOT = "TestBot";
-	private static String whoami;
-	private static final String CONFIG_FILENAME = "WHOAMI.TXT";
-	
-
-	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 */
-	public void robotInit() {
-		drive = new TankDrive();
-		handler = new Handler();
-		shooter = new Shooter();
-		collector = new Collector();
-		arms = new Arms();
-//		aimingFlashlight = new AimingFlashlight();
-		rangeFlap = new RangeFlap();
-		
-		oi = new OI();
-		chooser = new SendableChooser();
-		chooser.addDefault("AutonLowBarShoot", new AutonLowBarShoot());
-		chooser.addObject("DriveStraight", new DriveStraight(150, 0, 0.9));
-		chooser.addObject("Nothing", new CommandGroup());
-//		chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0,0)));
-//		chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
-//		chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
-//		chooser.addObject("Turn", new Turn(30));
-//		chooser.addObject("VisionAssistAim", new VisionAssistAim());
-		SmartDashboard.putData("Autonomous", chooser);
-
-//		try {
-//			FileWriter file = new FileWriter(CONFIG_FILENAME);
-//			file.append(TEST_BOT);
-//			file.close();
-//		} catch (IOException e1) {
-//			e1.printStackTrace();
-//		}
+	public Robot(){
+		super();
+		String whoami = null;
 		byte[] buffer = null;
-		Path configPath = FileSystems.getDefault().getPath(CONFIG_FILENAME);
+		Path configPath = FileSystems.getDefault().getPath(RobotMap.CONFIG_FILENAME);
 		try {
 			buffer = Files.readAllBytes(configPath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		whoami = new String(buffer);
+		RobotMap.ROBOT_TYPE = RobotMap.robotType(whoami);
+		ELECTRICAL_BOT = RobotMap.ROBOT_TYPE == RobotMap.ELECT_BOT_NUM;
+	}
+	
+	/**
+	 * This function is run when the robot is first started up and should be
+	 * used for any initialization code.
+	 */
+	public void robotInit() {
+		if(ELECTRICAL_BOT){
+			//electricalBot Code
+		}else{
+			drive = new TankDrive();
+			handler = new Handler();
+			shooter = new Shooter();
+			collector = new Collector();
+			arms = new Arms();
+	//		aimingFlashlight = new AimingFlashlight();
+			rangeFlap = new RangeFlap();
+			
+			oi = new OI();
+			chooser = new SendableChooser();
+			chooser.addDefault("AutonLowBarShoot", new AutonLowBarShoot());
+			chooser.addObject("DriveStraight", new DriveStraight(150, 0, 0.9));
+			chooser.addObject("Nothing", new CommandGroup());
+			chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0,0)));
+			chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
+			chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
+			chooser.addObject("Turn", new Turn(30));
+			chooser.addObject("VisionAssistAim", new VisionAssistAim());
+			SmartDashboard.putData("Autonomous", chooser);
+		}
+		
 	}
 
 	/**
@@ -102,13 +109,11 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
 	 */
 	public void disabledInit() {
-//		gridDrive.cancel();
-		SmartDashboard.putBoolean("File is placed", isTestBot());
 	}
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-//		dashboard();
+		dashboard();
 	}
 
 	/**
@@ -171,24 +176,32 @@ public class Robot extends IterativeRobot {
 	}
 	
 	private void dashboard(){
-		SmartDashboard.putNumber("Handler Speed", handler.getSpeed());
-        SmartDashboard.putNumber("Arms Angle", arms.getAngle());
-        SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
-        SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
-        SmartDashboard.putNumber("Drive Distance", drive.getDistance());
-        SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
-        SmartDashboard.putNumber("Gyro Angle", drive.getAngle());
-        SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
-//        SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
-        SmartDashboard.putString("Flap State", rangeFlap.get().name());
-		SmartDashboard.putNumber("Robot Angle", CURRENT_ANGLE);
-		SmartDashboard.putNumber("Robot X", CURRENT_X);
-		SmartDashboard.putNumber("Robot Y", CURRENT_Y);
-		SmartDashboard.putNumber("Collector Speed", collector.get());
+		if(ELECTRICAL_BOT){
+			//electricalBot Code
+		}else{
+			SmartDashboard.putNumber("Handler Speed", handler.getSpeed());
+	        SmartDashboard.putNumber("Arms Angle", arms.getAngle());
+	        SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
+	        SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
+	        SmartDashboard.putNumber("Drive Distance", drive.getDistance());
+	        SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
+	        SmartDashboard.putNumber("Gyro Angle", drive.getAngle());
+	        SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
+//	        SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
+	        SmartDashboard.putString("Flap State", rangeFlap.get().name());
+			SmartDashboard.putNumber("Robot Angle", CURRENT_ANGLE);
+			SmartDashboard.putNumber("Robot X", CURRENT_X);
+			SmartDashboard.putNumber("Robot Y", CURRENT_Y);
+			SmartDashboard.putNumber("Collector Speed", collector.get());
+		}
 	}
-	
-	public static boolean isTestBot()
-	{
-		return whoami.equals(TEST_BOT);
+	private void writeToRio(String robotType){
+		try {
+			FileWriter file = new FileWriter(RobotMap.CONFIG_FILENAME);
+			file.append(robotType);
+			file.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 }
