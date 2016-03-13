@@ -30,8 +30,8 @@ public class Arms extends Subsystem {
 	public void setSpeed(double speed) {
 		motor.set(-speed);
 	}
-	
-	public double getSpeed(){
+
+	public double getSpeed() {
 		return motor.get();
 	}
 

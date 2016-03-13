@@ -16,7 +16,7 @@ public class TankDrive extends Subsystem {
 	private CANTalon leftMotor1, leftMotor2, rightMotor1, rightMotor2;
 	private Encoder leftEncoder, rightEncoder;
 	private Gyro gyro;
-	
+
 	public TankDrive() {
 		super();
 		leftMotor1 = new CANTalon(RobotMap.DRIVE_LEFT_MOTOR1);
@@ -27,18 +27,18 @@ public class TankDrive extends Subsystem {
 		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB, RobotMap.ROBOT_TYPE == RobotMap.COMP_BOT_NUM);// would spin counter-clockwise or -; boolean reverses direction
 		leftEncoder.setDistancePerPulse(RobotMap.DRIVE_RATIO);
 		rightEncoder.setDistancePerPulse(RobotMap.DRIVE_RATIO);
-		
+
 		gyro = new AnalogGyro(RobotMap.GYRO);
 	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new Move());
 	}
-	
-	public void resetGyro(){
+
+	public void resetGyro() {
 		gyro.reset();
 	}
-	
+
 	public void resetEncoders() {
 		leftEncoder.reset();
 		rightEncoder.reset();
@@ -56,18 +56,18 @@ public class TankDrive extends Subsystem {
 		rightMotor1.set(-speed2);
 		rightMotor2.set(-speed2);
 	}
-	
-	public double getAngle(){
+
+	public double getAngle() {
 		return (gyro.getAngle() % 360) + (gyro.getAngle() < 0 ? 360 : 0);
 	}
-	
+
 	/**
 	 * Returns the average distance calculated from both encoders.
 	 * 
 	 * @return (double) Average of two encoders
 	 */
 	public double getDistance() {
-//		return (leftEncoder.get() + rightEncoder.get()) / 2.0;
+		//		return (leftEncoder.get() + rightEncoder.get()) / 2.0;
 		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0;
 	}
 }

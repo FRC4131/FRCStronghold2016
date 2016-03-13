@@ -28,7 +28,8 @@ public class LightRing extends Subsystem {
 			isOn = true;
 		}
 	}
-	public boolean isOn(){
+
+	public boolean isOn() {
 		return isOn;
 	}
 }

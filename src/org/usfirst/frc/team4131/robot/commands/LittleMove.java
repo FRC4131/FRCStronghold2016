@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class LittleMove extends Command {
-	private static int littleSpeed;
+	private int littleSpeed;
 
 	public LittleMove(int littleSpeed) {
 		// Use requires() here to declare subsystem dependencies
@@ -23,15 +23,15 @@ public class LittleMove extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (littleSpeed == 0){
+		if (littleSpeed == 0) {
 			Robot.drive.move(0.3, 0.3);
-		}else if (littleSpeed == 2){
+		} else if (littleSpeed == 2) {
 			Robot.drive.move(0.3, -0.3);
-		}else if (littleSpeed == 4){
+		} else if (littleSpeed == 4) {
 			Robot.drive.move(-0.3, -0.3);
-		}else if (littleSpeed == 6){
+		} else if (littleSpeed == 6) {
 			Robot.drive.move(-0.3, 0.3);
-		}else{
+		} else {
 			Robot.drive.move(0, 0);
 		}
 	}

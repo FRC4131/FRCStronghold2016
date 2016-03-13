@@ -14,7 +14,7 @@ public class Collector extends Subsystem {
 
 	public Collector() {
 		motor = new CANTalon(RobotMap.COLLECTOR_MOTOR);
-		((CANTalon)motor).enableBrakeMode(true);
+		((CANTalon) motor).enableBrakeMode(true);
 	}
 
 	public void spin(double speed) {

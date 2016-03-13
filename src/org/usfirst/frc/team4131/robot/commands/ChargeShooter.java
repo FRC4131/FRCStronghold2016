@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ChargeShooter extends Command {
 	private static final double TARGET_SPEED = 5000.0;
 	private static final double PULSE_RATIO = 0.333;
-	
+
 	private PIDController controller;
-	
+
 	private Timer timer;
-	
+
 	public ChargeShooter() {
 		controller = new PIDController(0.008, 0.005, 0.001, 0, 1);
 		timer = new Timer();
@@ -36,7 +36,7 @@ public class ChargeShooter extends Command {
 		double readSpeed = Robot.shooter.getRate();
 		double command;
 		double error;
-		
+
 		error = TARGET_SPEED * PULSE_RATIO - readSpeed;
 		SmartDashboard.putNumber("Shooter Error", error);
 		command = controller.update(TARGET_SPEED * PULSE_RATIO - readSpeed);

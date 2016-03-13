@@ -12,34 +12,37 @@ public class TurnToAtRate extends Command {
 	private boolean headingSet = false;
 	private Point p = null;
 	private PIDController controller;
-	public TurnToAtRate(double heading, double rate){
+
+	public TurnToAtRate(double heading, double rate) {
 		requires(Robot.drive);
 		DEAD_ZONE *= rate;
 		this.heading = heading;
 		controller = new PIDController(0.8, 0.2, 0.6, -rate, rate);
 		headingSet = true;
 	}
-	public TurnToAtRate(Point coord, double rate){
+
+	public TurnToAtRate(Point coord, double rate) {
 		requires(Robot.drive);
 		DEAD_ZONE *= rate;
 		p = coord;
 		controller = new PIDController(0.8, 0.2, 0.6, -rate, rate);
 	}
+
 	@Override
 	protected void initialize() {
-		if(headingSet){
+		if (headingSet) {
 			controller.start(getError());
 		}
 	}
 
 	@Override
 	protected void execute() {
-		if((p != null) && (!headingSet)){
+		if ((p != null) && (!headingSet)) {
 			double x, y, angle;
 			x = p.x - Robot.CURRENT_X;
 			y = p.y - Robot.CURRENT_Y;
 			angle = Math.toDegrees(Math.atan2(x, y));
-			if(angle < 0){
+			if (angle < 0) {
 				angle += 360;
 			}
 			this.heading = angle;
@@ -47,7 +50,7 @@ public class TurnToAtRate extends Command {
 			controller.start(getError());
 		}
 		double error = getError();
-		if(Math.abs(error) < DEAD_ZONE){
+		if (Math.abs(error) < DEAD_ZONE) {
 			return;
 		}
 		double speed = controller.update(error);
@@ -63,14 +66,18 @@ public class TurnToAtRate extends Command {
 	protected void end() {
 		Robot.drive.move(0, 0);
 	}
+
 	@Override
 	protected void interrupted() {
 		Robot.drive.move(0, 0);
 	}
-	private double getError(){
-		double error =(Robot.drive.getAngle() - heading % 360);
-		if (error < 0 )  error  += 360;
-		if (error > 180) error  -= 360;
+
+	private double getError() {
+		double error = (Robot.drive.getAngle() - heading % 360);
+		if (error < 0)
+			error += 360;
+		if (error > 180)
+			error -= 360;
 		return (-error);
 	}
 }

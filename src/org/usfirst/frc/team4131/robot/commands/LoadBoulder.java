@@ -9,42 +9,42 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class LoadBoulder extends Command {
-	
+
 	private static final double LOAD_TIME = 2.0;
 	private static final double LOAD_SPEED = -0.7;
-	
+
 	private Timer timer;
 
-    public LoadBoulder() {
-    	requires(Robot.handler);
-    	timer = new Timer();
-    }
+	public LoadBoulder() {
+		requires(Robot.handler);
+		timer = new Timer();
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	timer.reset();
-    	timer.start();
-    	
-    	Robot.handler.spin(LOAD_SPEED);
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		timer.reset();
+		timer.start();
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+		Robot.handler.spin(LOAD_SPEED);
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return timer.hasPeriodPassed(LOAD_TIME);
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	Robot.handler.spin(0.0);
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return timer.hasPeriodPassed(LOAD_TIME);
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	Robot.handler.spin(0.0);
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		Robot.handler.spin(0.0);
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		Robot.handler.spin(0.0);
+	}
 }

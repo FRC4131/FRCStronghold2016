@@ -26,7 +26,8 @@ public class ToggleDirection extends Command {
 	@Override
 	protected void interrupted() {
 	}
-	public static boolean isForward(){
+
+	public static boolean isForward() {
 		return forward;
 	}
 }

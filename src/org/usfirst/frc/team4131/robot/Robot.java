@@ -1,7 +1,5 @@
-
 package org.usfirst.frc.team4131.robot;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -39,7 +37,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	private final boolean ELECTRICAL_BOT;
-	
+
 	public static double CURRENT_X;
 	public static double CURRENT_Y;
 	public static double CURRENT_ANGLE;
@@ -50,14 +48,14 @@ public class Robot extends IterativeRobot {
 	public static Collector collector;
 	public static Arms arms;
 	public static OI oi;
-//	public static LightRing lightRing;
-//	public static AimingFlashlight aimingFlashlight;
+	// public static LightRing lightRing;
+	// public static AimingFlashlight aimingFlashlight;
 	public static RangeFlap rangeFlap;
 
 	private SendableChooser chooser;
 	private Command autonomous;
-	
-	public Robot(){
+
+	public Robot() {
 		super();
 		String whoami = null;
 		byte[] buffer = null;
@@ -71,36 +69,35 @@ public class Robot extends IterativeRobot {
 		RobotMap.ROBOT_TYPE = RobotMap.robotType(whoami);
 		ELECTRICAL_BOT = RobotMap.ROBOT_TYPE == RobotMap.ELECT_BOT_NUM;
 	}
-	
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
-		if(ELECTRICAL_BOT){
-			//electricalBot Code
-		}else{
+		if (ELECTRICAL_BOT) {
+			// electricalBot Code
+		} else {
 			drive = new TankDrive();
 			handler = new Handler();
 			shooter = new Shooter();
 			collector = new Collector();
 			arms = new Arms();
-	//		aimingFlashlight = new AimingFlashlight();
+			// aimingFlashlight = new AimingFlashlight();
 			rangeFlap = new RangeFlap();
-			
+
 			oi = new OI();
 			chooser = new SendableChooser();
 			chooser.addDefault("AutonLowBarShoot", new AutonLowBarShoot());
 			chooser.addObject("DriveStraight", new DriveStraight(150, 0, 0.9));
 			chooser.addObject("Nothing", new CommandGroup());
-			chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0,0)));
+			chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0, 0)));
 			chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
 			chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
 			chooser.addObject("Turn", new Turn(30));
 			chooser.addObject("VisionAssistAim", new VisionAssistAim());
 			SmartDashboard.putData("Autonomous", chooser);
 		}
-		
 	}
 
 	/**
@@ -128,14 +125,13 @@ public class Robot extends IterativeRobot {
 	 * to the switch structure below with additional strings & commands.
 	 */
 	public void autonomousInit() {
-//		drive.resetEncoders();
-//		CURRENT_ANGLE = drive.getAngle();
-//		CURRENT_X = 0;// TODO whatever our starting position is based on
-//		CURRENT_Y = 0;// TODO whatever our starting position is based on
-//		// autonomousCommand = new DriveBackAndForth();
-//		// if (autonomousCommand != null) autonomousCommand.start();
+		drive.resetEncoders();
+		CURRENT_ANGLE = drive.getAngle();
+		CURRENT_X = 0;// TODO whatever our starting position is based on
+		CURRENT_Y = 0;// TODO whatever our starting position is based on
 		autonomous = (Command) chooser.getSelected();
-		if (autonomous != null) autonomous.start();
+		if (autonomous != null)
+			autonomous.start();
 	}
 
 	/**
@@ -143,15 +139,11 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-//		CURRENT_ANGLE = drive.getAngle();
-//		dashboard();
+		CURRENT_ANGLE = drive.getAngle();
+		dashboard();
 	}
 
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
 		if (autonomous != null)
 			autonomous.cancel();// End autonomous when teleop starts
 	}
@@ -161,7 +153,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-//		dashboard();
+		dashboard();
 	}
 
 	/**
@@ -174,34 +166,25 @@ public class Robot extends IterativeRobot {
 	public static double constrain(double value, double min, double max) {
 		return Math.min(Math.max(value, min), max);
 	}
-	
-	private void dashboard(){
-		if(ELECTRICAL_BOT){
-			//electricalBot Code
-		}else{
+
+	private void dashboard() {
+		if (ELECTRICAL_BOT) {
+			// electricalBot Code
+		} else {
 			SmartDashboard.putNumber("Handler Speed", handler.getSpeed());
-	        SmartDashboard.putNumber("Arms Angle", arms.getAngle());
-	        SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
-	        SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
-	        SmartDashboard.putNumber("Drive Distance", drive.getDistance());
-	        SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
-	        SmartDashboard.putNumber("Gyro Angle", drive.getAngle());
-	        SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
-//	        SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
-	        SmartDashboard.putString("Flap State", rangeFlap.get().name());
+			SmartDashboard.putNumber("Arms Angle", arms.getAngle());
+			SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
+			SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
+			SmartDashboard.putNumber("Drive Distance", drive.getDistance());
+			SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
+			SmartDashboard.putNumber("Gyro Angle", drive.getAngle());
+			SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
+			// SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
+			SmartDashboard.putString("Flap State", rangeFlap.get().name());
 			SmartDashboard.putNumber("Robot Angle", CURRENT_ANGLE);
 			SmartDashboard.putNumber("Robot X", CURRENT_X);
 			SmartDashboard.putNumber("Robot Y", CURRENT_Y);
 			SmartDashboard.putNumber("Collector Speed", collector.get());
-		}
-	}
-	private void writeToRio(String robotType){
-		try {
-			FileWriter file = new FileWriter(RobotMap.CONFIG_FILENAME);
-			file.append(robotType);
-			file.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
 		}
 	}
 }

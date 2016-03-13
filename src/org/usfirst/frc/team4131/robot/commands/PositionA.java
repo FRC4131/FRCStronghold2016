@@ -6,14 +6,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class PositionA extends CommandGroup {
-	
+
 	private static final int LEG1_DISTANCE = 5 * 12;
 	private static final int TOWER_ANGLE = -45;
 	private static final int LEG2_DISTANCE = 5 * 12;
-    
-    public  PositionA() {
-        addSequential(new DriveStraight(LEG1_DISTANCE, 0, 0.4));
-        addSequential(new TurnToAtRate(TOWER_ANGLE, 0.4));
-        addSequential(new DriveStraight(LEG2_DISTANCE, TOWER_ANGLE, 0.4));
-    }
+
+	public PositionA() {
+		addSequential(new DriveStraight(LEG1_DISTANCE, 0, 0.4));
+		addSequential(new TurnToAtRate(TOWER_ANGLE, 0.4));
+		addSequential(new DriveStraight(LEG2_DISTANCE, TOWER_ANGLE, 0.4));
+	}
 }

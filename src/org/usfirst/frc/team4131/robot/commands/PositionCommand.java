@@ -11,33 +11,40 @@ public class PositionCommand extends Command {
 	private double distanceInit;
 	public double distanceTravled = 0;
 	public boolean initialized = false;
-	public PositionCommand(){
-    	distanceInit = Robot.drive.getDistance();
+
+	public PositionCommand() {
+		distanceInit = Robot.drive.getDistance();
 	}
-    protected void initialize() {
-    	initialized = true;
-    	Robot.drive.resetEncoders();
-    	distanceInit = Robot.drive.getDistance();
-    }
-    protected void execute() {
-    	updatePosition();
-    }
-    protected void end() {
-    	updatePosition();
-    }
-    protected void interrupted() {
-    	updatePosition();
-    }
+
+	protected void initialize() {
+		initialized = true;
+		Robot.drive.resetEncoders();
+		distanceInit = Robot.drive.getDistance();
+	}
+
+	protected void execute() {
+		updatePosition();
+	}
+
+	protected void end() {
+		updatePosition();
+	}
+
+	protected void interrupted() {
+		updatePosition();
+	}
+
 	protected boolean isFinished() {
 		return false;
 	}
-	private void updatePosition(){
-    	distanceTravled = distanceInit - Robot.drive.getDistance();
-    	double angleOfMovement = Robot.CURRENT_ANGLE;
+
+	private void updatePosition() {
+		distanceTravled = distanceInit - Robot.drive.getDistance();
+		double angleOfMovement = Robot.CURRENT_ANGLE;
 		double xMoved = -Math.sin(Math.toRadians(angleOfMovement)) * distanceTravled;
 		double yMoved = -Math.cos(Math.toRadians(angleOfMovement)) * distanceTravled;
-    	Robot.CURRENT_X += xMoved;
-    	Robot.CURRENT_Y += yMoved;
-    	distanceInit = Robot.drive.getDistance();
+		Robot.CURRENT_X += xMoved;
+		Robot.CURRENT_Y += yMoved;
+		distanceInit = Robot.drive.getDistance();
 	}
 }

@@ -31,7 +31,8 @@ public class RangeFlap extends Subsystem {
 			relay.set(Relay.Value.kForward);
 		}
 	}
-	public Relay.Value get(){
+
+	public Relay.Value get() {
 		return relay.get();
 	}
 }

@@ -9,27 +9,29 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Wait extends Command {
 	public Timer timer;
 	public final double time;
-    public Wait(double time) {
-    	this.time = time;
-    	timer = new Timer();
-    }
 
-    protected void initialize() {
-    	timer.reset();
-    	timer.start();
-    }
+	public Wait(double time) {
+		this.time = time;
+		timer = new Timer();
+	}
 
-    protected void execute() {}
+	protected void initialize() {
+		timer.reset();
+		timer.start();
+	}
 
-    protected boolean isFinished() {
-        return timer.hasPeriodPassed(time);
-    }
+	protected void execute() {
+	}
 
-    protected void end() {
-    	timer.stop();
-    }
+	protected boolean isFinished() {
+		return timer.hasPeriodPassed(time);
+	}
 
-    protected void interrupted() {
-    	timer.stop();
-    }
+	protected void end() {
+		timer.stop();
+	}
+
+	protected void interrupted() {
+		timer.stop();
+	}
 }

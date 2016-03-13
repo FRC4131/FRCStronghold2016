@@ -2,7 +2,6 @@ package org.usfirst.frc.team4131.robot;
 
 import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.BlastForward;
-import org.usfirst.frc.team4131.robot.commands.ChargeShooter;
 import org.usfirst.frc.team4131.robot.commands.CollectBoulder;
 import org.usfirst.frc.team4131.robot.commands.DeployArms;
 import org.usfirst.frc.team4131.robot.commands.EmergencyStop;
@@ -27,109 +26,99 @@ public class OI {
 	private Joystick leftStick;
 	private Joystick rightStick;
 	private Joystick launchpad;
-	
+
 	private Button collectBoulder;
 	private Button loadBoulder;
 	private Button unloadBoulder;
 	private Button stowArms;
 	private Button emergencyStop;
 	private Button deployArms;
-	private Button controlArms;
 	private Button portcullis;
 	private Button inverseDrive;
-//	private Button toggleLight;
-	private Button toggleLauncher;
+	//	private Button toggleLight;
 	public Button blastForward;
-	
+
 	private Button rangeFlap;
-	
+
 	public POVTrigger POV;
-	
-	public OI(){
+
+	public OI() {
 		leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
 		rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
-		
+
 		POV = new POVTrigger(rightStick);
 		POV.whenActive(new LittleMove(POV.getLittleSpeed()));
-		
+
 		blastForward = new JoystickButton(leftStick, RobotMap.BLAST_FORWARD);
 		blastForward.whenPressed(new BlastForward());
-		
+
 		launchpad = new Joystick(RobotMap.LAUNCHPAD);
-		
+
 		loadBoulder = new JoystickButton(rightStick, RobotMap.LOAD);
 		loadBoulder.whenPressed(new LoadBoulder());
-		
+
 		unloadBoulder = new JoystickButton(launchpad, RobotMap.UNLOAD);
 		unloadBoulder.whileHeld(new UnloadBoulder());
-		
+
 		collectBoulder = new JoystickButton(launchpad, RobotMap.COLLECT_BOULDER);
 		collectBoulder.whenPressed(new CollectBoulder());
-//		collectBoulder.whenPressed(new DeployArms(-830)); //Disabled so we can collect without deploying (e.g. in a corner)
-		
+		//DeployArms removed so we can collect without deploying (e.g. in a corner)
+
 		emergencyStop = new JoystickButton(launchpad, RobotMap.EMERGENCY_STOP);
 		emergencyStop.whenPressed(new EmergencyStop(emergencyState = !emergencyState));
-		
+
 		portcullis = new JoystickButton(launchpad, RobotMap.PORTCULLIS);
 		portcullis.whenPressed(new AutonThruPortcullis());
-		
+
 		stowArms = new JoystickButton(launchpad, RobotMap.STOW_ARMS);
 		stowArms.whenPressed(new StowArms());
-		
+
 		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
 		deployArms.whenPressed(new DeployArms(-800)); //Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ma-gic ma-gic ... ooh-ooh!
-		
-//		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
-//		toggleLight.whenPressed(new ToggleLight());
-		
+
 		inverseDrive = new JoystickButton(rightStick, RobotMap.INVERSE);
 		inverseDrive.whenPressed(new ToggleDirection());
-		
+
 		rangeFlap = new JoystickButton(leftStick, RobotMap.RANGE_FLAP_BUTTON);
 		rangeFlap.whenPressed(new ToggleRangeFlap());
-		
-		toggleLauncher = new JoystickButton(leftStick, RobotMap.TOGGLE_LAUNCHER);
-//		toggleLauncher.toggleWhenPressed(new ChargeShooter());
 	}
+
 	public double getLeftSpeed() {
 		return Math.pow(leftStick.getRawAxis(1), 3) * (ToggleDirection.isForward() ? -1 : 1);
 	}
+
 	public double getRightSpeed() {
-//		if (ToggleDirection.isForward())
-//			return rightStick.getRawAxis(1)*-1;
-//		else
-//			return leftStick.getRawAxis(1);
 		return Math.pow(rightStick.getRawAxis(1), 3) * (ToggleDirection.isForward() ? -1 : 1);
 	}
-	
-	public boolean getSpitOut(){
+
+	public boolean getSpitOut() {
 		return unloadBoulder.get();
 	}
-	public class POVTrigger extends Trigger{
+
+	public class POVTrigger extends Trigger {
 		private final Joystick joystick;
-		public POVTrigger(Joystick joystick){
+
+		public POVTrigger(Joystick joystick) {
 			this.joystick = joystick;
 		}
+
 		public boolean get() {
 			return joystick.getPOV() != -1;
 		}
-		public int getLittleSpeed(){
-			if (joystick.getPOV() == 0){
+
+		public int getLittleSpeed() {
+			switch (joystick.getPOV()) {
+			case (0):
 				return 0;
-			}
-			if (joystick.getPOV() == 2){
+			case (2):
 				return 2;
-			}
-			if (joystick.getPOV() == 4){
+			case (4):
 				return 4;
-			}
-			if (joystick.getPOV() == 6){
+			case (6):
 				return 6;
-			}
-			else{
+			default:
 				return -1;
 			}
 		}
 	}
 }
-
