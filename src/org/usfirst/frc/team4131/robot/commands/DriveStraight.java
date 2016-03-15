@@ -66,7 +66,7 @@ public class DriveStraight extends PositionCommand {
 			super.initialize();
 		} else {
 			angleController = new PIDController(1, 0, 0, -(Math.abs(maxSpeed)) / 2, Math.abs(maxSpeed) / 2);
-			double angleError = heading - Robot.drive.getAngle();
+			double angleError = heading - Robot.sensors.getAngle();
 
 			angleController.start(angleError);
 
@@ -121,7 +121,7 @@ public class DriveStraight extends PositionCommand {
 	}
 
 	private double getError() {
-		double error = (Robot.drive.getAngle() - heading % 360);
+		double error = (Robot.sensors.getAngle() - heading % 360);
 		if (error < 0)
 			error = error + 360;
 		if (error > 180)

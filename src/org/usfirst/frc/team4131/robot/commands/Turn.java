@@ -20,15 +20,15 @@ public class Turn extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		controller.start(angle - Robot.drive.getAngle());
+		controller.start(angle - Robot.sensors.getAngle());
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Math.abs(Robot.drive.getAngle() - angle) <= 5) {
+		if (Math.abs(Robot.sensors.getAngle() - angle) <= 5) {
 			return;
 		}
-		double speed = controller.update(angle - Robot.drive.getAngle());
+		double speed = controller.update(angle - Robot.sensors.getAngle());
 		if (speed < 0) {
 			speed = -speed;
 		}
@@ -37,7 +37,7 @@ public class Turn extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Math.abs(Robot.drive.getAngle() - angle) <= 5;
+		return Math.abs(Robot.sensors.getAngle() - angle) <= 5;
 	}
 
 	// Called once after isFinished returns true

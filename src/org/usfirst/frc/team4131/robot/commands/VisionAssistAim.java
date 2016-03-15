@@ -34,9 +34,9 @@ public class VisionAssistAim extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		updateCameraError();
-		targetAngle = Robot.drive.getAngle() + convertToRelativeAngle();
+		targetAngle = Robot.sensors.getAngle() + convertToRelativeAngle();
 
-		angleController.start(targetAngle - Robot.drive.getAngle());
+		angleController.start(targetAngle - Robot.sensors.getAngle());
 		cameraTimer.reset();
 		cameraTimer.start();
 	}
@@ -45,17 +45,17 @@ public class VisionAssistAim extends Command {
 	protected void execute() {
 		if (cameraTimer.hasPeriodPassed(0.1)) {
 			updateCameraError();
-			targetAngle = Robot.drive.getAngle() + convertToRelativeAngle();
-			angleController.start(targetAngle - Robot.drive.getAngle());
+			targetAngle = Robot.sensors.getAngle() + convertToRelativeAngle();
+			angleController.start(targetAngle - Robot.sensors.getAngle());
 		}
 
-		double turnRate = angleController.update(Robot.drive.getAngle() - targetAngle);
+		double turnRate = angleController.update(Robot.sensors.getAngle() - targetAngle);
 		Robot.drive.move(-turnRate, turnRate);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Math.abs(targetAngle - Robot.drive.getAngle()) <= DEAD_ZONE && cameraTimer.hasPeriodPassed(TIME_OUT_PERIOD);
+		return Math.abs(targetAngle - Robot.sensors.getAngle()) <= DEAD_ZONE && cameraTimer.hasPeriodPassed(TIME_OUT_PERIOD);
 	}
 
 	// Called once after isFinished returns true

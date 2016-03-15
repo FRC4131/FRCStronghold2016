@@ -73,7 +73,7 @@ public class TurnToAtRate extends Command {
 	}
 
 	private double getError() {
-		double error = (Robot.drive.getAngle() - heading % 360);
+		double error = (Robot.sensors.getAngle() - heading % 360);
 		if (error < 0)
 			error += 360;
 		if (error > 180)

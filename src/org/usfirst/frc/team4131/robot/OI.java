@@ -110,11 +110,11 @@ public class OI {
 			switch (joystick.getPOV()) {
 			case (0):
 				return 0;
-			case (2):
+			case (90):
 				return 2;
-			case (4):
+			case (180):
 				return 4;
-			case (6):
+			case (270):
 				return 6;
 			default:
 				return -1;

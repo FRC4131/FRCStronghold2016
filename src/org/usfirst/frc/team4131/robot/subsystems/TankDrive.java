@@ -15,8 +15,6 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 public class TankDrive extends Subsystem {
 	private CANTalon leftMotor1, leftMotor2, rightMotor1, rightMotor2;
 	private Encoder leftEncoder, rightEncoder;
-	private Gyro gyro;
-
 	public TankDrive() {
 		super();
 		leftMotor1 = new CANTalon(RobotMap.DRIVE_LEFT_MOTOR1);
@@ -27,16 +25,10 @@ public class TankDrive extends Subsystem {
 		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB, RobotMap.ROBOT_TYPE == RobotMap.COMP_BOT_NUM);// would spin counter-clockwise or -; boolean reverses direction
 		leftEncoder.setDistancePerPulse(RobotMap.DRIVE_RATIO);
 		rightEncoder.setDistancePerPulse(RobotMap.DRIVE_RATIO);
-
-		gyro = new AnalogGyro(RobotMap.GYRO);
 	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new Move());
-	}
-
-	public void resetGyro() {
-		gyro.reset();
 	}
 
 	public void resetEncoders() {
@@ -55,10 +47,6 @@ public class TankDrive extends Subsystem {
 		leftMotor2.set(speed1);
 		rightMotor1.set(-speed2);
 		rightMotor2.set(-speed2);
-	}
-
-	public double getAngle() {
-		return (gyro.getAngle() % 360) + (gyro.getAngle() < 0 ? 360 : 0);
 	}
 
 	/**

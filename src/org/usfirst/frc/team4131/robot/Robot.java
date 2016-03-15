@@ -15,6 +15,7 @@ import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
 import org.usfirst.frc.team4131.robot.subsystems.RangeFlap;
+import org.usfirst.frc.team4131.robot.subsystems.Sensors;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
 import org.usfirst.frc.team4131.utilities.Point;
@@ -42,6 +43,7 @@ public class Robot extends IterativeRobot {
 	public static double CURRENT_Y;
 	public static double CURRENT_ANGLE;
 
+	public static Sensors sensors;
 	public static TankDrive drive;
 	public static Handler handler;
 	public static Shooter shooter;
@@ -78,6 +80,10 @@ public class Robot extends IterativeRobot {
 		if (ELECTRICAL_BOT) {
 			// electricalBot Code
 		} else {
+			/**
+			 * With current build, we only have old gyro. Call the default constructor once we have IMU done
+			 */
+			sensors = sensors.oldGyro();
 			drive = new TankDrive();
 			handler = new Handler();
 			shooter = new Shooter();
@@ -126,7 +132,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousInit() {
 		drive.resetEncoders();
-		CURRENT_ANGLE = drive.getAngle();
+		CURRENT_ANGLE = sensors.getAngle();
 		CURRENT_X = 0;// TODO whatever our starting position is based on
 		CURRENT_Y = 0;// TODO whatever our starting position is based on
 		autonomous = (Command) chooser.getSelected();
@@ -139,7 +145,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		CURRENT_ANGLE = drive.getAngle();
+		CURRENT_ANGLE = sensors.getAngle();
 		dashboard();
 	}
 
@@ -177,7 +183,7 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
 			SmartDashboard.putNumber("Drive Distance", drive.getDistance());
 			SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
-			SmartDashboard.putNumber("Gyro Angle", drive.getAngle());
+			SmartDashboard.putNumber("Gyro Angle", sensors.getAngle());
 			SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
 			// SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
 			SmartDashboard.putString("Flap State", rangeFlap.get().name());
