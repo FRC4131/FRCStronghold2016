@@ -9,6 +9,7 @@ public class AutonThruPortcullis extends CommandGroup {
 
 	public AutonThruPortcullis() {
 		//addSequential(new DriveStraight(16.0, 0.0, 0.5));
+		addSequential(new TurnToAtRate(180.0, 0.5));
 		addSequential(new DeployArms(-800.0));
 		addSequential(new DriveStraight(-20, 0.0, 0.5));
 		addParallel(new StowArms());

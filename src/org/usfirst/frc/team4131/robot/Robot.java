@@ -5,6 +5,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.usfirst.frc.team4131.robot.commands.AutonLowBarLowGoal;
 import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
 import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.DriveStraight;
@@ -95,12 +96,11 @@ public class Robot extends IterativeRobot {
 			oi = new OI();
 			chooser = new SendableChooser();
 			chooser.addDefault("AutonLowBarShoot", new AutonLowBarShoot());
+			chooser.addObject("LowBarLowGoal", new AutonLowBarLowGoal());
 			chooser.addObject("DriveStraight", new DriveStraight(150, 0, 0.9));
 			chooser.addObject("Nothing", new CommandGroup());
 			chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0, 0)));
-			chooser.addObject("AutonLowBarShoot", new AutonLowBarShoot());
 			chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
-			chooser.addObject("Turn", new Turn(30));
 			chooser.addObject("VisionAssistAim", new VisionAssistAim());
 			SmartDashboard.putData("Autonomous", chooser);
 		}
