@@ -55,7 +55,7 @@ public class VisionAssistAim extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Math.abs(targetAngle - Robot.sensors.getAngle()) <= DEAD_ZONE && cameraTimer.hasPeriodPassed(TIME_OUT_PERIOD);
+		return Math.abs(targetAngle - Robot.sensors.getAngle()) <= DEAD_ZONE || cameraTimer.hasPeriodPassed(TIME_OUT_PERIOD);
 	}
 
 	// Called once after isFinished returns true
