@@ -44,29 +44,29 @@ public class RobotMap {
 
 	public static final int LAUNCHPAD = 2;
 
-	public static final int HANDLER_MOTOR = ROBOT_TYPE == PRAC_BOT_NUM ? 7 : 5;//7 on Gretta
+	public static final int HANDLER_MOTOR = 7;
 
-	public static final int SHOOTER_MOTOR = ROBOT_TYPE == PRAC_BOT_NUM ? 5 : 4;//5 on Gretta ok
+	public static final int SHOOTER_MOTOR = 5;
 
 	public static final int SHOOTER_ENCODER_A = ROBOT_TYPE == PRAC_BOT_NUM ? 2 : 4;//2 on Gretta
 
 	public static final int SHOOTER_ENCODER_B = ROBOT_TYPE == PRAC_BOT_NUM ? 3 : 5;//3 on Gretta
 
-	public static final int DRIVE_LEFT_MOTOR1 = ROBOT_TYPE == PRAC_BOT_NUM ? 1 : 0;//1 on Gretta
+	public static final int DRIVE_LEFT_MOTOR1 = 1;
 
-	public static final int DRIVE_LEFT_MOTOR2 = ROBOT_TYPE == PRAC_BOT_NUM ? 2 : 1;//2 on Gretta
+	public static final int DRIVE_LEFT_MOTOR2 = 2;
 
-	public static final int DRIVE_RIGHT_MOTOR1 = ROBOT_TYPE == PRAC_BOT_NUM ? 3 : 2;//3 on Gretta
+	public static final int DRIVE_RIGHT_MOTOR1 = 3;
 
-	public static final int DRIVE_RIGHT_MOTOR2 = ROBOT_TYPE == PRAC_BOT_NUM ? 4 : 3;//4 on Gretta
+	public static final int DRIVE_RIGHT_MOTOR2 = 4;
 
 	public static final int DRIVE_LEFT_ENCODERA = ROBOT_TYPE == PRAC_BOT_NUM ? 4 : 2;//4 on Gretta
 
 	public static final int DRIVE_LEFT_ENCODERB = ROBOT_TYPE == PRAC_BOT_NUM ? 5 : 3;//5 on Gretta
 
-	public static final int DRIVE_RIGHT_ENCODERA = ROBOT_TYPE == PRAC_BOT_NUM ? 7 : 0;//7 on Gretta
+	public static final int DRIVE_RIGHT_ENCODERA = 7;
 
-	public static final int DRIVE_RIGHT_ENCODERB = ROBOT_TYPE == PRAC_BOT_NUM ? 6 : 1;//6 on Gretta
+	public static final int DRIVE_RIGHT_ENCODERB = 6;
 
 	public static final double DRIVE_RATIO = ROBOT_TYPE == PRAC_BOT_NUM ? ((125D + 3D / 16D) / 1033D) : (43.0 + 17.0 / 32.0) / 1073.00;
 
@@ -74,17 +74,17 @@ public class RobotMap {
 	//Direct wired
 	//	public static final int LIGHT = 9;
 
-	public static final int ARMS_MOTOR = ROBOT_TYPE == PRAC_BOT_NUM ? 8 : 6;//8 on Gretta
+	public static final int ARMS_MOTOR = 8;
 
-	public static final int ARMS_ENCODERA = ROBOT_TYPE == PRAC_BOT_NUM ? 8 : 8;//8 on Gretta
+	public static final int ARMS_ENCODERA = 8;
 
-	public static final int ARMS_ENCODERB = ROBOT_TYPE == PRAC_BOT_NUM ? 9 : 9;//9 on Gretta
+	public static final int ARMS_ENCODERB = 9;
 
-	public static final int ARMS_SWITCH = ROBOT_TYPE == PRAC_BOT_NUM ? 1 : 7;// 1 on Gretta 
+	public static final int ARMS_SWITCH = 1;// 1 on Gretta 
 
-	public static final int COLLECTOR_MOTOR = ROBOT_TYPE == PRAC_BOT_NUM ? 6 : 7;//rolling pin motor; 6 on Gretta
+	public static final int COLLECTOR_MOTOR = 6;
 
-	public static final int HANDLER_SWITCH = ROBOT_TYPE == PRAC_BOT_NUM ? 0 : 6;//0 on Gretta
+	public static final int HANDLER_SWITCH = /*ROBOT_TYPE == PRAC_BOT_NUM ? 0 : 6*/0;//0 on Gretta
 	/**
 	 * Joystick mappings
 	 */

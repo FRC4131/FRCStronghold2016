@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class ChargeShooter extends Command {
-	private static final double TARGET_SPEED = 5000.0;
+	private static final double TARGET_SPEED = 5200.0;
 	private static final double PULSE_RATIO = 0.333;
 
 	private PIDController controller;

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LoadBoulder extends Command {
 
 	private static final double LOAD_TIME = 2.0;
-	private static final double LOAD_SPEED = -0.7;
+	private static final double LOAD_SPEED = 0.7;
 
 	private Timer timer;
 

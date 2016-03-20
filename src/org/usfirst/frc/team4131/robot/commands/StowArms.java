@@ -5,7 +5,7 @@ import org.usfirst.frc.team4131.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class StowArms extends Command {
-	private static final double FULL_REVERSE = 1;
+	private static final double FULL_REVERSE = -1;
 
 	public StowArms() {
 		requires(Robot.arms);

@@ -10,7 +10,6 @@ import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
 import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.DriveStraight;
 import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
-import org.usfirst.frc.team4131.robot.commands.Turn;
 import org.usfirst.frc.team4131.robot.commands.VisionAssistAim;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
@@ -68,9 +67,14 @@ public class Robot extends IterativeRobot {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		whoami = new String(buffer);
-		RobotMap.ROBOT_TYPE = RobotMap.robotType(whoami);
-		ELECTRICAL_BOT = RobotMap.ROBOT_TYPE == RobotMap.ELECT_BOT_NUM;
+		if(buffer != null){
+			whoami = new String(buffer);
+			RobotMap.ROBOT_TYPE = RobotMap.robotType(whoami);
+			RobotMap.ROBOT_TYPE = RobotMap.robotType(RobotMap.PRACTICE_BOT);
+			ELECTRICAL_BOT = RobotMap.ROBOT_TYPE == RobotMap.ELECT_BOT_NUM;
+		}else{
+			ELECTRICAL_BOT = false;
+		}
 	}
 
 	/**
@@ -84,7 +88,7 @@ public class Robot extends IterativeRobot {
 			/**
 			 * With current build, we only have old gyro. Call the default constructor once we have IMU done
 			 */
-			sensors = sensors.oldGyro();
+			sensors = new Sensors();
 			drive = new TankDrive();
 			handler = new Handler();
 			shooter = new Shooter();
@@ -183,7 +187,7 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
 			SmartDashboard.putNumber("Drive Distance", drive.getDistance());
 			SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
-			SmartDashboard.putNumber("Gyro Angle", sensors.getAngle());
+//			SmartDashboard.putNumber("Gyro Angle", sensors.getAngle());
 			SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
 			// SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
 			SmartDashboard.putString("Flap State", rangeFlap.get().name());

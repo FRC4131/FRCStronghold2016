@@ -15,6 +15,7 @@ public class Sensors extends Subsystem {
     //TODO IMU field
 	public Sensors(){
 		//TODO Instantiate IMU and add appropriate variables
+		gyro = new AnalogGyro(RobotMap.GYRO);
 	}
 	public Sensors oldGyro(){
 		gyro = new AnalogGyro(RobotMap.GYRO);
@@ -27,6 +28,11 @@ public class Sensors extends Subsystem {
 		}else{
 			return (gyro.getAngle() % 360) + (gyro.getAngle() < 0 ? 360 : 0);
 		}
+	}
+	
+	public double getContinuousAngle()
+	{
+		return gyro.getAngle();
 	}
 
 	public void resetGyro() {

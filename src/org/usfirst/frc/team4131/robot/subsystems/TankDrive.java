@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 public class TankDrive extends Subsystem {
 	private CANTalon leftMotor1, leftMotor2, rightMotor1, rightMotor2;
 	private Encoder leftEncoder, rightEncoder;
+	
 	public TankDrive() {
 		super();
 		leftMotor1 = new CANTalon(RobotMap.DRIVE_LEFT_MOTOR1);
