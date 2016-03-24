@@ -74,7 +74,7 @@ public class OI {
 		stowArms.whenPressed(new StowArms());
 
 		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
-		deployArms.whenPressed(new DeployArms(800)); //Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ma-gic ma-gic ... ooh-ooh!
+		deployArms.whenPressed(new DeployArms(-800)); //Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ma-gic ma-gic ... ooh-ooh!
 
 		inverseDrive = new JoystickButton(rightStick, RobotMap.INVERSE);
 		inverseDrive.whenPressed(new ToggleDirection());

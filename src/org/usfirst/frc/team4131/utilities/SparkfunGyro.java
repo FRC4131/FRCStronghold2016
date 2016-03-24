@@ -1,11 +1,6 @@
 package org.usfirst.frc.team4131.utilities;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.nio.ByteBuffer;
-
-import org.usfirst.frc.team4131.robot.Robot;
 
 public class SparkfunGyro {
 

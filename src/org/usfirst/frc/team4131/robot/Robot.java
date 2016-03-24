@@ -20,12 +20,7 @@ import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
 import org.usfirst.frc.team4131.utilities.Point;
 
-import edu.wpi.first.wpilibj.AnalogAccelerometer;
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -85,10 +80,9 @@ public class Robot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
-	public AnalogGyro ag;
 	public void robotInit() {
 		if (ELECTRICAL_BOT) {
-			ag = new AnalogGyro(0);
+//			ag = new AnalogGyro(0);
 			// electricalBot Code
 		} else {
 			/**
@@ -163,9 +157,9 @@ public class Robot extends IterativeRobot {
 		/**
 		 * the possible gold!
 		 */
-		ag.setSensitivity(0.007);//7mV/°/s
-		ag.reset();
-		ag.calibrate();//sets the center or AKA the bias
+//		ag.setSensitivity(0.007);
+//		ag.reset();
+//		ag.calibrate();//sets the center or AKA the bias
 		if (autonomous != null)
 			autonomous.cancel();// End autonomous when teleop starts
 	}
@@ -176,7 +170,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		dashboard();
-		SmartDashboard.putNumber("angle", ag.getAngle());
+//		SmartDashboard.putNumber("angle", ag.getAngle());
 	}
 
 	/**
@@ -200,7 +194,7 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
 			SmartDashboard.putNumber("Drive Distance", drive.getDistance());
 			SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
-//			SmartDashboard.putNumber("Gyro Angle", sensors.getAngle());
+			SmartDashboard.putNumber("Gyro Angle", sensors.getAngle());
 			SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
 			// SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
 			SmartDashboard.putString("Flap State", rangeFlap.get().name());
