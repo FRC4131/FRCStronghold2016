@@ -26,7 +26,7 @@ public class Shooter extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		//setDefaultCommand(new ChargeShooter());
+		setDefaultCommand(new ChargeShooter());
 	}
 
 	public void setSpeed(double speed) {
