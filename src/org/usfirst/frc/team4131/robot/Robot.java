@@ -70,6 +70,7 @@ public class Robot extends IterativeRobot {
 		if(buffer != null){
 			whoami = new String(buffer);
 			RobotMap.ROBOT_TYPE = RobotMap.robotType(whoami);
+			RobotMap.ROBOT_TYPE = RobotMap.robotType(RobotMap.PRACTICE_BOT);
 			ELECTRICAL_BOT = RobotMap.ROBOT_TYPE == RobotMap.ELECT_BOT_NUM;
 		}else{
 			ELECTRICAL_BOT = false;
