@@ -44,13 +44,13 @@ public class RobotMap {
 
 	public static final int LAUNCHPAD = 2;
 
-	public static final int HANDLER_MOTOR = 7;//7
+	public static final int HANDLER_MOTOR = 7;
 
-	public static final int SHOOTER_MOTOR = 8;//5
+	public static final int SHOOTER_MOTOR = 8;
 
-	public static final int SHOOTER_ENCODER_A = ROBOT_TYPE == PRAC_BOT_NUM ? 2 : 4;//2 on Gretta
+	public static final int SHOOTER_ENCODER_A = 4;//2 on Gretta
 
-	public static final int SHOOTER_ENCODER_B = ROBOT_TYPE == PRAC_BOT_NUM ? 3 : 5;//3 on Gretta
+	public static final int SHOOTER_ENCODER_B = 5;//3 on Gretta
 
 	public static final int DRIVE_LEFT_MOTOR1 = 1;
 
@@ -60,13 +60,13 @@ public class RobotMap {
 
 	public static final int DRIVE_RIGHT_MOTOR2 = 4;
 
-	public static final int DRIVE_LEFT_ENCODERA = 0;//4 on Gretta
+	public static final int DRIVE_LEFT_ENCODERA = 0;
 
-	public static final int DRIVE_LEFT_ENCODERB = 1;//5 on Gretta
+	public static final int DRIVE_LEFT_ENCODERB = 1;
 
-	public static final int DRIVE_RIGHT_ENCODERA = 2;//7
+	public static final int DRIVE_RIGHT_ENCODERA = 2;
 
-	public static final int DRIVE_RIGHT_ENCODERB = 3;//6
+	public static final int DRIVE_RIGHT_ENCODERB = 3;
 
 	public static final double DRIVE_RATIO = ROBOT_TYPE == PRAC_BOT_NUM ? ((125D + 3D / 16D) / 1033D) : (43.0 + 17.0 / 32.0) / 1073.00;
 
@@ -74,17 +74,17 @@ public class RobotMap {
 	//Direct wired
 	//	public static final int LIGHT = 9;
 
-	public static final int ARMS_MOTOR = 6;//8
+	public static final int ARMS_MOTOR = 6;
 
-	public static final int ARMS_ENCODERA = 8;//8
+	public static final int ARMS_ENCODERA = 8;
 
-	public static final int ARMS_ENCODERB = 9;//9
+	public static final int ARMS_ENCODERB = 9;
 
-	public static final int ARMS_SWITCH = 7;//1 
+	public static final int ARMS_SWITCH = 7;
 
-	public static final int COLLECTOR_MOTOR = 5;//6
+	public static final int COLLECTOR_MOTOR = 5;
 
-	public static final int HANDLER_SWITCH = 6;//0
+	public static final int HANDLER_SWITCH = 6;
 	/**
 	 * Joystick mappings
 	 */
