@@ -6,8 +6,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class AutonLowBarShoot extends CommandGroup {
-	//TODO find out which of these works
-	private static final double speed = 0.5, distance = 190, shotAngle = 60, shotDistance = 103;
+//	private static final double speed = 0.5, distance = 190, shotAngle = 60, shotDistance = 67;//Practice bot
+	private static final double speed = 0.5, distance = 180, shotAngle = 52, shotDistance = 0;//Practice bot far shot
+//	private static final double speed = 0.5, distance = 190, shotAngle = 60, shotDistance = 103;//Competition bot
 	//	private static final double speed = 0.5, distance = 190, shotAngle = 60, shotDistance = 94;
 
 	public AutonLowBarShoot() {

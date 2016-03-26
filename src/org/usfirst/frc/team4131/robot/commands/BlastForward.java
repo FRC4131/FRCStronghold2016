@@ -26,7 +26,7 @@ public class BlastForward extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.oi.blastForward.get();
+		return Robot.oi.getBlastForward();
 	}
 
 	// Called once after isFinished returns true

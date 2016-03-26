@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class ChargeShooter extends Command {
-	private static final double TARGET_SPEED = 5200.0;
+	private static final double TARGET_SPEED = 4500;
 	private static final double PULSE_RATIO = 0.333;
 
 	private PIDController controller;
@@ -19,9 +19,9 @@ public class ChargeShooter extends Command {
 	private Timer timer;
 
 	public ChargeShooter() {
+		requires(Robot.shooter);
 		controller = new PIDController(0.008, 0.005, 0.001, 0, 1);
 		timer = new Timer();
-		requires(Robot.shooter);
 	}
 
 	// Called just before this Command runs the first time

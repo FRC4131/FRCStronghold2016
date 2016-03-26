@@ -10,6 +10,7 @@ import org.usfirst.frc.team4131.robot.commands.LoadBoulder;
 import org.usfirst.frc.team4131.robot.commands.StowArms;
 import org.usfirst.frc.team4131.robot.commands.ToggleDirection;
 import org.usfirst.frc.team4131.robot.commands.ToggleRangeFlap;
+import org.usfirst.frc.team4131.robot.commands.UTurn;
 import org.usfirst.frc.team4131.robot.commands.UnloadBoulder;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,9 +37,9 @@ public class OI {
 	private Button portcullis;
 	private Button inverseDrive;
 	//	private Button toggleLight;
-	public Button blastForward;
-
+	private Button blastForward;
 	private Button rangeFlap;
+	private Button sallyPort;
 
 	public POVTrigger POV;
 
@@ -75,12 +76,16 @@ public class OI {
 
 		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
 		deployArms.whenPressed(new DeployArms(800)); //Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ma-gic ma-gic ... ooh-ooh!
+//		deployArms.whenPressed(new DeployArms(-800)); //Comp bot
 
 		inverseDrive = new JoystickButton(rightStick, RobotMap.INVERSE);
 		inverseDrive.whenPressed(new ToggleDirection());
 
 		rangeFlap = new JoystickButton(leftStick, RobotMap.RANGE_FLAP_BUTTON);
 		rangeFlap.whenPressed(new ToggleRangeFlap());
+		
+		sallyPort = new JoystickButton(rightStick, RobotMap.SALLY_PORT_BUTTON);
+		sallyPort.whenPressed(new UTurn());
 	}
 
 	public double getLeftSpeed() {
@@ -93,6 +98,14 @@ public class OI {
 
 	public boolean getSpitOut() {
 		return unloadBoulder.get();
+	}
+	
+	public boolean getBlastForward(){
+		return blastForward.get();
+	}
+	
+	public boolean getSallyPort(){
+		return sallyPort.get();
 	}
 
 	public class POVTrigger extends Trigger {

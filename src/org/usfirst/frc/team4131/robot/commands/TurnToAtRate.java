@@ -7,7 +7,7 @@ import org.usfirst.frc.team4131.utilities.Point;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TurnToAtRate extends Command {
-	private static double DEAD_ZONE = 10;
+	private static double DEADBAND = 10;
 	private double heading;
 	private boolean headingSet = false;
 	private Point p = null;
@@ -15,7 +15,7 @@ public class TurnToAtRate extends Command {
 
 	public TurnToAtRate(double heading, double rate) {
 		requires(Robot.drive);
-		DEAD_ZONE *= rate;
+		DEADBAND *= rate;
 		this.heading = heading;
 		controller = new PIDController(0.8, 0.2, 0.6, -rate, rate);
 		headingSet = true;
@@ -23,7 +23,7 @@ public class TurnToAtRate extends Command {
 
 	public TurnToAtRate(Point coord, double rate) {
 		requires(Robot.drive);
-		DEAD_ZONE *= rate;
+		DEADBAND *= rate;
 		p = coord;
 		controller = new PIDController(0.8, 0.2, 0.6, -rate, rate);
 	}
@@ -50,7 +50,7 @@ public class TurnToAtRate extends Command {
 			controller.start(getError());
 		}
 		double error = getError();
-		if (Math.abs(error) < DEAD_ZONE) {
+		if (Math.abs(error) < DEADBAND) {
 			return;
 		}
 		double speed = controller.update(error);
@@ -59,7 +59,7 @@ public class TurnToAtRate extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(getError()) < DEAD_ZONE;
+		return Math.abs(getError()) < DEADBAND;
 	}
 
 	@Override

@@ -67,12 +67,11 @@ public class Robot extends IterativeRobot {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if(buffer != null){
+		if (buffer != null) {
 			whoami = new String(buffer);
 			RobotMap.ROBOT_TYPE = RobotMap.robotType(whoami);
-			RobotMap.ROBOT_TYPE = RobotMap.robotType(RobotMap.PRACTICE_BOT);
 			ELECTRICAL_BOT = RobotMap.ROBOT_TYPE == RobotMap.ELECT_BOT_NUM;
-		}else{
+		} else {
 			ELECTRICAL_BOT = false;
 		}
 	}
@@ -86,7 +85,8 @@ public class Robot extends IterativeRobot {
 			// electricalBot Code
 		} else {
 			/**
-			 * With current build, we only have old gyro. Call the default constructor once we have IMU done
+			 * With current build, we only have old gyro. Call the default
+			 * constructor once we have IMU done
 			 */
 			sensors = new Sensors();
 			drive = new TankDrive();
@@ -103,7 +103,8 @@ public class Robot extends IterativeRobot {
 			chooser.addObject("LowBarLowGoal", new AutonLowBarLowGoal());
 			chooser.addObject("DriveStraight", new DriveStraight(150, 0, 0.9));
 			chooser.addObject("Nothing", new CommandGroup());
-			chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0, 0)));
+			chooser.addObject("Grid",
+					new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0, 0)));
 			chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
 			chooser.addObject("VisionAssistAim", new VisionAssistAim());
 			SmartDashboard.putData("Autonomous", chooser);
@@ -140,8 +141,10 @@ public class Robot extends IterativeRobot {
 		CURRENT_X = 0;// TODO whatever our starting position is based on
 		CURRENT_Y = 0;// TODO whatever our starting position is based on
 		autonomous = (Command) chooser.getSelected();
-		if (autonomous != null)
+		if (autonomous != null) {
+			sensors.calibrate();
 			autonomous.start();
+		}
 	}
 
 	/**
@@ -181,20 +184,29 @@ public class Robot extends IterativeRobot {
 		if (ELECTRICAL_BOT) {
 			// electricalBot Code
 		} else {
-			SmartDashboard.putNumber("Handler Speed", handler.getSpeed());
+			SmartDashboard.putNumber("Arms Command", arms.getSpeed());
 			SmartDashboard.putNumber("Arms Angle", arms.getAngle());
-			SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
-			SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
-			SmartDashboard.putNumber("Drive Distance", drive.getDistance());
 			SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
-//			SmartDashboard.putNumber("Gyro Angle", sensors.getAngle());
-			SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
+
+			SmartDashboard.putNumber("Collector Speed", collector.get());
+			
+			SmartDashboard.putNumber("Handler Command", handler.getSpeed());
+			SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
+			
+			SmartDashboard.putNumber("Shooter Command", shooter.getSpeed());
+			SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
+			
+			SmartDashboard.putNumber("Drive Distance", drive.getDistance());
+			
+			
+			SmartDashboard.putNumber("Gyro Angle", sensors.getAngle());
 			// SmartDashboard.putBoolean("Headlight On", lightRing.isOn());
 			SmartDashboard.putString("Flap State", rangeFlap.get().name());
+			
 			SmartDashboard.putNumber("Robot Angle", CURRENT_ANGLE);
 			SmartDashboard.putNumber("Robot X", CURRENT_X);
 			SmartDashboard.putNumber("Robot Y", CURRENT_Y);
-			SmartDashboard.putNumber("Collector Speed", collector.get());
+			
 		}
 	}
 }

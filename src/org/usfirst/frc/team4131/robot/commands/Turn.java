@@ -9,8 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class Turn extends Command {
+	private static final double DEADBAND = 5;
 	private PIDController controller;
-	private double angle;
+	protected double angle;
 
 	public Turn(double angle) {
 		requires(Robot.drive);
@@ -25,9 +26,6 @@ public class Turn extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Math.abs(Robot.sensors.getAngle() - angle) <= 5) {
-			return;
-		}
 		double speed = controller.update(angle - Robot.sensors.getAngle());
 		if (speed < 0) {
 			speed = -speed;
@@ -37,7 +35,7 @@ public class Turn extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Math.abs(Robot.sensors.getAngle() - angle) <= 5;
+		return Math.abs(Robot.sensors.getAngle() - angle) <= DEADBAND;
 	}
 
 	// Called once after isFinished returns true
