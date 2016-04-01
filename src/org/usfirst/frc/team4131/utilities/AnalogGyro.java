@@ -18,6 +18,9 @@ public class AnalogGyro extends edu.wpi.first.wpilibj.AnalogGyro{
 	public AnalogGyro(int channel){
 		super(channel);
 	}
+	public AnalogGyro(int channel, int center, double offset){
+		super(channel, center, offset);
+	}
 	public void initGyro(){
 		super.initGyro();
 	}
@@ -36,4 +39,13 @@ public class AnalogGyro extends edu.wpi.first.wpilibj.AnalogGyro{
 		    m_analog.setAccumulatorCenter(m_center);
 		    m_analog.resetAccumulator();
 	 }
+	public void setSensitivity(double voltsPerDegreePerSecond){
+		super.setSensitivity(voltsPerDegreePerSecond);
+	}
+	public void setOffset(double offset){
+		m_offset = offset;
+	}
+	public void setCenter(int center){
+		m_center = center;
+	}
 }
