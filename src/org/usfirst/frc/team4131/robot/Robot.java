@@ -121,8 +121,12 @@ public class Robot extends IterativeRobot {
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Offset", sensors.getGyroOffset());
+		SmartDashboard.putNumber("Center", sensors.getGyroCenter());
 		SmartDashboard.putNumber("Angle", sensors.getContinuousAngle());
-		dashboard();
+		sensors.setGyroOffset(SmartDashboard.getNumber("Offset"));
+		sensors.setGyroCenter(SmartDashboard.getNumber("Center"));
+//		dashboard();
 		camera.execute();
 	}
 

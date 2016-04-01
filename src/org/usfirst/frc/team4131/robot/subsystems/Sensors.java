@@ -21,6 +21,17 @@ public class Sensors extends Subsystem {
 	public void setGyroSensitivity(double voltsPerDegreePerSecond){
 		gyro.setSensitivity(voltsPerDegreePerSecond);
 	}
+	public void setGyroOffset(double offset){
+		gyro.setOffset(offset);
+	}
+	public void setGyroCenter(double center){
+		double val = center * 10;
+		val %= 10;
+		if(val >= 5){
+			++center;
+		}
+		gyro.setCenter((int)center);
+	}
 	public double getGyroOffset(){
 		return gyro.getOffset();
 	}
