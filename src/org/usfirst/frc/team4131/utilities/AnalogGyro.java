@@ -18,6 +18,9 @@ public class AnalogGyro extends edu.wpi.first.wpilibj.AnalogGyro{
 	public AnalogGyro(int channel){
 		super(channel);
 	}
+	public void initGyro(){
+		super.initGyro();
+	}
 	public void calibrate() {
 		    m_analog.initAccumulator();
 		    m_analog.resetAccumulator();
