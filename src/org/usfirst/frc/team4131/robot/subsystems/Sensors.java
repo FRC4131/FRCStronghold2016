@@ -2,7 +2,7 @@ package org.usfirst.frc.team4131.robot.subsystems;
 
 import org.usfirst.frc.team4131.robot.RobotMap;
 
-import org.usfirst.frc.team4131.utilities.AnalogGyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -21,16 +21,13 @@ public class Sensors extends Subsystem {
 	public void setGyroSensitivity(double voltsPerDegreePerSecond){
 		gyro.setSensitivity(voltsPerDegreePerSecond);
 	}
-	public void setGyroOffset(double offset){
-		gyro.setOffset(offset);
-	}
-	public void setGyroCenter(double center){
+	public void setGyro(double center, double offset){
 		double val = center * 10;
 		val %= 10;
 		if(val >= 5){
 			++center;
 		}
-		gyro.setCenter((int)center);
+		gyro = new AnalogGyro(RobotMap.GYRO, (int)center, offset);
 	}
 	public double getGyroOffset(){
 		return gyro.getOffset();
@@ -40,6 +37,9 @@ public class Sensors extends Subsystem {
 	}
 	public void calibrateGyro(){
 		gyro.calibrate();
+	}
+	public void initGyro(){
+		gyro.initGyro();
 	}
 	public double getAngle() {
 		// if(gyro == null){
@@ -61,7 +61,9 @@ public class Sensors extends Subsystem {
 		gyro.reset();
 		// }
 	}
-
+	public AnalogGyro getGyro(){
+		return gyro;
+	}
 	public void initDefaultCommand() {
 	}
 }

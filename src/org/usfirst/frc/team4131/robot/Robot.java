@@ -55,6 +55,8 @@ public class Robot extends IterativeRobot {
 	private Autonomous autonomous;
 	private Command autonomousCommand;
 
+	private double off = 0, center = 0;
+	
 	public Robot() {
 		super();
 		String whoami = null;
@@ -106,6 +108,7 @@ public class Robot extends IterativeRobot {
 //			autonomous = new Autonomous();
 //			autonomous.init();
 			sensors.calibrateGyro();
+			sensors.initGyro();
 			long ti = System.currentTimeMillis();
 			SmartDashboard.putNumber("Time", (System.currentTimeMillis() - ti) / 1000.0);
 		}
@@ -117,15 +120,10 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
 	 */
 	public void disabledInit() {
-	}
+		}
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Offset", sensors.getGyroOffset());
-		SmartDashboard.putNumber("Center", sensors.getGyroCenter());
-		SmartDashboard.putNumber("Angle", sensors.getContinuousAngle());
-		sensors.setGyroOffset(SmartDashboard.getNumber("Offset"));
-		sensors.setGyroCenter(SmartDashboard.getNumber("Center"));
 //		dashboard();
 		camera.execute();
 	}

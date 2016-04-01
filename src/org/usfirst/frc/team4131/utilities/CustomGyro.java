@@ -3,23 +3,31 @@ import edu.wpi.first.wpilibj.AccumulatorResult;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Timer;
 
-public class AnalogGyro extends edu.wpi.first.wpilibj.AnalogGyro{
+public class CustomGyro extends edu.wpi.first.wpilibj.AnalogGyro{
 	private final double kCalibrationSampleTime = 2.0;
-	protected AnalogInput m_analog;
-	  double m_voltsPerDegreePerSecond;
+//	protected AnalogInput m_analog;
+	  double m_voltsPerDegreePerSecond = 0.007;
 	  double m_offset;
 	  int m_center;
 	  boolean m_channelAllocated = false;
-	  AccumulatorResult result;
+	  AccumulatorResult result = new AccumulatorResult();
 	  
-	public AnalogGyro(AnalogInput channel) {
+	public CustomGyro(AnalogInput channel) {
 		super(channel);
+		m_analog = channel;
 	}
-	public AnalogGyro(int channel){
-		super(channel);
+	public CustomGyro(int channel){
+		this(new AnalogInput(channel));
+	    m_channelAllocated = true;
 	}
-	public AnalogGyro(int channel, int center, double offset){
+	public CustomGyro(int channel, int center, double offset){
 		super(channel, center, offset);
+		initGyro();
+	    m_offset = offset;
+	    m_center = center;
+
+	    m_analog.setAccumulatorCenter(m_center);
+	    m_analog.resetAccumulator();
 	}
 	public void initGyro(){
 		super.initGyro();
