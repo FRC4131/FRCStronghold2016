@@ -104,7 +104,7 @@ public class Robot extends IterativeRobot {
 //			SmartDashboard.putData("Autonomous", autonChooser);
 //			autonomous = new Autonomous();
 //			autonomous.init();
-			sensors.calibrateGyro();
+			//sensors.calibrateGyro();
 			long ti = System.currentTimeMillis();
 			SmartDashboard.putNumber("Time", (System.currentTimeMillis() - ti) / 1000.0);
 		}
@@ -140,7 +140,7 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = new VisionOnly();
 		if(autonomousCommand != null)
 		{
-			sensors.calibrateGyro();
+			//sensors.calibrateGyro();
 			autonomousCommand.start();
 		}
 	}

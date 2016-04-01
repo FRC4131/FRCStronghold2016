@@ -2,7 +2,7 @@ package org.usfirst.frc.team4131.robot.subsystems;
 
 import org.usfirst.frc.team4131.robot.RobotMap;
 
-import org.usfirst.frc.team4131.utilities.AnalogGyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -14,7 +14,9 @@ public class Sensors extends Subsystem {
 	// TODO IMU field
 	public Sensors() {
 		// TODO Instantiate IMU and add appropriate variables
-		gyro = new AnalogGyro(RobotMap.GYRO);
+		//From Naoki's excel analysis of gyro data
+		//Needs to be done for each distinct gyro
+		gyro = new AnalogGyro(RobotMap.GYRO, 2015507, 0.036616);
 	}
 	public void setGyroSensitivity(double voltsPerDegreePerSecond){
 		gyro.setSensitivity(voltsPerDegreePerSecond);
