@@ -6,27 +6,25 @@ import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Camera extends Subsystem {
-    private Image frame;
-    private int sessionFront; 
-    public Camera(){
-    	frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-    	sessionFront = NIVision.IMAQdxOpenCamera(RobotMap.CAMERA, NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-    	NIVision.IMAQdxConfigureGrab(sessionFront);
-    }
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-    public void execute(){
-    	NIVision.IMAQdxGrab(sessionFront, frame, 1);
-    	CameraServer.getInstance().setImage(frame);
-    }
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
-}
+public class Camera{
+	private Image frame;
+	private int sessionFront;
 
+	public Camera() {
+		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+		sessionFront = NIVision.IMAQdxOpenCamera(RobotMap.CAMERA,
+				NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+		NIVision.IMAQdxConfigureGrab(sessionFront);
+	}
+
+	public void execute() {
+		NIVision.IMAQdxGrab(sessionFront, frame, 1);
+		CameraServer.getInstance().setImage(frame);
+	}
+
+	public void initDefaultCommand() {
+	}
+}

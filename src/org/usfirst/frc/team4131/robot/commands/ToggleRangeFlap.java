@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ToggleRangeFlap extends Command {
 
 	public ToggleRangeFlap() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 		requires(Robot.rangeFlap);
 	}
 

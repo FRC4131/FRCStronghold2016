@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class PositionCommand extends Command {
 	private double distanceInit;
-	public double distanceTravled = 0;
+	public double distanceTraveled = 0;
 	public boolean initialized = false;
 
 	public PositionCommand() {
@@ -39,10 +39,10 @@ public class PositionCommand extends Command {
 	}
 
 	private void updatePosition() {
-		distanceTravled = distanceInit - Robot.drive.getDistance();
+		distanceTraveled = distanceInit - Robot.drive.getDistance();
 		double angleOfMovement = Robot.CURRENT_ANGLE;
-		double xMoved = -Math.sin(Math.toRadians(angleOfMovement)) * distanceTravled;
-		double yMoved = -Math.cos(Math.toRadians(angleOfMovement)) * distanceTravled;
+		double xMoved = -Math.sin(Math.toRadians(angleOfMovement)) * distanceTraveled;
+		double yMoved = -Math.cos(Math.toRadians(angleOfMovement)) * distanceTraveled;
 		Robot.CURRENT_X += xMoved;
 		Robot.CURRENT_Y += yMoved;
 		distanceInit = Robot.drive.getDistance();

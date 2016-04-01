@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4131.robot;
 
-import org.usfirst.frc.team4131.robot.commands.AutonThruPortcullis;
 import org.usfirst.frc.team4131.robot.commands.BlastForward;
 import org.usfirst.frc.team4131.robot.commands.CollectBoulder;
 import org.usfirst.frc.team4131.robot.commands.DeployArms;
@@ -36,8 +35,7 @@ public class OI {
 	private Button portcullis;
 	private Button inverseDrive;
 	//	private Button toggleLight;
-	public Button blastForward;
-
+	private Button blastForward;
 	private Button rangeFlap;
 
 	public POVTrigger POV;
@@ -67,9 +65,6 @@ public class OI {
 		emergencyStop = new JoystickButton(launchpad, RobotMap.EMERGENCY_STOP);
 		emergencyStop.whenPressed(new EmergencyStop(emergencyState = !emergencyState));
 
-		portcullis = new JoystickButton(launchpad, RobotMap.PORTCULLIS);
-		portcullis.whenPressed(new AutonThruPortcullis());
-
 		stowArms = new JoystickButton(launchpad, RobotMap.STOW_ARMS);
 		stowArms.whenPressed(new StowArms());
 
@@ -93,6 +88,10 @@ public class OI {
 
 	public boolean getSpitOut() {
 		return unloadBoulder.get();
+	}
+	
+	public boolean getBlastForward(){
+		return blastForward.get();
 	}
 
 	public class POVTrigger extends Trigger {
