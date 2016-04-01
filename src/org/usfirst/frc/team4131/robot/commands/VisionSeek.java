@@ -1,58 +1,91 @@
 package org.usfirst.frc.team4131.robot.commands;
 
 import org.usfirst.frc.team4131.robot.Robot;
-import org.usfirst.frc.team4131.utilities.PIDController;
+import org.usfirst.frc.team4131.utilities.GyroControlOutput;
+import org.usfirst.frc.team4131.utilities.GyroSource;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 public class VisionSeek extends Command {
-	private static final double DEADBAND = 0.25, SPEED = 0.5;
 	private PIDController controller;
-
+	private static final double DEADBAND = 1.0, SPEED = 0.35;
+	private static double targetAngle, azSteer;
+	private GyroSource gyroSource = new GyroSource();
+	private GyroControlOutput output = new GyroControlOutput();
+	boolean finished = false;
+	boolean zonedIn = false;
+	private Timer timer = new Timer();
 	public VisionSeek() {
 		requires(Robot.drive);
-		controller = new PIDController(0.1, 0.015, 0.04, -SPEED, SPEED);
+		/**
+		 * 
+		 */
+		controller = new PIDController(0.4, 0, 0.1, gyroSource, output);
+		controller.setOutputRange(-SPEED, SPEED);
 	}
 
 	@Override
 	protected void initialize() {
-		controller.start(error());
+		updateCameraError();
+		controller.enable();
+		timer.reset();
+		timer.start();
 	}
 
 	@Override
 	protected void execute() {
-		double command = controller.update(error());
-		SmartDashboard.putNumber("VisionSeek Command", command);
-		Robot.drive.move(command, -command);
+		if(Math.abs(error()) <= 10 && !zonedIn){
+			controller.disable();
+			controller.free();
+			controller = new PIDController(0.0275, 0.002, 0.01, gyroSource, output);
+			controller.enable();
+			zonedIn = true;
+		}
+		if(Math.abs(error()) <= DEADBAND){
+			updateCameraError();
+			gyroSource.setTargetAngle(targetAngle);
+			finished = Math.abs(azSteer) <= DEADBAND;
+		}
+		SmartDashboard.putNumber("Target Angle", targetAngle);
+		SmartDashboard.putNumber("Gyro Error", gyroSource.pidGet());
 	}
 
 	@Override
 	protected boolean isFinished() {
-		boolean finished = Math.abs(error()) <= DEADBAND;
-		if(finished) SmartDashboard.putNumber("VisionSeek Finishing Error", error());
 		return finished;
 	}
 
 	@Override
 	protected void end() {
+		controller.disable();
 		Robot.drive.move(0, 0);
 	}
 
 	@Override
 	protected void interrupted() {
+		controller.disable();
 		Robot.drive.move(0, 0);
 	}
 
 	private double error() {
-		try {
-			return SmartDashboard.getNumber("Az_Steer");
-		} catch (TableKeyNotDefinedException ex) {
-			DriverStation.reportError(ex.getClass().getCanonicalName() + ": " + ex.getMessage() + "\n", true);
-			cancel();
-			return 0;
+		return targetAngle - Robot.sensors.getContinuousAngle();
+	}
+	private void updateCameraError(){
+		if(SmartDashboard.getNumber("BLOB_COUNT") > 0){
+			try {
+				azSteer = SmartDashboard.getNumber("Az_Steer");
+				targetAngle = SmartDashboard.getNumber("Az_Steer") + Robot.sensors.getContinuousAngle();
+				gyroSource.setTargetAngle(targetAngle);
+			} catch (TableKeyNotDefinedException ex) {
+				DriverStation.reportError(ex.getClass().getCanonicalName() + ": " + ex.getMessage() + "\n", true);
+				cancel();
+			}
 		}
 	}
 }
