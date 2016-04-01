@@ -17,6 +17,11 @@ public class Sensors extends Subsystem {
 		// TODO Instantiate IMU and add appropriate variables
 		gyro = new AnalogGyro(RobotMap.GYRO);
 	}
+	
+	public void calibrate()
+	{
+		gyro.calibrate();
+	}
 
 	public double getAngle() {
 		// if(gyro == null){

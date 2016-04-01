@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4131.robot.subsystems;
 
+import org.usfirst.frc.team4131.robot.Robot;
 import org.usfirst.frc.team4131.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -18,7 +19,8 @@ public class Collector extends Subsystem {
 	}
 
 	public void spin(double speed) {
-		motor.set(speed);
+		if(Robot.arms.isStowed()) motor.set(0);
+		else motor.set(speed);
 	}
 
 	public void initDefaultCommand() {
