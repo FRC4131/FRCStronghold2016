@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4131.robot;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -12,6 +13,7 @@ import org.usfirst.frc.team4131.robot.commands.DriveStraight;
 import org.usfirst.frc.team4131.robot.commands.GridAutoDrive;
 import org.usfirst.frc.team4131.robot.commands.VisionAssistAim;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
+import org.usfirst.frc.team4131.robot.subsystems.Camera;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
 import org.usfirst.frc.team4131.robot.subsystems.RangeFlap;
@@ -20,7 +22,10 @@ import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
 import org.usfirst.frc.team4131.utilities.Point;
 
+import com.ni.vision.NIVision.Image;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -49,6 +54,7 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter;
 	public static Collector collector;
 	public static Arms arms;
+	public static Camera cam;
 	public static OI oi;
 	// public static LightRing lightRing;
 	// public static AimingFlashlight aimingFlashlight;
@@ -84,29 +90,33 @@ public class Robot extends IterativeRobot {
 		if (ELECTRICAL_BOT) {
 //			ag = new AnalogGyro(0);
 			// electricalBot Code
+			cam = new Camera();
 		} else {
 			/**
 			 * With current build, we only have old gyro. Call the default constructor once we have IMU done
 			 */
 			sensors = new Sensors();
-			drive = new TankDrive();
-			handler = new Handler();
-			shooter = new Shooter();
-			collector = new Collector();
-			arms = new Arms();
-			// aimingFlashlight = new AimingFlashlight();
-			rangeFlap = new RangeFlap();
-
-			oi = new OI();
-			chooser = new SendableChooser();
-			chooser.addDefault("AutonLowBarShoot", new AutonLowBarShoot());
-			chooser.addObject("LowBarLowGoal", new AutonLowBarLowGoal());
-			chooser.addObject("DriveStraight", new DriveStraight(150, 0, 0.9));
-			chooser.addObject("Nothing", new CommandGroup());
-			chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0, 0)));
-			chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
-			chooser.addObject("VisionAssistAim", new VisionAssistAim());
-			SmartDashboard.putData("Autonomous", chooser);
+//			drive = new TankDrive();
+//			handler = new Handler();
+//			shooter = new Shooter();
+//			collector = new Collector();
+//			arms = new Arms();
+//			// aimingFlashlight = new AimingFlashlight();
+//			rangeFlap = new RangeFlap();
+//
+//			oi = new OI();
+//			
+//			chooser = new SendableChooser();
+//			chooser.addDefault("AutonLowBarShoot", new AutonLowBarShoot());
+//			chooser.addObject("LowBarLowGoal", new AutonLowBarLowGoal());
+//			chooser.addObject("DriveStraight", new DriveStraight(150, 0, 0.9));
+//			chooser.addObject("Nothing", new CommandGroup());
+//			chooser.addObject("Grid", new GridAutoDrive(new Point(0, 24), new Point(-24, 24), new Point(-24, 0), new Point(0, 0)));
+//			chooser.addObject("PortcullisStraight", new AutonThruPortcullis());
+//			chooser.addObject("VisionAssistAim", new VisionAssistAim());
+//			SmartDashboard.putData("Autonomous", chooser);
+			long ti = System.currentTimeMillis();
+			SmartDashboard.putNumber("Time", (System.currentTimeMillis() - ti) / 1000.0);
 		}
 	}
 
@@ -120,7 +130,8 @@ public class Robot extends IterativeRobot {
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		dashboard();;
+		SmartDashboard.putNumber("Angle", sensors.getContinuousAngle());
+//		dashboard();
 	}
 
 	/**
@@ -187,6 +198,7 @@ public class Robot extends IterativeRobot {
 	private void dashboard() {
 		if (ELECTRICAL_BOT) {
 			// electricalBot Code
+			cam.execute();
 		} else {
 			SmartDashboard.putNumber("Handler Speed", handler.getSpeed());
 			SmartDashboard.putNumber("Arms Angle", arms.getAngle());

@@ -7,6 +7,17 @@ package org.usfirst.frc.team4131.robot;
  * floating around.
  */
 public class RobotMap {
+
+	/**
+	 * ID for USBCamera
+	 */
+	public static final String CAMERA = "cam2";
+	
+    public static final int WIDTH = 640, HEIGHT = 480;
+    
+    public static final int FPS = 10;
+    
+    public static final int COMPRESSION = 0;
 	/**
 	 * Configuration for the RoboRio(s)
 	 */

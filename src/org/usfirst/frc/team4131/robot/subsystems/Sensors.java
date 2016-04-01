@@ -2,22 +2,32 @@ package org.usfirst.frc.team4131.robot.subsystems;
 
 import org.usfirst.frc.team4131.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
+import org.usfirst.frc.team4131.utilities.AnalogGyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
  *
  */
 public class Sensors extends Subsystem {
-	private Gyro gyro = null;
+	private AnalogGyro gyro = null;
 
 	// TODO IMU field
 	public Sensors() {
 		// TODO Instantiate IMU and add appropriate variables
 		gyro = new AnalogGyro(RobotMap.GYRO);
 	}
-
+	public void setGyroSensitivity(double voltsPerDegreePerSecond){
+		gyro.setSensitivity(voltsPerDegreePerSecond);
+	}
+	public double getGyroOffset(){
+		return gyro.getOffset();
+	}
+	public int getGyroCenter(){
+		return gyro.getCenter();
+	}
+	public void calibrateGyro(){
+		gyro.calibrate();
+	}
 	public double getAngle() {
 		// if(gyro == null){
 		// return 0;
