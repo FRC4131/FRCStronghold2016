@@ -15,6 +15,8 @@ public class Sensors extends Subsystem {
 	public Sensors() {
 		// TODO Instantiate IMU and add appropriate variables
 		gyro = new AnalogGyro(RobotMap.GYRO);
+		
+		gyro.initGyro();
 	}
 	public void setGyroSensitivity(double voltsPerDegreePerSecond){
 		gyro.setSensitivity(voltsPerDegreePerSecond);
