@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class CollectBoulder extends Command {
-//	private static final double COLLECTOR_SPEED = 1.0;
+	//	private static final double COLLECTOR_SPEED = 1.0;
 	private static final double COLLECTOR_SPEED = -1.0;
-//	private static final double HANDLER_SPEED = 0.7;
+	//	private static final double HANDLER_SPEED = 0.7;
 	private static final double HANDLER_SPEED = -0.7;
 
 	public CollectBoulder() {

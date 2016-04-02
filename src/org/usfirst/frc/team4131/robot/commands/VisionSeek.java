@@ -6,7 +6,6 @@ import org.usfirst.frc.team4131.utilities.GyroSource;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,6 +20,7 @@ public class VisionSeek extends Command {
 	boolean finished = false;
 	boolean zonedIn = false;
 	private Timer timer = new Timer();
+
 	public VisionSeek() {
 		requires(Robot.drive);
 		/**
@@ -40,14 +40,14 @@ public class VisionSeek extends Command {
 
 	@Override
 	protected void execute() {
-		if(Math.abs(error()) <= 10 && !zonedIn){
+		if (Math.abs(error()) <= 10 && !zonedIn) {
 			controller.disable();
 			controller.free();
 			controller = new PIDController(0.0275, 0.002, 0.01, gyroSource, output);
 			controller.enable();
 			zonedIn = true;
 		}
-		if(Math.abs(error()) <= DEADBAND){
+		if (Math.abs(error()) <= DEADBAND) {
 			updateCameraError();
 			gyroSource.setTargetAngle(targetAngle);
 			finished = Math.abs(azSteer) <= DEADBAND;
@@ -76,8 +76,9 @@ public class VisionSeek extends Command {
 	private double error() {
 		return targetAngle - Robot.sensors.getContinuousAngle();
 	}
-	private void updateCameraError(){
-		if(SmartDashboard.getNumber("BLOB_COUNT") > 0){
+
+	private void updateCameraError() {
+		if (SmartDashboard.getNumber("BLOB_COUNT") > 0) {
 			try {
 				azSteer = SmartDashboard.getNumber("Az_Steer");
 				targetAngle = SmartDashboard.getNumber("Az_Steer") + Robot.sensors.getContinuousAngle();

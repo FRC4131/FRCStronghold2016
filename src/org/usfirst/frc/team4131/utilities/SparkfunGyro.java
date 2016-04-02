@@ -93,7 +93,7 @@ public class SparkfunGyro {
 
 	private byte[] buffer16 = new byte[2];
 	private byte[] buffer8 = new byte[1];
-	
+
 	private double bias;
 
 	public SparkfunGyro() {
@@ -103,10 +103,10 @@ public class SparkfunGyro {
 		buffer8[0] = 0;
 
 		initGyro();
-		
+
 		//Bad startup values
 		//readCount(20);
-		
+
 		//Calculate bias
 		bias = readCount(30);
 		bias /= 30;
@@ -134,13 +134,13 @@ public class SparkfunGyro {
 
 		tempReg = 0;
 		gyro.write(ORIENT_CFG_G, tempReg);
-		
+
 		//Enable FIFO memory
-		tempReg = (byte)(1 << 1);
+		tempReg = (byte) (1 << 1);
 		//tempReg = 0;
 		gyro.write(CTRL_REG9, tempReg);
-		
-		tempReg = (byte)(0x6 << 5);
+
+		tempReg = (byte) (0x6 << 5);
 		//tempReg = 0;
 		gyro.write(FIFO_CTRL, tempReg);
 	}
@@ -158,54 +158,49 @@ public class SparkfunGyro {
 
 		return (int) readBuffer[0];
 	}
-	
-	public int unreadSamples()
-	{
+
+	public int unreadSamples() {
 		gyro.read(FIFO_SRC, 1, buffer8);
 		int samples = buffer8[0] & 63;
 		return samples;
 	}
-	
+
 	public double readGyro() {
-		
+
 		int samples = unreadSamples();
-		
+
 		double out = 0;
-		
-		for (int i = 0; i < samples; i++)
-		{
+
+		for (int i = 0; i < samples; i++) {
 			gyro.read(OUT_Z_L_G, 2, buffer16);
 			int raw = 0;
-			for (int j = 0; j < buffer16.length; j++){
+			for (int j = 0; j < buffer16.length; j++) {
 				raw |= (buffer16[j] << (8 * j));
 			}
-			
+
 			out += raw;
 		}
-		
+
 		return out * 500 / 32768 / 476 - bias * samples;
 	}
-	
-	public double readCount(int count)
-	{
+
+	public double readCount(int count) {
 		int totalRead = 0;
 		double out = 0;
-		
-		while (totalRead < count)
-		{
+
+		while (totalRead < count) {
 			int samples = unreadSamples();
-			for (int i = 0; i < samples && totalRead < count; i++)
-			{
+			for (int i = 0; i < samples && totalRead < count; i++) {
 				gyro.read(OUT_Z_L_G, 2, buffer16);
 				int raw = 0;
 				for (int j = 0; j < buffer16.length; j++)
-					raw |= (buffer16[j] << (8 *j));
-				
+					raw |= (buffer16[j] << (8 * j));
+
 				out += raw;
 				totalRead++;
 			}
 		}
-		
+
 		return out * 500 / 32768 / 476;
 	}
 }

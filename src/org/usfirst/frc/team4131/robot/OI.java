@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team4131.robot;
 
 import org.usfirst.frc.team4131.robot.commands.BlastForward;
@@ -8,7 +9,7 @@ import org.usfirst.frc.team4131.robot.commands.LittleMove;
 import org.usfirst.frc.team4131.robot.commands.LoadBoulder;
 import org.usfirst.frc.team4131.robot.commands.StowArms;
 import org.usfirst.frc.team4131.robot.commands.ToggleDirection;
-import org.usfirst.frc.team4131.robot.commands.ToggleRangeFlap;
+import org.usfirst.frc.team4131.robot.commands.ToggleLight;
 import org.usfirst.frc.team4131.robot.commands.UnloadBoulder;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -32,11 +33,9 @@ public class OI {
 	private Button stowArms;
 	private Button emergencyStop;
 	private Button deployArms;
-	private Button portcullis;
 	private Button inverseDrive;
-	//	private Button toggleLight;
+	private Button toggleLight;
 	private Button blastForward;
-	private Button rangeFlap;
 
 	public POVTrigger POV;
 
@@ -73,9 +72,9 @@ public class OI {
 
 		inverseDrive = new JoystickButton(rightStick, RobotMap.INVERSE);
 		inverseDrive.whenPressed(new ToggleDirection());
-
-		rangeFlap = new JoystickButton(leftStick, RobotMap.RANGE_FLAP_BUTTON);
-		rangeFlap.whenPressed(new ToggleRangeFlap());
+		
+		toggleLight = new JoystickButton(rightStick, RobotMap.TOGGLE_LIGHT);
+		toggleLight.whenPressed(new ToggleLight());
 	}
 
 	public double getLeftSpeed() {
@@ -89,8 +88,8 @@ public class OI {
 	public boolean getSpitOut() {
 		return unloadBoulder.get();
 	}
-	
-	public boolean getBlastForward(){
+
+	public boolean getBlastForward() {
 		return blastForward.get();
 	}
 

@@ -19,8 +19,10 @@ public class Collector extends Subsystem {
 	}
 
 	public void spin(double speed) {
-		if(Robot.arms.isStowed()) motor.set(0);
-		else motor.set(speed);
+		if (Robot.arms.isStowed())
+			motor.set(0);
+		else
+			motor.set(speed);
 	}
 
 	public void initDefaultCommand() {

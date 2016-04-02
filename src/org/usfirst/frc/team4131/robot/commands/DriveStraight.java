@@ -54,6 +54,8 @@ public class DriveStraight extends PositionCommand {
 	}
 
 	public DriveStraight(double distance, double speed) {
+		if ((distance < 0) != (speed < 0))
+			speed *= -1;
 		this.distance = distance;
 		this.maxSpeed = speed;
 		this.noHeading = true;

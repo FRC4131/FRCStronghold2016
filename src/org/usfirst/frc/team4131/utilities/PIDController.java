@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4131.utilities;
 
+import org.usfirst.frc.team4131.robot.Robot;
+
 import edu.wpi.first.wpilibj.Timer;
 
 /*
@@ -85,10 +87,6 @@ public class PIDController {
 
 		previousError = error;
 		previousTime = currentTime;
-		return constrain(process, processMin, processMax);
-	}
-
-	public static double constrain(double value, double min, double max) {
-		return Math.min(Math.max(value, min), max);
+		return Robot.constrain(process, processMin, processMax);
 	}
 }

@@ -279,6 +279,7 @@ ih
   <hostname>10.41.31.98</hostname>
   <port>1735</port>
   <prefix>/SmartDashboard/</prefix>
-  <variables_to_send>Az_Steer</variables_to_send>
+  <variables_to_send>Az_Steer
+BLOB_COUNT</variables_to_send>
   <variable_type_index>0</variable_type_index>
 </NetworkTables>

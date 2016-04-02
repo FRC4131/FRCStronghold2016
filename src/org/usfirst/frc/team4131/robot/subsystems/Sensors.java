@@ -15,32 +15,39 @@ public class Sensors extends Subsystem {
 	public Sensors() {
 		// TODO Instantiate IMU and add appropriate variables
 		gyro = new AnalogGyro(RobotMap.GYRO);
-		
+
 		gyro.initGyro();
 	}
-	public void setGyroSensitivity(double voltsPerDegreePerSecond){
+
+	public void setGyroSensitivity(double voltsPerDegreePerSecond) {
 		gyro.setSensitivity(voltsPerDegreePerSecond);
 	}
-	public void setGyro(double center, double offset){
+
+	public void setGyro(double center, double offset) {
 		double val = center * 10;
 		val %= 10;
-		if(val >= 5){
+		if (val >= 5) {
 			++center;
 		}
-		gyro = new AnalogGyro(RobotMap.GYRO, (int)center, offset);
+		gyro = new AnalogGyro(RobotMap.GYRO, (int) center, offset);
 	}
-	public double getGyroOffset(){
+
+	public double getGyroOffset() {
 		return gyro.getOffset();
 	}
-	public int getGyroCenter(){
+
+	public int getGyroCenter() {
 		return gyro.getCenter();
 	}
-	public void calibrateGyro(){
+
+	public void calibrateGyro() {
 		gyro.calibrate();
 	}
-	public void initGyro(){
+
+	public void initGyro() {
 		gyro.initGyro();
 	}
+
 	public double getAngle() {
 		// if(gyro == null){
 		// return 0;
@@ -61,9 +68,11 @@ public class Sensors extends Subsystem {
 		gyro.reset();
 		// }
 	}
-	public AnalogGyro getGyro(){
+
+	public AnalogGyro getGyro() {
 		return gyro;
 	}
+
 	public void initDefaultCommand() {
 	}
 }
