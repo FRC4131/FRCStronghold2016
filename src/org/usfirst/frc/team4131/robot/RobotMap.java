@@ -63,13 +63,13 @@ public class RobotMap {
 
 	public static final int SHOOTER_ENCODER_B = 5;//3 on Gretta
 
-	public static final int DRIVE_LEFT_MOTOR1 = 1;
+	public static final int DRIVE_LEFT_MOTOR1 = 0;
 
-	public static final int DRIVE_LEFT_MOTOR2 = 2;
+	public static final int DRIVE_LEFT_MOTOR2 = 1;
 
-	public static final int DRIVE_RIGHT_MOTOR1 = 3;
+	public static final int DRIVE_RIGHT_MOTOR1 = 2;
 
-	public static final int DRIVE_RIGHT_MOTOR2 = 4;
+	public static final int DRIVE_RIGHT_MOTOR2 = 3;
 
 	public static final int DRIVE_LEFT_ENCODERA = 0;
 
@@ -114,7 +114,7 @@ public class RobotMap {
 
 	public static final int STOW_ARMS = 5; //launchpad, the stow arms button
 
-	public static final int TOGGLE_LIGHT = 11;
+	public static final int TOGGLE_LIGHT = 4;//left joystick
 
 	public static final int INVERSE = 5;
 

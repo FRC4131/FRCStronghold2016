@@ -118,6 +118,7 @@ public class Robot extends IterativeRobot {
 		CURRENT_ANGLE = sensors.getAngle();
 		CURRENT_X = 0;// TODO whatever our starting position is based on
 		CURRENT_Y = 0;// TODO whatever our starting position is based ond
+		drive.resetEncoders();
 		sensors.resetGyro();
 		sensors.calibrateGyro();
 
@@ -125,6 +126,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new AutonLowBarShoot();
 		else
 			autonomousCommand = autonomous.assembleCommand();
+		SmartDashboard.putString("-Autonomous Command", String.valueOf(autonomousCommand));
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -189,6 +191,10 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber("Robot Y", CURRENT_Y);
 			SmartDashboard.putNumber("Collector Speed", collector.get());
 			SmartDashboard.putBoolean("Flashlight State", flashlight.get());
+			SmartDashboard.putNumber("Right Tread Command", drive.getRightCommand());
+			SmartDashboard.putNumber("Left Tread Command", drive.getLeftCommand());
+			SmartDashboard.putNumber("Right Encoder", drive.getRightEncoder());
+			SmartDashboard.putNumber("Left Encoder", drive.getLeftEncoder());
 		}
 	}
 }

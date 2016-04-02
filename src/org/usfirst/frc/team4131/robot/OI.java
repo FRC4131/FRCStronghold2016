@@ -73,7 +73,7 @@ public class OI {
 		inverseDrive = new JoystickButton(rightStick, RobotMap.INVERSE);
 		inverseDrive.whenPressed(new ToggleDirection());
 		
-		toggleLight = new JoystickButton(rightStick, RobotMap.TOGGLE_LIGHT);
+		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
 		toggleLight.whenPressed(new ToggleLight());
 	}
 

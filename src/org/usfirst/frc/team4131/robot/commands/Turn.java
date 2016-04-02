@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Turn extends Command {
 	private PIDController controller;
 	private double angle;
+	private final double DEADBAND = 2.0;
 
 	public Turn(double angle) {
 		requires(Robot.drive);
@@ -25,19 +26,18 @@ public class Turn extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Math.abs(Robot.sensors.getAngle() - angle) <= 5) {
-			return;
+		if (!(Math.abs(Robot.sensors.getAngle() - angle) <= DEADBAND)) {
+			double speed = controller.update(angle - Robot.sensors.getAngle());
+			if (speed < 0) {
+				speed = -speed;
+			}
+			Robot.drive.move(speed, -speed);//Positive error (right turn) means left goes forward, right goes back
 		}
-		double speed = controller.update(angle - Robot.sensors.getAngle());
-		if (speed < 0) {
-			speed = -speed;
-		}
-		Robot.drive.move(speed, -speed);//Positive error (right turn) means left goes forward, right goes back
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Math.abs(Robot.sensors.getAngle() - angle) <= 5;
+		return Math.abs(Robot.sensors.getAngle() - angle) <= DEADBAND;
 	}
 
 	// Called once after isFinished returns true

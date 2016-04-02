@@ -17,7 +17,7 @@ public class DriveStraight extends PositionCommand {
 	private boolean noHeading = false;
 	private Point p = null;
 
-	private static final double DEAD_ZONE = 3;
+	private static final double DEAD_ZONE = 12;
 
 	/**
 	 * Distance, heading, speed params

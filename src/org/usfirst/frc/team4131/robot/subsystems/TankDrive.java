@@ -20,9 +20,9 @@ public class TankDrive extends Subsystem {
 		leftMotor2 = new CANTalon(RobotMap.DRIVE_LEFT_MOTOR2);
 		rightMotor1 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR1);
 		rightMotor2 = new CANTalon(RobotMap.DRIVE_RIGHT_MOTOR2);
-		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODERA, RobotMap.DRIVE_LEFT_ENCODERB, false);// would spin clockwise or +
+		leftEncoder = new Encoder(RobotMap.DRIVE_LEFT_ENCODERA, RobotMap.DRIVE_LEFT_ENCODERB, false);// would spin clockwise or +; T=-, f=-?
 		rightEncoder = new Encoder(RobotMap.DRIVE_RIGHT_ENCODERA, RobotMap.DRIVE_RIGHT_ENCODERB,
-				RobotMap.ROBOT_TYPE == RobotMap.COMP_BOT_NUM);// would spin counter-clockwise or -; boolean reverses direction
+				/*RobotMap.ROBOT_TYPE == RobotMap.COMP_BOT_NUM*/ false);// would spin counter-clockwise or -; boolean reverses direction
 		leftEncoder.setDistancePerPulse(RobotMap.DRIVE_RATIO);
 		rightEncoder.setDistancePerPulse(RobotMap.DRIVE_RATIO);
 	}
@@ -49,6 +49,12 @@ public class TankDrive extends Subsystem {
 		rightMotor2.set(-speed2);
 	}
 
+	public double getRightCommand(){
+		return (rightMotor1.get() + rightMotor2.get()) / 2;
+	}
+	public double getLeftCommand(){
+		return (leftMotor1.get() + leftMotor2.get()) / 2;
+	}
 	/**
 	 * Returns the average distance calculated from both encoders.
 	 * 
@@ -57,5 +63,11 @@ public class TankDrive extends Subsystem {
 	public double getDistance() {
 		//		return (leftEncoder.get() + rightEncoder.get()) / 2.0;
 		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0;
+	}
+	public int getLeftEncoder(){
+		return leftEncoder.get();
+	}
+	public int getRightEncoder(){
+		return rightEncoder.get();
 	}
 }
