@@ -11,7 +11,7 @@ public class RobotMap {
 	/**
 	 * ID for USBCamera
 	 */
-	public static final String CAMERA = "cam2";
+	public static final String CAMERA = "cam1";
 	
     public static final int WIDTH = 640, HEIGHT = 480;
     

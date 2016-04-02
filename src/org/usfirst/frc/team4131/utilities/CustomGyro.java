@@ -4,6 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+
 package org.usfirst.frc.team4131.utilities;
 
 import edu.wpi.first.wpilibj.AccumulatorResult;
@@ -35,7 +36,7 @@ public class CustomGyro extends GyroBase implements Gyro, PIDSource, LiveWindowS
   static final int kOversampleBits = 10;
   static final int kAverageBits = 0;
   static final double kSamplesPerSecond = 50.0;
-  static final double kCalibrationSampleTime = 3.0;
+  static final double kCalibrationSampleTime = 5.0;
   static final double kDefaultVoltsPerDegreePerSecond = 0.007;
   protected AnalogInput m_analog;
   double m_voltsPerDegreePerSecond;
@@ -207,6 +208,7 @@ public class CustomGyro extends GyroBase implements Gyro, PIDSource, LiveWindowS
   public double getOffset() {
     return m_offset;
   }
+
   /**
    * Set the gyro offset value
    * @param offset
@@ -214,7 +216,7 @@ public class CustomGyro extends GyroBase implements Gyro, PIDSource, LiveWindowS
   public void setOffset(double offset){
 	  m_offset = offset;
   }
-
+  
   /**
    * Return the gyro center value set during calibration to
    * use as a future preset
@@ -224,6 +226,7 @@ public class CustomGyro extends GyroBase implements Gyro, PIDSource, LiveWindowS
   public int getCenter() {
     return m_center;
   }
+
   /**
    * Set the gyro center value
    * @param center
