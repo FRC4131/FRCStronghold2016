@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4131.robot.commands;
 
 import org.usfirst.frc.team4131.robot.Robot;
-import org.usfirst.frc.team4131.utilities.PIDController;
+import org.usfirst.frc.team4131.utilities.ChrisPIDController;
 import org.usfirst.frc.team4131.utilities.Point;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,13 +11,13 @@ public class TurnToAtRate extends Command {
 	private double heading;
 	private boolean headingSet = false;
 	private Point p = null;
-	private PIDController controller;
+	private ChrisPIDController controller;
 
 	public TurnToAtRate(double heading, double rate) {
 		requires(Robot.drive);
 		DEAD_ZONE *= rate;
 		this.heading = heading;
-		controller = new PIDController(0.8, 0.2, 0.6, -rate, rate);
+		controller = new ChrisPIDController(0.8, 0.2, 0.6, -rate, rate);
 		headingSet = true;
 	}
 
@@ -25,7 +25,7 @@ public class TurnToAtRate extends Command {
 		requires(Robot.drive);
 		DEAD_ZONE *= rate;
 		p = coord;
-		controller = new PIDController(0.8, 0.2, 0.6, -rate, rate);
+		controller = new ChrisPIDController(0.8, 0.2, 0.6, -rate, rate);
 	}
 
 	@Override

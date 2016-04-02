@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
  * If the setpoint changes, call start() again
  */
 
-public class PIDController {
+public class ChrisPIDController {
 	private double Kp;
 	private double Ki;
 	private double Kd;
@@ -34,7 +34,7 @@ public class PIDController {
 	 * @param Kd Differential constant; the discrete differential (differential
 	 * of previous error and this error) is multiplied by this
 	 */
-	public PIDController(double Kp, double Ki, double Kd, double processMin, double processMax) {
+	public ChrisPIDController(double Kp, double Ki, double Kd, double processMin, double processMax) {
 		this.Kp = Kp;
 		this.Ki = Ki;
 		this.Kd = Kd;

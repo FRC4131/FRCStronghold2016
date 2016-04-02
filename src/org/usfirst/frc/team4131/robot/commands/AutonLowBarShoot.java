@@ -20,7 +20,10 @@ public class AutonLowBarShoot extends CommandGroup {
 		//addSequential(new SDLog("Auton Status", "Driving 2"));
 		addSequential(new DriveStraight(shotDistance, speed));
 		//addSequential(new SDLog("Auton Status", "Shooting"));
-		addSequential(new VisionFire());
+		
+//		addSequential(new LoadBoulder());//lego league style fire
+		addSequential(new VisionFire());//vision assisted fire
+		
 		//addSequential(new SDLog("Auton Status", "Complete"));
 	}
 }

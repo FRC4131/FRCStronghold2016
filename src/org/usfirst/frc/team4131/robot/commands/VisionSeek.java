@@ -26,7 +26,7 @@ public class VisionSeek extends Command {
 		/**
 		 * 
 		 */
-		controller = new PIDController(0.4, 0, 0.1, gyroSource, output);
+		controller = new PIDController(0.4, 0, 0.1, 0.2, gyroSource, output);
 		controller.setOutputRange(-SPEED, SPEED);
 	}
 
@@ -43,7 +43,7 @@ public class VisionSeek extends Command {
 		if (Math.abs(error()) <= 10 && !zonedIn) {
 			controller.disable();
 			controller.free();
-			controller = new PIDController(0.0275, 0.002, 0.01, gyroSource, output);
+			controller = new PIDController(0.0275, 0.002, 0.01, 0.2, gyroSource, output);
 			controller.enable();
 			zonedIn = true;
 		}
