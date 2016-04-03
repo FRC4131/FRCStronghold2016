@@ -10,7 +10,7 @@ import org.usfirst.frc.team4131.robot.autonomous.Configuration;
 import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
 import org.usfirst.frc.team4131.robot.subsystems.AimingFlashlight;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
-import org.usfirst.frc.team4131.robot.subsystems.Camera;
+import org.usfirst.frc.team4131.robot.subsystems.Cameras;
 import org.usfirst.frc.team4131.robot.subsystems.Collector;
 import org.usfirst.frc.team4131.robot.subsystems.Handler;
 import org.usfirst.frc.team4131.robot.subsystems.Sensors;
@@ -35,14 +35,14 @@ public class Robot extends IterativeRobot {
 	public static double CURRENT_Y;
 	public static double CURRENT_ANGLE;
 
-	public static Camera camera;
+	public static Cameras camera;
 	public static Sensors sensors;
 	public static TankDrive drive;
 	public static Handler handler;
 	public static Shooter shooter;
 	public static Collector collector;
 	public static Arms arms;
-	public static Camera cam;
+	public static Cameras cam;
 	public static OI oi;
 	public static AimingFlashlight flashlight;
 
@@ -74,9 +74,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		if (RobotMap.ROBOT_TYPE == RobotMap.ELECT_BOT_NUM) {
 			// electricalBot Code
-			cam = new Camera();
+			cam = new Cameras();
 		} else {
-			camera = new Camera();
+			camera = new Cameras();
 			sensors = new Sensors();
 			drive = new TankDrive();
 			handler = new Handler();
@@ -125,7 +125,7 @@ public class Robot extends IterativeRobot {
 		if (version.value())
 			autonomousCommand = new AutonLowBarShoot();
 		else
-			autonomousCommand = autonomous.assembleCommand();
+			autonomousCommand = autonomous.assembleCommand();//procedural selection
 		SmartDashboard.putString("-Autonomous Command", String.valueOf(autonomousCommand));
 		if (autonomousCommand != null)
 			autonomousCommand.start();

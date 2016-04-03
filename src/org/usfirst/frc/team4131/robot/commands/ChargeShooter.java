@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4131.robot.commands;
 
 import org.usfirst.frc.team4131.robot.Robot;
-import org.usfirst.frc.team4131.utilities.ChrisPIDController;
 import org.usfirst.frc.team4131.utilities.ShooterControlOutput;
 import org.usfirst.frc.team4131.utilities.ShooterSource;
 
@@ -22,7 +21,7 @@ public class ChargeShooter extends Command {
 	private PIDController controller;
 
 	public ChargeShooter() {
-		controller = new PIDController(0.008, 0.005, 0.001, 0.80, shooterSource, output);
+		controller = new PIDController(0.008, 0.005, 0.001, 0.78, shooterSource, output);
 		requires(Robot.shooter);
 	}
 
@@ -30,7 +29,6 @@ public class ChargeShooter extends Command {
 	protected void initialize() {
 		controller.enable();
 	}
-
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		SmartDashboard.putNumber("Shooter Error", controller.getError());

@@ -2,6 +2,7 @@
 package org.usfirst.frc.team4131.robot;
 
 import org.usfirst.frc.team4131.robot.commands.BlastForward;
+import org.usfirst.frc.team4131.robot.commands.CameraToggle;
 import org.usfirst.frc.team4131.robot.commands.CollectBoulder;
 import org.usfirst.frc.team4131.robot.commands.DeployArms;
 import org.usfirst.frc.team4131.robot.commands.EmergencyStop;
@@ -36,6 +37,7 @@ public class OI {
 	private Button inverseDrive;
 	private Button toggleLight;
 	private Button blastForward;
+	private Button cameraToggle;
 
 	public POVTrigger POV;
 
@@ -49,8 +51,11 @@ public class OI {
 		blastForward = new JoystickButton(leftStick, RobotMap.BLAST_FORWARD);
 		blastForward.whenPressed(new BlastForward());
 
+//		cameraToggle = new JoystickButton(rightStick, RobotMap.CAMERA_TOGGLE);
+//		cameraToggle.whenPressed(new CameraToggle());
+		
 		launchpad = new Joystick(RobotMap.LAUNCHPAD);
-
+		
 		loadBoulder = new JoystickButton(rightStick, RobotMap.LOAD);
 		loadBoulder.whenPressed(new LoadBoulder());
 
@@ -60,7 +65,7 @@ public class OI {
 		collectBoulder = new JoystickButton(launchpad, RobotMap.COLLECT_BOULDER);
 		collectBoulder.whenPressed(new CollectBoulder());
 		//DeployArms removed so we can collect without deploying (e.g. in a corner)
-
+		
 		emergencyStop = new JoystickButton(launchpad, RobotMap.EMERGENCY_STOP);
 		emergencyStop.whenPressed(new EmergencyStop(emergencyState = !emergencyState));
 

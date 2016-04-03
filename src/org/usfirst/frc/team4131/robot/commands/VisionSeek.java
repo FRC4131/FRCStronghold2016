@@ -32,10 +32,14 @@ public class VisionSeek extends Command {
 
 	@Override
 	protected void initialize() {
-		updateCameraError();
-		controller.enable();
-		timer.reset();
-		timer.start();
+		try{
+			updateCameraError();
+			controller.enable();
+			timer.reset();
+			timer.start();
+		}catch(Exception e){
+			finished = true;
+		}
 	}
 
 	@Override
