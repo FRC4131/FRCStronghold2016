@@ -2,8 +2,6 @@ package org.usfirst.frc.team4131.robot.subsystems;
 
 import org.usfirst.frc.team4131.robot.RobotMap;
 import org.usfirst.frc.team4131.utilities.CustomGyro;
-
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -16,7 +14,6 @@ public class Sensors extends Subsystem {
 	public Sensors() {
 		// TODO Instantiate IMU and add appropriate variables
 		gyro = new CustomGyro(RobotMap.GYRO);
-
 		gyro.initGyro();
 	}
 
@@ -76,8 +73,7 @@ public class Sensors extends Subsystem {
 		gyro.reset();
 		// }
 	}
-
-	public CustomGyro getGyro() {
+	public CustomGyro getGyro(){
 		return gyro;
 	}
 
