@@ -30,7 +30,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
 	public static double CURRENT_X;
 	public static double CURRENT_Y;
 	public static double CURRENT_ANGLE;
@@ -84,7 +83,8 @@ public class Robot extends IterativeRobot {
 			collector = new Collector();
 			arms = new Arms();
 			flashlight = new AimingFlashlight();
-
+//			pdp = new PowerDistributionPanel(RobotMap.PDP);
+			
 			oi = new OI();
 
 			version = new Configuration<Boolean>("AutonVersion").put("Low-bar", true).put("Procedural", false);
@@ -94,8 +94,7 @@ public class Robot extends IterativeRobot {
 			
 			sensors.calibrateGyro();
 			sensors.initGyro();
-			long ti = System.currentTimeMillis();
-			SmartDashboard.putNumber("Time", (System.currentTimeMillis() - ti) / 1000.0);
+			SmartDashboard.putNumber("TARGET RPM", 4500);
 		}
 	}
 
@@ -117,8 +116,7 @@ public class Robot extends IterativeRobot {
 		drive.resetEncoders();
 		CURRENT_ANGLE = sensors.getAngle();
 		CURRENT_X = 0;// TODO whatever our starting position is based on
-		CURRENT_Y = 0;// TODO whatever our starting position is based ond
-		drive.resetEncoders();
+		CURRENT_Y = 0;// TODO whatever our starting position is based on
 		sensors.resetGyro();
 		sensors.calibrateGyro();
 
@@ -176,11 +174,12 @@ public class Robot extends IterativeRobot {
 	private void dashboard() {
 		if (RobotMap.ROBOT_TYPE == RobotMap.ELECT_BOT_NUM) {
 			// electricalBot Code
-			cam.execute();
+//			cam.execute();
 		} else {
 			SmartDashboard.putNumber("Handler Speed", handler.getSpeed());
 			SmartDashboard.putNumber("Arms Angle", arms.getAngle());
 			SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
+			SmartDashboard.putNumber("Shooter Command", shooter.getSpeed());
 			SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
 			SmartDashboard.putNumber("Drive Distance", drive.getDistance());
 			SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
@@ -195,6 +194,6 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber("Left Tread Command", drive.getLeftCommand());
 			SmartDashboard.putNumber("Right Encoder", drive.getRightEncoder());
 			SmartDashboard.putNumber("Left Encoder", drive.getLeftEncoder());
-		}
+		}	
 	}
 }

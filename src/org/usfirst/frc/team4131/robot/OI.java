@@ -12,6 +12,7 @@ import org.usfirst.frc.team4131.robot.commands.StowArms;
 import org.usfirst.frc.team4131.robot.commands.ToggleDirection;
 import org.usfirst.frc.team4131.robot.commands.ToggleLight;
 import org.usfirst.frc.team4131.robot.commands.UnloadBoulder;
+import org.usfirst.frc.team4131.robot.commands.VisionSeek;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -37,7 +38,8 @@ public class OI {
 	private Button inverseDrive;
 	private Button toggleLight;
 	private Button blastForward;
-	private Button cameraToggle;
+	private Button cameraAssist;
+	private Button cameraToggle;//TODO uncomment and test
 
 	public POVTrigger POV;
 
@@ -73,13 +75,17 @@ public class OI {
 		stowArms.whenPressed(new StowArms());
 
 		deployArms = new JoystickButton(launchpad, RobotMap.DEPLOY_ARMS);
-		deployArms.whenPressed(new DeployArms(-800)); //Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ma-gic ma-gic ... ooh-ooh!
+		//was 800, but dropped due to noticeable extreme pressure on the axle
+		deployArms.whenPressed(new DeployArms(-795)); //Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ooh-ooh! Ma-gic ma-gic ma-gic ma-gic ... ooh-ooh!
 
 		inverseDrive = new JoystickButton(rightStick, RobotMap.INVERSE);
 		inverseDrive.whenPressed(new ToggleDirection());
 		
 		toggleLight = new JoystickButton(leftStick, RobotMap.TOGGLE_LIGHT);
 		toggleLight.whenPressed(new ToggleLight());
+		
+//		cameraAssist = new JoystickButton(leftStick, RobotMap.SEEK_TOGGLE);
+//		cameraAssist.whileActive(new VisionSeek());
 	}
 
 	public double getLeftSpeed() {
