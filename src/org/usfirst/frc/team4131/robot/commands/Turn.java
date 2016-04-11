@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4131.robot.commands;
 
 import org.usfirst.frc.team4131.robot.Robot;
-import org.usfirst.frc.team4131.utilities.PIDController;
+import org.usfirst.frc.team4131.utilities.ChrisPIDController;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class Turn extends Command {
-	private PIDController controller;
+	private ChrisPIDController controller;
 	private double angle;
-	private final double DEADBAND = 2.0;
+	private final double DEADBAND = 2.5;
 
 	public Turn(double angle) {
 		requires(Robot.drive);
 		this.angle = angle;
-		controller = new PIDController(0.6, 0.2, 0, -0.4, 0.4);
+		controller = new ChrisPIDController(0.6, 0.2, 0, -0.4, 0.4);
 	}
 
 	// Called just before this Command runs the first time

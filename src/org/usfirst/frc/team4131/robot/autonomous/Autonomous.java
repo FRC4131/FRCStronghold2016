@@ -3,7 +3,7 @@ package org.usfirst.frc.team4131.robot.autonomous;
 import org.usfirst.frc.team4131.robot.commands.DriveStraight;
 import org.usfirst.frc.team4131.robot.commands.LoadBoulder;
 import org.usfirst.frc.team4131.robot.commands.TraversePortcullis;
-import org.usfirst.frc.team4131.robot.commands.Turn;
+import org.usfirst.frc.team4131.robot.commands.TurnToAtRate;
 import org.usfirst.frc.team4131.robot.commands.VisionSeek;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,14 +32,14 @@ public class Autonomous {
 
 	public Command assembleCommand() {
 		CommandGroup cmd = new CommandGroup();
-		cmd.addSequential(new DriveStraight(60, 0, 0.5));// Move to the start defense
+		cmd.addSequential(new DriveStraight(60 * (2.0 + 4.0 / 9.0), 0, 0.5));// Move to the start defense
 		switch (startDefense()) {// Traverse the start defense
 		case LOW_BAR:
-			cmd.addSequential(new DriveStraight(60, 0, 0.5));
+			cmd.addSequential(new DriveStraight(60 * (2.0 + 4.0 / 9.0), 0, 0.5));
 			break;
 		case PORTCULLIS:
 			cmd.addSequential(new TraversePortcullis(true));//Travels 50
-			cmd.addSequential(new DriveStraight(10, 0, 0.5));
+			cmd.addSequential(new DriveStraight(10 * (2.0 + 4.0 / 9.0), 0, 0.5));
 			break;
 		case CHEVAL_DE_FRESE:
 			return null;
@@ -48,38 +48,39 @@ public class Autonomous {
 		case DRAWBRIDGE:
 			return null;
 		case ROUGH_TERRAIN:
-			cmd.addSequential(new DriveStraight(60, 0, 0.3));
+			cmd.addSequential(new DriveStraight(60 * (2.0 + 4.0 / 9.0), 0, 0.3));
 			break;
 		case RAMPARTS:
 			return null;
 		case ROCK_WALL:
-			cmd.addSequential(new DriveStraight(60, 0, 0.8));
+			cmd.addSequential(new DriveStraight(60 * (2.0 + 4.0 / 9.0), 0, 0.8));
 			break;
 		case MOAT:
-			cmd.addSequential(new DriveStraight(60, 0, 0.7));
+			cmd.addSequential(new DriveStraight(60 * (2.0 + 4.0 / 9.0), 0, 0.7));
 			break;
 		}
 		//Move to firing position
 		switch (startPosition()) {
 		case(1):
-			cmd.addSequential(new DriveStraight(60, 0, 0.5));
-			cmd.addSequential(new Turn(52));
+			cmd.addSequential(new DriveStraight(60 * (2.0 + 4.0 / 9.0), 0, 0.5));
+			cmd.addSequential(new TurnToAtRate(46, 0.5));
 			break;
 		case(2):
-			cmd.addSequential(new DriveStraight(120, 0, 0.5));
+			cmd.addSequential(new DriveStraight(130 * (2.0 + 4.0 / 9.0), 0, 0.5));
+			cmd.addSequential(new TurnToAtRate(46, 0.5));
 			break;
 		case(3):
-			cmd.addSequential(new Turn(45));
-			cmd.addSequential(new DriveStraight(45, 0.5));
-			cmd.addSequential(new Turn(0));
+			cmd.addSequential(new TurnToAtRate(45, 0.5));
+			cmd.addSequential(new DriveStraight(45 * (2.0 + 4.0 / 9.0), 0.5));
+			cmd.addSequential(new TurnToAtRate(0, 0.5));
 			break;
 		case(4):
-			cmd.addSequential(new DriveStraight(20, 0, 0.5));
+			cmd.addSequential(new DriveStraight(20 * (2.0 + 4.0 / 9.0), 0, 0.5));
 			break;
 		case(5):
-			cmd.addSequential(new Turn(335));
-			cmd.addSequential(new DriveStraight(60, 0.5));
-			cmd.addSequential(new Turn(0));
+			cmd.addSequential(new TurnToAtRate(335, 0.5));
+			cmd.addSequential(new DriveStraight(60 * (2.0 + 4.0 / 9.0), 0.5));
+			cmd.addSequential(new TurnToAtRate(0, 0.5));
 			break;
 		}
 		cmd.addSequential(new VisionSeek());

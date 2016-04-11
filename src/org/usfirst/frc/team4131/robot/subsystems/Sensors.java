@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4131.robot.subsystems;
 
 import org.usfirst.frc.team4131.robot.RobotMap;
+import org.usfirst.frc.team4131.utilities.CustomGyro;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -9,12 +10,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Sensors extends Subsystem {
-	private AnalogGyro gyro = null;
+	private CustomGyro gyro = null;
 
 	// TODO IMU field
 	public Sensors() {
 		// TODO Instantiate IMU and add appropriate variables
-		gyro = new AnalogGyro(RobotMap.GYRO);
+		gyro = new CustomGyro(RobotMap.GYRO);
 
 		gyro.initGyro();
 	}
@@ -29,17 +30,24 @@ public class Sensors extends Subsystem {
 		if (val >= 5) {
 			++center;
 		}
-		gyro = new AnalogGyro(RobotMap.GYRO, (int) center, offset);
+		gyro = new CustomGyro(RobotMap.GYRO, (int) center, offset);
 	}
 
 	public double getGyroOffset() {
 		return gyro.getOffset();
+	}
+	
+	public void setGyroOffset(double offset){
+		gyro.setOffset(offset);
 	}
 
 	public int getGyroCenter() {
 		return gyro.getCenter();
 	}
 
+	public void setGyroCenter(int center){
+		gyro.setCenter(center);
+	}
 	public void calibrateGyro() {
 		gyro.calibrate();
 	}
@@ -69,7 +77,7 @@ public class Sensors extends Subsystem {
 		// }
 	}
 
-	public AnalogGyro getGyro() {
+	public CustomGyro getGyro() {
 		return gyro;
 	}
 

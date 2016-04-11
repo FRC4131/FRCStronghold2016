@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4131.robot.commands;
 
 import org.usfirst.frc.team4131.robot.Robot;
-import org.usfirst.frc.team4131.utilities.PIDController;
+import org.usfirst.frc.team4131.utilities.ChrisPIDController;
 import org.usfirst.frc.team4131.utilities.Point;
 
 /**
@@ -9,7 +9,7 @@ import org.usfirst.frc.team4131.utilities.Point;
  */
 public class DriveStraight extends PositionCommand {
 
-	private PIDController angleController;
+	private ChrisPIDController angleController;
 	private double distance;
 	private double heading;
 	private double maxSpeed;
@@ -67,7 +67,7 @@ public class DriveStraight extends PositionCommand {
 			this.headingSet = true;//to pass the next conditional
 			super.initialize();
 		} else {
-			angleController = new PIDController(1, 0, 0, -(Math.abs(maxSpeed)) / 2, Math.abs(maxSpeed) / 2);
+			angleController = new ChrisPIDController(1, 0, 0, -(Math.abs(maxSpeed)) / 2, Math.abs(maxSpeed) / 2);
 			double angleError = heading - Robot.sensors.getAngle();
 
 			angleController.start(angleError);

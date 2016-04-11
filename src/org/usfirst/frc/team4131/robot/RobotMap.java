@@ -79,7 +79,7 @@ public class RobotMap {
 
 	public static final int DRIVE_RIGHT_ENCODERB = 3;
 
-	//	public static final double DRIVE_RATIO = ROBOT_TYPE == PRAC_BOT_NUM ? ((125D + 3D / 16D) / 1033D) : (43.0 + 17.0 / 32.0) / 1073.00;
+//		public static final double DRIVE_RATIO = ROBOT_TYPE == PRAC_BOT_NUM ? ((125D + 3D / 16D) / 1033D) : (43.0 + 17.0 / 32.0) / 1073.00;
 	public static final double DRIVE_RATIO = ((125D + 3D / 16D) / 1033D);
 
 	public static final int GYRO = 1;
@@ -115,6 +115,8 @@ public class RobotMap {
 	public static final int STOW_ARMS = 5; //launchpad, the stow arms button
 
 	public static final int TOGGLE_LIGHT = 4;//left joystick
+	
+	public static final int CAMERA_TOGGLE = 4;//right joystick
 
 	public static final int INVERSE = 5;
 
@@ -122,7 +124,9 @@ public class RobotMap {
 
 	public static final int RANGE_FLAP_BUTTON = 10;
 
-	public static final int TOGGLE_LAUNCHER = 1;//Left stick, toggle the launcher
+	public static final int VISION_SEEK_TOGGLE = 1;//Left stick, toggle the launcher
 
 	public static final int BLAST_FORWARD = 1;
+
+	public static final int PDP = 62;//CAN ID
 }
