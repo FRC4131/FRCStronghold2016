@@ -7,7 +7,7 @@ import org.usfirst.frc.team4131.utilities.Point;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TurnToAtRate extends Command {
-	private static double DEAD_ZONE = 10;
+	private static double DEAD_ZONE = 5;
 	private double heading;
 	private boolean headingSet = false;
 	private Point p = null;

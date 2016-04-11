@@ -276,10 +276,10 @@ ih
 <NetworkTables>
   <delay>100</delay>
   <filter_type_index>0</filter_type_index>
-  <hostname>10.41.31.98</hostname>
+  <hostname>roborio-4131-FRC.local</hostname>
   <port>1735</port>
   <prefix>/SmartDashboard/</prefix>
   <variables_to_send>Az_Steer
 BLOB_COUNT</variables_to_send>
-  <variable_type_index>0</variable_type_index>
+  <variable_type_index>2</variable_type_index>
 </NetworkTables>

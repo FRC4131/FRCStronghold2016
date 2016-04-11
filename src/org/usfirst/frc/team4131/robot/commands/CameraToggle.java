@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CameraToggle extends Command {
 
     public CameraToggle() {
-    	Robot.cam.toggle();
+    	return;
     }
 
     // Called just before this Command runs the first time
@@ -24,8 +24,9 @@ public class CameraToggle extends Command {
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return true;
+    protected boolean isFinished() {	
+    	Robot.camera.toggle();
+    	return true;
     }
 
     // Called once after isFinished returns true

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 public class VisionSeek extends Command {
 	private PIDController controller;
-	private static final double DEADBAND = 1.0, SPEED = 0.35;
+	private static final double DEADBAND = 1.0, SPEED = 0.5, CAMERA_OFFSET = 0.7;
 	private static double targetAngle, azSteer;
 	private GyroSource gyroSource = new GyroSource();
 	private GyroControlOutput output = new GyroControlOutput();
@@ -23,10 +23,7 @@ public class VisionSeek extends Command {
 
 	public VisionSeek() {
 		requires(Robot.drive);
-		/**
-		 * 
-		 */
-		controller = new PIDController(0.4, 0, 0.1, 0.2, gyroSource, output);
+		controller = new PIDController(0.4, 0, 0.1, gyroSource, output);
 		controller.setOutputRange(-SPEED, SPEED);
 	}
 
@@ -44,21 +41,23 @@ public class VisionSeek extends Command {
 
 	@Override
 	protected void execute() {
-		if (Math.abs(error()) <= 10 && !zonedIn) {
-			controller.disable();
-			controller.free();
-			controller = new PIDController(0.0275, 0.002, 0.01, 0.2, gyroSource, output);
-			controller.enable();
-			zonedIn = true;
+		if(!finished){
+			if (Math.abs(error()) <= 10 && !zonedIn) {
+				controller.disable();
+				controller.free();
+				controller = new PIDController(0.0275, 0.002, 0.01, gyroSource, output);
+				controller.enable();
+				zonedIn = true;
+			}
+			if (Math.abs(error()) <= DEADBAND) {
+				updateCameraError();
+				gyroSource.setTargetAngle(targetAngle);
+				finished = Math.abs(azSteer) <= DEADBAND;
+			}
+			SmartDashboard.putNumber("Target Angle", targetAngle);
+			SmartDashboard.putNumber("Gyro Error", gyroSource.pidGet());
+			}
 		}
-		if (Math.abs(error()) <= DEADBAND) {
-			updateCameraError();
-			gyroSource.setTargetAngle(targetAngle);
-			finished = Math.abs(azSteer) <= DEADBAND;
-		}
-		SmartDashboard.putNumber("Target Angle", targetAngle);
-		SmartDashboard.putNumber("Gyro Error", gyroSource.pidGet());
-	}
 
 	@Override
 	protected boolean isFinished() {
@@ -78,14 +77,15 @@ public class VisionSeek extends Command {
 	}
 
 	private double error() {
-		return targetAngle - Robot.sensors.getContinuousAngle();
+		return (targetAngle - Robot.sensors.getContinuousAngle());
 	}
 
 	private void updateCameraError() {
 		if (SmartDashboard.getNumber("BLOB_COUNT") > 0) {
 			try {
 				azSteer = SmartDashboard.getNumber("Az_Steer");
-				targetAngle = SmartDashboard.getNumber("Az_Steer") + Robot.sensors.getContinuousAngle();
+				azSteer += CAMERA_OFFSET;
+				targetAngle = azSteer + Robot.sensors.getContinuousAngle();
 				gyroSource.setTargetAngle(targetAngle);
 			} catch (TableKeyNotDefinedException ex) {
 				DriverStation.reportError(ex.getClass().getCanonicalName() + ": " + ex.getMessage() + "\n", true);

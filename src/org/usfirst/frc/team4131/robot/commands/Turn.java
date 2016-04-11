@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Turn extends Command {
 	private ChrisPIDController controller;
 	private double angle;
-	private final double DEADBAND = 2.0;
+	private final double DEADBAND = 2.5;
 
 	public Turn(double angle) {
 		requires(Robot.drive);

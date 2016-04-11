@@ -11,7 +11,7 @@ public class ShooterControlOutput implements PIDOutput{
 	}
 	@Override
 	public void pidWrite(double output) {
-		Robot.shooter.setSpeed(-output);
+		Robot.shooter.getMotor().pidWrite(output);
 	}
 
 }

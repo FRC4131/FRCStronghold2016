@@ -8,12 +8,14 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
+/**weZS#-[
  *
  */
 public class ChargeShooter extends Command {
-	private static final double TARGET_SPEED = 4500.0;
+	public static double TARGET_SPEED = 4500.0;
 	private static final double PULSE_RATIO = 0.333;
+	
+	private static final double COMMAND = 0.7;
 	
 	private ShooterSource shooterSource = new ShooterSource(TARGET_SPEED * PULSE_RATIO);
 	private ShooterControlOutput output = new ShooterControlOutput();
@@ -21,16 +23,18 @@ public class ChargeShooter extends Command {
 	private PIDController controller;
 
 	public ChargeShooter() {
-		controller = new PIDController(0.008, 0.005, 0.001, 0.78, shooterSource, output);
+		controller = new PIDController(0.008, 0.005, 0.001, 0.65, shooterSource, output);
 		requires(Robot.shooter);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		controller.enable();
+		controller.setOutputRange(0.6, 0.95);
 	}
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		shooterSource.setTarget(SmartDashboard.getNumber("TARGET RPM") * PULSE_RATIO);
 		SmartDashboard.putNumber("Shooter Error", controller.getError());
 	}
 
@@ -50,5 +54,8 @@ public class ChargeShooter extends Command {
 	protected void interrupted() {
 		controller.disable();
 		Robot.shooter.setSpeed(0.0);
+	}
+	public void setTargetRPM(double targetRPM){
+		TARGET_SPEED = targetRPM;
 	}
 }
