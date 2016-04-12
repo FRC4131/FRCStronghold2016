@@ -86,9 +86,6 @@ public class Cameras {
 		NIVision.IMAQdxConfigureGrab(sessionFront);
 		currentSession = sessionFront;
 		sessionSet = true;
-		
-	}
-	public void helper(){
 	}
 	public void toggle(){
 		if(currentSession == sessionBack){
@@ -117,8 +114,8 @@ public class Cameras {
 	public void execute() {
 		if (sessionSet){	
 			NIVision.IMAQdxGrab(currentSession, frame, 1);
-			server.setImage(frame);
 			server.setQuality(70);		
+			server.setImage(frame);
 		}
 	}
 	
