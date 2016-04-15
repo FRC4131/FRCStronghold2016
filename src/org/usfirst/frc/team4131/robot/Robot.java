@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import org.usfirst.frc.team4131.robot.autonomous.Autonomous;
 import org.usfirst.frc.team4131.robot.autonomous.Configuration;
 import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
-import org.usfirst.frc.team4131.robot.commands.VisionFire;
 import org.usfirst.frc.team4131.robot.subsystems.AimingFlashlight;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Cameras;
@@ -18,6 +17,7 @@ import org.usfirst.frc.team4131.robot.subsystems.Sensors;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;

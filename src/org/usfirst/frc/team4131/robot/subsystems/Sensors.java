@@ -3,7 +3,8 @@ package org.usfirst.frc.team4131.robot.subsystems;
 import org.usfirst.frc.team4131.robot.RobotMap;
 import org.usfirst.frc.team4131.utilities.CustomGyro;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
+import bin.com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -11,12 +12,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Sensors extends Subsystem {
 	private CustomGyro gyro = null;
+	private AHRS ahrs;
 
 	// TODO IMU field
 	public Sensors() {
 		// TODO Instantiate IMU and add appropriate variables
-		gyro = new CustomGyro(RobotMap.GYRO);
-
+		gyro = new CustomGyro(RobotMap.GYRO);//TODO find out if we still need this
+		ahrs = new AHRS(I2C.Port.kOnboard);
 		gyro.initGyro();
 	}
 
