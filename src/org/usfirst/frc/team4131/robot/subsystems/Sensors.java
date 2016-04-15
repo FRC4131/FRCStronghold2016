@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Sensors extends Subsystem {
 	private CustomGyro gyro = null;
-	private AHRS ahrs;
+	private AHRS ahrs; //this would be the navX
 
 	// TODO IMU field
 	public Sensors() {

@@ -39,7 +39,7 @@ public class OI {
 	private Button toggleLight;
 	private Button blastForward;
 	private Button cameraAssist;
-	private Button cameraToggle;//TODO uncomment and test
+	private Button cameraToggle;
 
 	public POVTrigger POV;
 
