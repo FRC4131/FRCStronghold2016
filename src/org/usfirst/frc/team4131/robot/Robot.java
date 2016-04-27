@@ -92,8 +92,6 @@ public class Robot extends IterativeRobot {
 			autonomous = new Autonomous();
 			autonomous.init();
 			
-			sensors.initGyro();
-			sensors.calibrateGyro();
 			SmartDashboard.putNumber("TARGET RPM", 4500);
 		}
 	}
@@ -118,7 +116,6 @@ public class Robot extends IterativeRobot {
 		CURRENT_X = 0;// TODO whatever our starting position is based on
 		CURRENT_Y = 0;// TODO whatever our starting position is based on
 		sensors.resetGyro();
-		sensors.calibrateGyro();
 
 		if (version.value())
 			autonomousCommand = new AutonLowBarShoot();
