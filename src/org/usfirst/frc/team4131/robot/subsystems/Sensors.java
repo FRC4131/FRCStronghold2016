@@ -1,9 +1,11 @@
 package org.usfirst.frc.team4131.robot.subsystems;
 
-import org.usfirst.frc.team4131.robot.RobotMap;
-import org.usfirst.frc.team4131.utilities.CustomGyro;
+import com.kauailabs.navx.frc.AHRS;
 
+<<<<<<< HEAD
 import bin.com.kauailabs.navx.frc.AHRS;
+=======
+>>>>>>> 57962777a1e7a1a46811648cf2ecf1e3871b640e
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -11,11 +13,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Sensors extends Subsystem {
-	private CustomGyro gyro = null;
-	private AHRS ahrs; //this would be the navX
+	private AHRS imu;
 
-	// TODO IMU field
 	public Sensors() {
+<<<<<<< HEAD
 		// TODO Instantiate IMU and add appropriate variables
 		gyro = new CustomGyro(RobotMap.GYRO);//TODO find out if we still need this
 		ahrs = new AHRS(SPI.Port.kMXP);
@@ -66,24 +67,23 @@ public class Sensors extends Subsystem {
 //		return (gyro.getAngle() % 360) + (gyro.getAngle() < 0 ? 360 : 0);
 		return ahrs.getRoll();
 		// }
+=======
+		imu = new AHRS(SPI.Port.kMXP);
+	}
+
+	public double getAngle() {
+		return (imu.getYaw() % 360) + (imu.getYaw() < 0 ? 360 : 0);
+>>>>>>> 57962777a1e7a1a46811648cf2ecf1e3871b640e
 	}
 
 	public double getContinuousAngle() {
-		return gyro.getAngle();
+		return imu.getYaw();
 	}
 
 	public void resetGyro() {
-		// if (gyro == null) {
-		// // TODO IMU code
-		// } else {
-		gyro.reset();
-		// }
+		imu.zeroYaw();
 	}
 
-	public CustomGyro getGyro() {
-		return gyro;
-	}
-
-	public void initDefaultCommand() {
+	protected void initDefaultCommand() {
 	}
 }
