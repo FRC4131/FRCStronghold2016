@@ -4,8 +4,7 @@ import org.usfirst.frc.team4131.robot.RobotMap;
 import org.usfirst.frc.team4131.utilities.CustomGyro;
 
 import bin.com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -19,7 +18,7 @@ public class Sensors extends Subsystem {
 	public Sensors() {
 		// TODO Instantiate IMU and add appropriate variables
 		gyro = new CustomGyro(RobotMap.GYRO);//TODO find out if we still need this
-		ahrs = new AHRS(I2C.Port.kOnboard);
+		ahrs = new AHRS(SPI.Port.kMXP);
 		gyro.initGyro();
 	}
 
@@ -52,7 +51,7 @@ public class Sensors extends Subsystem {
 		gyro.setCenter(center);
 	}
 	public void calibrateGyro() {
-		gyro.calibrate();
+//		gyro.calibrate();
 	}
 
 	public void initGyro() {
@@ -64,7 +63,8 @@ public class Sensors extends Subsystem {
 		// return 0;
 		// //TODO IMU code
 		// }else{
-		return (gyro.getAngle() % 360) + (gyro.getAngle() < 0 ? 360 : 0);
+//		return (gyro.getAngle() % 360) + (gyro.getAngle() < 0 ? 360 : 0);
+		return ahrs.getRoll();
 		// }
 	}
 
