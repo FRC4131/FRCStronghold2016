@@ -5,6 +5,8 @@ import org.usfirst.frc.team4131.robot.RobotMap;
 import org.usfirst.frc.team4131.robot.commands.ChargeShooter;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -14,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Shooter extends Subsystem {
 
-	private SpeedController motor;
+	private CANTalon motor;
 	private Encoder encoder;
 
 	public Shooter() {
@@ -29,7 +31,10 @@ public class Shooter extends Subsystem {
 	public void initDefaultCommand() {
 		setDefaultCommand(new ChargeShooter());
 	}
-
+	
+	public CANTalon getMotor(){
+		return motor;
+	}
 	public void setSpeed(double speed) {
 //		if(!(motor.get() >= 0.5 && getRate() <= 100)){	
 //			motor.set(speed);
@@ -39,8 +44,5 @@ public class Shooter extends Subsystem {
 
 	public double getSpeed() {
 		return motor.get();
-	}
-	public SpeedController getMotor(){
-		return motor;
 	}
 }

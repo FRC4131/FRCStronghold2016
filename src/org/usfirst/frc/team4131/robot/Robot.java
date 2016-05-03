@@ -107,7 +107,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		dashboard();
-		camera.execute();
+		try{camera.execute();}catch(Exception e){}
 	}
 
 	public void autonomousInit() {
@@ -116,7 +116,6 @@ public class Robot extends IterativeRobot {
 		CURRENT_X = 0;// TODO whatever our starting position is based on
 		CURRENT_Y = 0;// TODO whatever our starting position is based on
 		sensors.resetGyro();
-
 		if (version.value())
 			autonomousCommand = new AutonLowBarShoot();
 		else
@@ -147,7 +146,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		dashboard();
-		camera.execute();
+		try{camera.execute();}catch(Exception e){}
 	}
 
 	public void testInit() {
@@ -160,7 +159,7 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		Scheduler.getInstance().run();
 		dashboard();
-		camera.execute();
+		try{camera.execute();}catch(Exception e){}
 	}
 
 	public static double constrain(double value, double min, double max) {
@@ -176,12 +175,12 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber("Arms Angle", arms.getAngle());
 			SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
 			SmartDashboard.putNumber("Shooter Command", shooter.getSpeed());
+			
 			SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
 			SmartDashboard.putNumber("Drive Distance", drive.getDistance());
 			SmartDashboard.putBoolean("Arms Stowed", arms.isStowed());
 			SmartDashboard.putNumber("Gyro Angle", sensors.getAngle());
 			SmartDashboard.putNumber("Arm Speed", arms.getSpeed());
-			SmartDashboard.putNumber("Robot Angle", CURRENT_ANGLE);
 			SmartDashboard.putNumber("Robot X", CURRENT_X);
 			SmartDashboard.putNumber("Robot Y", CURRENT_Y);
 			SmartDashboard.putNumber("Collector Speed", collector.get());

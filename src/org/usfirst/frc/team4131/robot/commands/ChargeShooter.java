@@ -15,8 +15,6 @@ public class ChargeShooter extends Command {
 	public static double TARGET_SPEED = 4500.0;
 	private static final double PULSE_RATIO = 0.333;
 	
-	private static final double COMMAND = 0.7;
-	
 	private ShooterSource shooterSource = new ShooterSource(TARGET_SPEED * PULSE_RATIO);
 	private ShooterControlOutput output = new ShooterControlOutput();
 
@@ -24,6 +22,7 @@ public class ChargeShooter extends Command {
 
 	public ChargeShooter() {
 		controller = new PIDController(0.008, 0.005, 0.001, 0.65, shooterSource, output);
+		/*for calculating kp and kf: pg 76 - 78 of vex srx software manual*/
 		requires(Robot.shooter);
 	}
 

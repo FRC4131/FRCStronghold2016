@@ -6,16 +6,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class AutonThruPortcullis extends CommandGroup {
-    
-    public  AutonThruPortcullis() {
-		addSequential(new DriveStraight(16.0, 0.0, 0.5));
+    public final double RATIO = (2.0 + 4.0 / 9.0);
+	public AutonThruPortcullis() {
+		addParallel(new DriveStraight(-16.0 * RATIO, 0.0, 0.5));
 		addSequential(new DeployArms(-800.0));
-		addSequential(new DriveStraight(-16, 0.0, 0.5));
+		addSequential(new DriveStraight(-16 * RATIO, 0.0, 0.5));
 		addParallel(new StowArms());
 		addSequential(new CommandGroup(){
 			{
-				addSequential(new DriveStraight(4.5, 0.0, 0.5));
-				addSequential(new DriveStraight(-30.0, 0.0, 0.6));
+				addSequential(new DriveStraight(4.5 * RATIO, 0.0, 0.5));
+				addSequential(new DriveStraight(-30.0 * RATIO, 0.0, 0.6));
 			}
 		});
     }

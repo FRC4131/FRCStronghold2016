@@ -53,7 +53,7 @@ public class Autonomous {
 		case RAMPARTS:
 			return null;
 		case ROCK_WALL:
-			cmd.addSequential(new DriveStraight(60 * (2.0 + 4.0 / 9.0), 0, 0.8));
+			cmd.addSequential(new DriveStraight(70 * (2.0 + 4.0 / 9.0), 0, 0.8));
 			break;
 		case MOAT:
 			cmd.addSequential(new DriveStraight(60 * (2.0 + 4.0 / 9.0), 0, 0.7));
