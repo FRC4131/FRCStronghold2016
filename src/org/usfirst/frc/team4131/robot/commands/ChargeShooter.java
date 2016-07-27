@@ -8,33 +8,38 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**weZS#-[
- *
- */
 public class ChargeShooter extends Command {
-	public static double TARGET_SPEED = 4500.0;
-	private static final double PULSE_RATIO = 0.333;
+	private static ChargeShooter instance;
+	public static ChargeShooter instance(){
+		return instance == null ? instance = new ChargeShooter() : instance;
+	}
+//	private static final double PULSE_RATIO = 0.333;
 	
-	private ShooterSource shooterSource = new ShooterSource(TARGET_SPEED * PULSE_RATIO);
+	private ShooterSource shooterSource = new ShooterSource();
 	private ShooterControlOutput output = new ShooterControlOutput();
 
-	private PIDController controller;
+	PIDController controller;
 
-	public ChargeShooter() {
-		controller = new PIDController(0.008, 0.005, 0.001, 0.65, shooterSource, output);
-		/*for calculating kp and kf: pg 76 - 78 of vex srx software manual*/
+	private ChargeShooter() {
 		requires(Robot.shooter);
+		controller = new PIDController(0, 0, 0, 0, shooterSource, output, 0.01);
+//		/*for calculating kp and kf: pg 76 - 78 of vex srx software manual*/
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		controller.enable();
-		controller.setOutputRange(0.6, 0.95);
+		controller.setOutputRange(0, 1);
 	}
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		shooterSource.setTarget(SmartDashboard.getNumber("TARGET RPM") * PULSE_RATIO);
 		SmartDashboard.putNumber("Shooter Error", controller.getError());
+		SmartDashboard.putNumber("R-Launcher P", controller.getP());
+		SmartDashboard.putNumber("R-Launcher I", controller.getI());
+		SmartDashboard.putNumber("R-Launcher D", controller.getD());
+		SmartDashboard.putNumber("R-Launcher F", controller.getF());
+		SmartDashboard.putNumber("R-Launcher Error", controller.getError());
+		SmartDashboard.putNumber("R-Launcher Setpoint", controller.getSetpoint());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -53,8 +58,5 @@ public class ChargeShooter extends Command {
 	protected void interrupted() {
 		controller.disable();
 		Robot.shooter.setSpeed(0.0);
-	}
-	public void setTargetRPM(double targetRPM){
-		TARGET_SPEED = targetRPM;
 	}
 }

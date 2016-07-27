@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import org.usfirst.frc.team4131.robot.autonomous.Autonomous;
 import org.usfirst.frc.team4131.robot.autonomous.Configuration;
 import org.usfirst.frc.team4131.robot.commands.AutonLowBarShoot;
-import org.usfirst.frc.team4131.robot.commands.VisionFire;
 import org.usfirst.frc.team4131.robot.subsystems.AimingFlashlight;
 import org.usfirst.frc.team4131.robot.subsystems.Arms;
 import org.usfirst.frc.team4131.robot.subsystems.Cameras;
@@ -18,11 +17,11 @@ import org.usfirst.frc.team4131.robot.subsystems.Sensors;
 import org.usfirst.frc.team4131.robot.subsystems.Shooter;
 import org.usfirst.frc.team4131.robot.subsystems.TankDrive;
 
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -174,7 +173,7 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber("Handler Speed", handler.getSpeed());
 			SmartDashboard.putNumber("Arms Angle", arms.getAngle());
 			SmartDashboard.putNumber("Snooter Speed", shooter.getRate());
-			SmartDashboard.putNumber("Shooter Command", shooter.getSpeed());
+			SmartDashboard.putNumber("Shooter Command", shooter.getCommand());
 			
 			SmartDashboard.putBoolean("Ball Captured", handler.isCaptured());
 			SmartDashboard.putNumber("Drive Distance", drive.getDistance());
@@ -189,6 +188,14 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber("Left Tread Command", drive.getLeftCommand());
 			SmartDashboard.putNumber("Right Encoder", drive.getRightEncoder());
 			SmartDashboard.putNumber("Left Encoder", drive.getLeftEncoder());
-		}	
+		}
+	}
+	public static double getDashboardValue(String key, double defaultValue){
+		try{
+			return SmartDashboard.getNumber(key);
+		}catch(TableKeyNotDefinedException | IllegalArgumentException ex){
+			SmartDashboard.putNumber(key, defaultValue);
+			return defaultValue;
+		}
 	}
 }

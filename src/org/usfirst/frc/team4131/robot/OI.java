@@ -12,7 +12,7 @@ import org.usfirst.frc.team4131.robot.commands.StowArms;
 import org.usfirst.frc.team4131.robot.commands.ToggleDirection;
 import org.usfirst.frc.team4131.robot.commands.ToggleLight;
 import org.usfirst.frc.team4131.robot.commands.UnloadBoulder;
-import org.usfirst.frc.team4131.robot.commands.VisionSeek;
+import org.usfirst.frc.team4131.robot.commands.UpdateLauncherPID;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -38,7 +38,6 @@ public class OI {
 	private Button inverseDrive;
 	private Button toggleLight;
 	private Button blastForward;
-	private Button cameraAssist;
 	private Button cameraToggle;
 	public POVTrigger POV;
 
@@ -86,6 +85,8 @@ public class OI {
 		
 //		cameraAssist = new JoystickButton(leftStick, RobotMap.VISION_SEEK_TOGGLE);
 //		cameraAssist.whenPressed(new VisionSeek());
+		
+		new JoystickButton(rightStick, 11).whenPressed(new UpdateLauncherPID());
 	}
 	
 //	public boolean getCameraAssist(){

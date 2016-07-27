@@ -1,21 +1,17 @@
 package org.usfirst.frc.team4131.robot.subsystems;
 
-import org.usfirst.frc.team4131.robot.Robot;
 import org.usfirst.frc.team4131.robot.RobotMap;
 import org.usfirst.frc.team4131.robot.commands.ChargeShooter;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
-import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
 public class Shooter extends Subsystem {
-
+	private static final double PULSE_RATIO = 0.333;
 	private CANTalon motor;
 	private Encoder encoder;
 
@@ -25,11 +21,11 @@ public class Shooter extends Subsystem {
 	}
 
 	public double getRate() {
-		return encoder.getRate();
+		return encoder.getRate() / PULSE_RATIO;
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ChargeShooter());
+		setDefaultCommand(ChargeShooter.instance());
 	}
 	
 	public CANTalon getMotor(){
@@ -42,7 +38,7 @@ public class Shooter extends Subsystem {
 //		motor.set(speed);
 	}
 
-	public double getSpeed() {
+	public double getCommand() {
 		return motor.get();
 	}
 }
